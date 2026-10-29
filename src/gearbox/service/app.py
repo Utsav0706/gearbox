@@ -24,7 +24,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from sqlalchemy import Engine
 
-from gearbox.config import AppConfig, Secrets, get_config, get_secrets
+from gearbox.config import AppConfig, Secrets, get_config, get_secrets, with_env_overrides
 from gearbox.log import setup_logging
 from gearbox.routers import Router, create_router
 from gearbox.service import policy
@@ -32,6 +32,7 @@ from gearbox.service.cache import Cache, make_cache
 from gearbox.service.db import db_is_up, make_engine, make_sessions, stats
 from gearbox.service.pipeline import CallTier, Pipeline
 from gearbox.service.schemas import ChatCompletionRequest, error_body
+from gearbox.telemetry import setup_tracing
 from gearbox.tiers import TierRequestError, TierUnavailableError, call_tier
 
 log = logging.getLogger(__name__)
@@ -48,8 +49,8 @@ def create_app(
     cache: Cache | None = None,
     canary: Router | None = None,
 ) -> FastAPI:
-    config = config or get_config()
     secrets = secrets or get_secrets()
+    config = with_env_overrides(config or get_config(), secrets)
     engine = engine or make_engine(secrets.database_url)
     router = router or create_router(config.routing.router, config)
     if canary is None and config.routing.canary is not None:
@@ -130,13 +131,16 @@ def create_app(
     @app.get("/health")
     async def health() -> JSONResponse:
         database = db_is_up(engine)
+        cache_ok = cache.ping()
+        ok = database and cache_ok
         body = {
-            "status": "ok" if database else "degraded",
+            "status": "ok" if ok else "degraded",
             "database": database,
+            "cache": {"backend": cache.name, "ok": cache_ok},
             "router": router.name,
             "tiers": {name: t.model for name, t in config.tiers.items()},
         }
-        return JSONResponse(body, 200 if database else 503)
+        return JSONResponse(body, 200 if ok else 503)
 
     @app.get("/stats")
     async def get_stats(hours: int = Query(24, ge=1, le=24 * 31)) -> dict[str, object]:
@@ -150,7 +154,8 @@ def main() -> None:
 
     secrets = get_secrets()
     setup_logging(secrets.log_level)
-    uvicorn.run(create_app(secrets=secrets), host="127.0.0.1", port=8002, log_config=None)
+    setup_tracing(secrets)  # here, not in create_app: tests must never export traces
+    uvicorn.run(create_app(secrets=secrets), host=secrets.host, port=8002, log_config=None)
 
 
 if __name__ == "__main__":

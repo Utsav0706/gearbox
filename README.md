@@ -18,7 +18,7 @@ model, handles failures, and logs the cost, latency and reason for every route.
 Model names live in [`config.yaml`](config.yaml), so a tier can be swapped without
 code changes.
 
-Status: **M7a, cache, budget policy and fallback** on the OpenAI-compatible API; routers compared in [`reports/routers.md`](reports/routers.md). One of four connected projects:
+Status: **M7, the full service** (cache, budget policy, fallback, canary, tracing, Docker Compose); routers compared in [`reports/routers.md`](reports/routers.md). One of four connected projects:
 [Scout](https://github.com/Utsav0706/scout) (research agent), Gearbox (router),
 Dyno (eval harness) and Pitwall (LLMOps).
 
@@ -53,6 +53,11 @@ Every answer carries `x-gearbox-tier`, `x-gearbox-model`, `x-gearbox-cost` (GBP)
 cache at no cost, and once the monthly budget in `config.yaml` is spent, requests drop to
 the free local tier. `GET /health` and `GET /stats?hours=24` (cost and route
 split) are also served. Tests: `.venv\Scripts\python.exe -m pytest`.
+
+With Docker, `docker compose up --build` starts the API with Postgres (request log) and
+Redis (answer cache) on http://localhost:8002; tier S still uses Ollama on the host. Set
+`LANGFUSE_PUBLIC_KEY` and `LANGFUSE_SECRET_KEY` in `.env` to send one trace per request
+(routing decision, tokens, cost; never prompt or answer text) to Langfuse.
 
 ## Plan
 

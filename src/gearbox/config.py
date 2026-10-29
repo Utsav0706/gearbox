@@ -147,8 +147,30 @@ class Secrets(BaseSettings):
     database_url: str = "sqlite:///gearbox_local.db"
     # Answer cache. Unset = an in-memory cache inside the process (local runs).
     redis_url: str | None = None
+    # Where the API listens. 127.0.0.1 locally; Docker sets 0.0.0.0 to accept traffic
+    # from outside the container.
+    host: str = "127.0.0.1"
+    # Overrides the Ollama tier's api_base, e.g. http://host.docker.internal:11434 when
+    # the API runs in a container and Ollama on the host.
+    ollama_base_url: str | None = None
+    # Tracing to Langfuse (M7). Unset = tracing off.
+    langfuse_public_key: SecretStr | None = None
+    langfuse_secret_key: SecretStr | None = None
+    langfuse_host: str = "https://cloud.langfuse.com"
     log_level: str = "INFO"
     config_path: Path = Path("config.yaml")
+
+
+def with_env_overrides(config: AppConfig, secrets: Secrets) -> AppConfig:
+    """Settings that differ by where the service runs (e.g. inside Docker) come from the
+    environment, so one config.yaml serves every environment."""
+    if not secrets.ollama_base_url:
+        return config
+    config = config.model_copy(deep=True)
+    for tier in config.tiers.values():
+        if tier.model.startswith("ollama"):
+            tier.api_base = secrets.ollama_base_url
+    return config
 
 
 def load_config(path: Path) -> AppConfig:

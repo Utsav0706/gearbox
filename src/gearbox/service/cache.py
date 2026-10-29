@@ -33,12 +33,21 @@ def cache_key(req: ChatCompletionRequest) -> str:
 
 
 class Cache(Protocol):
+    name: str
+
     def get(self, key: str) -> dict[str, Any] | None: ...
+
+    def ping(self) -> bool: ...
 
     def set(self, key: str, value: dict[str, Any]) -> None: ...
 
 
 class MemoryCache:
+    name = "memory"
+
+    def ping(self) -> bool:
+        return True
+
     def __init__(self, ttl_s: int, max_entries: int) -> None:
         self._ttl = ttl_s
         self._max = max_entries
@@ -63,6 +72,14 @@ class MemoryCache:
 
 
 class RedisCache:
+    name = "redis"
+
+    def ping(self) -> bool:
+        try:
+            return bool(self._redis.ping())
+        except Exception:  # down or unreachable: /health reports it, requests carry on
+            return False
+
     def __init__(self, client: Any, ttl_s: int) -> None:
         self._redis = client
         self._ttl = ttl_s
@@ -76,6 +93,11 @@ class RedisCache:
 
 
 class NoCache:
+    name = "off"
+
+    def ping(self) -> bool:
+        return True
+
     def get(self, key: str) -> dict[str, Any] | None:
         return None
 

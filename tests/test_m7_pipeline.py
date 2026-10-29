@@ -266,3 +266,36 @@ def test_canary_router_gets_its_share(engine):
     ) as client:
         routers = [_chat(client).headers["x-gearbox-router"] for _ in range(40)]
     assert set(routers) == {"fake-router", "fake-canary"}
+
+
+class BrokenCache:
+    name = "broken"
+
+    def ping(self):
+        return False
+
+    def get(self, key):
+        raise ConnectionError("redis down")
+
+    def set(self, key, value):
+        raise ConnectionError("redis down")
+
+
+def test_cache_outage_does_not_fail_requests(engine):
+    with _client(engine, cache=BrokenCache()) as client:
+        r = _chat(client)
+        health = client.get("/health")
+    assert r.status_code == 200 and r.headers["x-gearbox-cache"] == "miss"
+    assert health.status_code == 503
+    assert health.json()["cache"] == {"backend": "broken", "ok": False}
+
+
+def test_ollama_base_url_override():
+    from gearbox.config import Secrets, with_env_overrides
+
+    config = with_env_overrides(
+        get_config(), Secrets(_env_file=None, ollama_base_url="http://host.docker.internal:11434")
+    )
+    assert config.tiers["S"].api_base == "http://host.docker.internal:11434"
+    assert config.tiers["M"].api_base is None
+    assert get_config().tiers["S"].api_base == "http://localhost:11434"  # original untouched

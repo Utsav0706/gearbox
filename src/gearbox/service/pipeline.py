@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import asyncio
 import hashlib
+import json
 import logging
 import time
 from collections.abc import Awaitable, Callable
@@ -24,6 +25,7 @@ from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from typing import Any
 
+from opentelemetry.trace import StatusCode
 from sqlalchemy.orm import Session, sessionmaker
 
 from gearbox.config import TIERS, AppConfig, Tier
@@ -38,6 +40,7 @@ from gearbox.service.schemas import (
     ResponseMessage,
     Usage,
 )
+from gearbox.telemetry import tracer
 from gearbox.tiers import TierError, TierResult, TierUnavailableError, call_tier
 from gearbox.tiers import Usage as TierUsage
 
@@ -99,12 +102,41 @@ class Pipeline:
         self, req: ChatCompletionRequest, request_id: str, max_tier: Tier | None = None
     ) -> Completed:
         """Raises TierError (after logging it) when no allowed tier can answer."""
+        with tracer().start_as_current_span("gearbox.request") as span:
+            span.set_attribute("langfuse.trace.name", "chat.completions")
+            span.set_attribute("gearbox.request_id", request_id)
+            try:
+                done = await self._complete(req, request_id, max_tier)
+            except TierError as exc:
+                span.set_attribute("gearbox.status", "error")
+                span.set_status(StatusCode.ERROR, str(exc)[:200])
+                raise
+            span.set_attributes(
+                {
+                    "gearbox.status": "ok",
+                    "gearbox.router": done.router,
+                    "gearbox.tier": done.result.tier,
+                    "gearbox.model": done.result.model,
+                    "gearbox.reason": done.route.reason[:500],
+                    "gearbox.cache_hit": done.cache_hit,
+                    "gearbox.fallback": "->".join(done.attempts),
+                    "gearbox.policy": "; ".join(done.policy_notes),
+                    "gearbox.cost_gbp": done.result.cost_gbp,
+                    "gearbox.tokens_in": done.result.usage.input_tokens,
+                    "gearbox.tokens_out": done.result.usage.output_tokens,
+                }
+            )
+            return done
+
+    async def _complete(
+        self, req: ChatCompletionRequest, request_id: str, max_tier: Tier | None
+    ) -> Completed:
         start = time.perf_counter()
         row: dict[str, Any] = {"request_id": request_id, "created_at": datetime.now(UTC)}
 
         # 1. cache
         key = cache_key(req)
-        hit = await asyncio.to_thread(self._cache.get, key)
+        hit = await self._cache_call(self._cache.get, key)
         if hit is not None:
             done = self._from_cache(hit, request_id)
             await self._log(
@@ -154,7 +186,7 @@ class Pipeline:
 
         # 5. store (complete answers only)
         if result.finish_reason == "stop":
-            await asyncio.to_thread(self._cache.set, key, _to_cache(result))
+            await self._cache_call(self._cache.set, key, _to_cache(result))
 
         # 6. log
         await self._log(
@@ -197,13 +229,25 @@ class Pipeline:
             if i == 1:  # the retry of the same tier: give a blip a moment to clear
                 await asyncio.sleep(self.config.fallback.retry_delay_s)
             attempts.append(tier)
-            try:
-                return await self._call(
-                    tier, req.plain_messages(), config=self.config, max_tokens=req.token_limit
-                )
-            except TierUnavailableError as exc:  # TierRequestError: no other tier would do
-                log.warning("tier unavailable", extra={"tier": tier, "error": str(exc)[:200]})
-                last_error = exc
+            model = self.config.tiers[tier].model
+            with tracer().start_as_current_span(f"call {tier}") as span:
+                span.set_attribute("langfuse.observation.type", "generation")
+                span.set_attribute("gen_ai.request.model", model)
+                try:
+                    result = await self._call(
+                        tier, req.plain_messages(), config=self.config, max_tokens=req.token_limit
+                    )
+                except TierUnavailableError as exc:  # TierRequestError: no other tier helps
+                    span.set_status(StatusCode.ERROR, str(exc)[:200])
+                    log.warning("tier unavailable", extra={"tier": tier, "error": str(exc)[:200]})
+                    last_error = exc
+                    continue
+                span.set_attribute("gen_ai.usage.input_tokens", result.usage.input_tokens)
+                span.set_attribute("gen_ai.usage.output_tokens", result.usage.output_tokens)
+                # Langfuse prices in USD; the request log keeps GBP.
+                usd = result.cost_gbp / self.config.usd_to_gbp
+                span.set_attribute("langfuse.observation.cost_details", json.dumps({"total": usd}))
+                return result
         assert last_error is not None
         raise AllTiersFailed(attempts[-1], f"no allowed tier answered ({last_error})")
 
@@ -224,6 +268,14 @@ class Pipeline:
             result,
             cache_hit=True,
         )
+
+    async def _cache_call(self, fn: Callable[..., Any], *args: Any) -> Any:
+        """The cache is an optimisation: if it fails (Redis down), carry on uncached."""
+        try:
+            return await asyncio.to_thread(fn, *args)
+        except Exception as exc:
+            log.warning("cache unavailable", extra={"error": str(exc)[:200]})
+            return None
 
     async def _log(self, row: RequestLog) -> None:
         # A logging failure must not lose the user's answer: report it and carry on.

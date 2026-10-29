@@ -29,6 +29,10 @@ dependencies = [
     "alembic>=1.14,<2",
     "psycopg[binary]>=3.2",
     "redis>=5.0",  # answer cache in Compose/deployment (M7)
+    # One trace per request, exported to Langfuse over OTLP (M7).
+    "opentelemetry-api>=1.30",
+    "opentelemetry-sdk>=1.30",
+    "opentelemetry-exporter-otlp-proto-http>=1.30",
 ]
 
 [project.optional-dependencies]
