@@ -32,6 +32,13 @@ from gearbox.config import AppConfig, ModelPrice, Secrets, Tier, get_config, get
 from gearbox.log import setup_logging
 
 litellm.suppress_debug_info = True  # its "Give Feedback" banners would break JSON logs
+# LiteLLM installs its own plain-text log handlers. Route its loggers through ours (JSON)
+# instead, and only for warnings: call_tier already logs one line per call.
+for _name in ("LiteLLM", "LiteLLM Router", "LiteLLM Proxy"):
+    _logger = logging.getLogger(_name)
+    _logger.handlers = []
+    _logger.propagate = True
+    _logger.setLevel(logging.WARNING)
 
 log = logging.getLogger(__name__)
 
@@ -188,7 +195,7 @@ def main(argv: list[str]) -> int:
     print(f"\n{r.text}\n")
     print(
         f"[{r.tier} {r.model}] {r.usage.input_tokens} in / {r.usage.output_tokens} out, "
-        f"£{r.cost_gbp:.5f}, {r.latency_ms} ms, finish={r.finish_reason}"
+        f"GBP {r.cost_gbp:.5f}, {r.latency_ms} ms, finish={r.finish_reason}"
     )
     return 0
 

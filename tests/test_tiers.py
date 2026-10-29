@@ -127,6 +127,21 @@ def test_bad_request_is_a_request_error(fake):
         _call()
 
 
+def test_importing_litellm_does_not_load_env_file(tmp_path, monkeypatch):
+    # LiteLLM's DEV mode would copy .env into os.environ; gearbox/__init__ turns it off.
+    import os
+    import subprocess
+    import sys
+
+    (tmp_path / ".env").write_text("GEARBOX_LEAK_CHECK=leaked\n", encoding="utf-8")
+    code = "import gearbox.tiers, os; print(os.environ.get('GEARBOX_LEAK_CHECK'))"
+    env = {k: v for k, v in os.environ.items() if k != "LITELLM_MODE"}
+    out = subprocess.run(
+        [sys.executable, "-c", code], cwd=tmp_path, env=env, capture_output=True, text=True
+    )
+    assert out.stdout.strip() == "None", out.stderr
+
+
 def test_cost_formula():
     price = CONFIG.prices_usd_per_mtok["anthropic/claude-haiku-5-5"]
     assert cost_gbp(Usage(1_000_000, 0), price, 1.0) == pytest.approx(0.10)

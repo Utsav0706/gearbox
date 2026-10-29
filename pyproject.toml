@@ -24,6 +24,7 @@ dependencies = [
 dev = [
     "pytest>=8.3",
     "ruff>=0.8",
+    "httpx>=0.28",  # scripts/bench_tier_s.py asks Ollama what is loaded
 ]
 
 [tool.hatch.build.targets.wheel]
