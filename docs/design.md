@@ -21,14 +21,14 @@ flowchart TD
     cache -->|yes| reply
     cache -->|no| route["Route: pinned tier, canary router or configured router"]
     route --> policy["Policy: x-gearbox-max-tier header, monthly budget"]
-    policy --> call["Call tier through LiteLLM"]
-    call -->|"tier down or timed out"| fallback["Retry once, then bigger tiers, then smaller (never above the cap)"]
-    fallback --> call
-    call -->|answer| store["Store complete answers in the cache"]
+    policy --> tiercall["Call tier through LiteLLM"]
+    tiercall -->|"tier down or timed out"| fallback["Retry once, then bigger tiers, then smaller (never above the cap)"]
+    fallback --> tiercall
+    tiercall -->|answer| store["Store complete answers in the cache"]
     store --> log[("Request log: Postgres or SQLite")]
     log --> reply["Response + x-gearbox-* headers"]
     reply --> client
-    call -. "one span per call" .-> otel["OpenTelemetry trace to Langfuse"]
+    tiercall -. "one span per call" .-> otel["OpenTelemetry trace to Langfuse"]
 ```
 
 The steps live in `src/gearbox/service/pipeline.py`, one short block each, in this
