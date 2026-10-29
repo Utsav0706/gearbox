@@ -11,7 +11,7 @@ from __future__ import annotations
 import sys
 from functools import lru_cache
 from pathlib import Path
-from typing import Literal, get_args
+from typing import Any, Literal, get_args
 
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, SecretStr, ValidationError, model_validator
@@ -31,6 +31,9 @@ class TierConfig(BaseModel):
     api_base: str | None = None
     max_tokens: int = Field(gt=0, le=16_000)
     timeout_s: float = Field(default=60, gt=0, le=600)
+    # Extra provider options passed straight to the call, e.g. {think: false} to turn
+    # off a local model's slow thinking mode.
+    params: dict[str, Any] = Field(default_factory=dict)
 
 
 class ModelPrice(BaseModel):

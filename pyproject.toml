@@ -15,6 +15,9 @@ dependencies = [
     "pydantic>=2.9",
     "pydantic-settings>=2.6",
     "pyyaml>=6.0",
+    # Exact pin, chosen two weeks after release: LiteLLM's PyPI package was compromised
+    # in March 2026 (1.82.7/1.82.8), so upgrades are deliberate and reviewed.
+    "litellm==1.105.1",
 ]
 
 [project.optional-dependencies]
