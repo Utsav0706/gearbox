@@ -1,0 +1,30 @@
+# Gearbox runtime config. Non-secret settings only: API keys live in .env.
+# Swapping a tier's model is a change here, never in code.
+
+# The three tiers, cheapest first. Model ids use LiteLLM's "provider/model" form.
+# max_tokens is a hard ceiling per call (thinking tokens included), so one request
+# can't run up a bill. The tier S model is a placeholder until M1's benchmark picks one.
+tiers:
+  S:
+    model: ollama_chat/qwen3:4b
+    api_base: http://localhost:11434
+    max_tokens: 1500
+    timeout_s: 120   # local model on a laptop GPU: slow but free
+  M:
+    model: anthropic/claude-haiku-5-5
+    max_tokens: 1500
+    timeout_s: 60
+  L:
+    model: anthropic/claude-sonnet-5-5
+    max_tokens: 1500
+    timeout_s: 90
+
+# USD per million tokens (Anthropic first-party API, checked 2026-10-22 for Scout).
+# Re-check on the pricing page before any paid run. Local models cost 0.
+prices_usd_per_mtok:
+  ollama_chat/qwen3:4b:        {input: 0.00, output: 0.00}
+  anthropic/claude-haiku-5-5:  {input: 0.10, output: 0.50}
+  anthropic/claude-sonnet-5-5: {input: 2.00, output: 10.00}
+
+# Anthropic bills in USD. Update this when you check the rate.
+usd_to_gbp: 0.79
