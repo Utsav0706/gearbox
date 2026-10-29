@@ -18,7 +18,7 @@ model, handles failures, and logs the cost, latency and reason for every route.
 Model names live in [`config.yaml`](config.yaml), so a tier can be swapped without
 code changes.
 
-Status: **M5, three routers compared** ([`reports/routers.md`](reports/routers.md)). One of four connected projects:
+Status: **M6, the API runs** (OpenAI-compatible, request log); routers compared in [`reports/routers.md`](reports/routers.md). One of four connected projects:
 [Scout](https://github.com/Utsav0706/scout) (research agent), Gearbox (router),
 Dyno (eval harness) and Pitwall (LLMOps).
 
@@ -27,13 +27,28 @@ Dyno (eval harness) and Pitwall (LLMOps).
 ```powershell
 py -m venv .venv
 .venv\Scripts\python.exe -m pip install -e ".[dev]"
-copy .env.example .env    # then paste your keys into .env
-.venv\Scripts\python.exe -m gearbox.config    # validates config.yaml
-.venv\Scripts\python.exe -m ruff check .
-.venv\Scripts\python.exe -m pytest
+copy .env.example .env    # then paste your Anthropic key into .env
+.venv\Scripts\python.exe -m alembic upgrade head    # creates the local request log
+.venv\Scripts\python.exe -m gearbox.service         # http://127.0.0.1:8002
 ```
 
-On Linux/CI the same steps are `make install` and `make check`.
+Tier S needs [Ollama](https://ollama.com) with `ollama pull llama3.2:3b`.
+
+Then point any OpenAI client at it:
+
+```python
+from openai import OpenAI
+
+client = OpenAI(base_url="http://127.0.0.1:8002/v1", api_key="unused")
+reply = client.chat.completions.create(
+    model="auto",  # or "S", "M", "L" to pin a tier
+    messages=[{"role": "user", "content": "What is 17 * 23?"}],
+)
+```
+
+Every answer carries `x-gearbox-tier`, `x-gearbox-model`, `x-gearbox-cost` (GBP) and
+`x-gearbox-router` headers. `GET /health` and `GET /stats?hours=24` (cost and route
+split) are also served. Tests: `.venv\Scripts\python.exe -m pytest`.
 
 ## Plan
 

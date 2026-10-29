@@ -8,6 +8,26 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    # Real Postgres in CI, so request-log code that only works on SQLite gets caught.
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: gearbox
+          POSTGRES_PASSWORD: gearbox
+          POSTGRES_DB: gearbox_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U gearbox -d gearbox_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+
+    env:
+      TEST_DATABASE_URL: postgresql+psycopg://gearbox:gearbox@localhost:5432/gearbox_test
+
     steps:
       - uses: actions/checkout@v4
 

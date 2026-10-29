@@ -69,7 +69,9 @@ class SentenceTransformerEmbedder:
 
             self._model = SentenceTransformer(self.name, device="cpu")
         # normalised, so every prompt is a unit vector and long prompts don't dominate
-        return np.asarray(self._model.encode(texts, normalize_embeddings=True))
+        return np.asarray(
+            self._model.encode(texts, normalize_embeddings=True, show_progress_bar=False)
+        )
 
 
 # --- the model ----------------------------------------------------------------------------

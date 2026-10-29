@@ -25,7 +25,14 @@ class JsonFormatter(logging.Formatter):
             "logger": record.name,
             "msg": record.getMessage(),
         }
-        payload.update({k: v for k, v in record.__dict__.items() if k not in _STANDARD_ATTRS})
+        payload.update(
+            {
+                k: v
+                for k, v in record.__dict__.items()
+                # LiteLLM tags every log record with its own marker object; drop it.
+                if k not in _STANDARD_ATTRS and not k.startswith("litellm")
+            }
+        )
         if record.exc_info:
             payload["exc"] = self.formatException(record.exc_info)
         return json.dumps(payload, default=str)

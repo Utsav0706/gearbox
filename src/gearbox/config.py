@@ -109,6 +109,8 @@ class Secrets(BaseSettings):
     )
 
     anthropic_api_key: SecretStr | None = None
+    # Request log. A local SQLite file by default; Postgres in Docker Compose and CI.
+    database_url: str = "sqlite:///gearbox_local.db"
     log_level: str = "INFO"
     config_path: Path = Path("config.yaml")
 
