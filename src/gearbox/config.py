@@ -56,10 +56,32 @@ class JudgeConfig(BaseModel):
     max_tokens: int = Field(default=2000, gt=0, le=16_000)
 
 
+class LLMRouterConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    tier: Tier = "M"  # which tier's model does the classifying
+    prompt: Path
+
+
+class EmbedRouterConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    artifact: Path  # trained weights + metadata (JSON), written by gearbox.routers.embed
+
+
+class RoutingConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    router: str = "v3-embed"  # the router the service uses (any registered name)
+    v2_llm: LLMRouterConfig
+    v3_embed: EmbedRouterConfig
+
+
 class AppConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     tiers: dict[Tier, TierConfig]
+    routing: RoutingConfig
     judge: JudgeConfig
     prices_usd_per_mtok: dict[str, ModelPrice]
     usd_to_gbp: float = Field(gt=0)

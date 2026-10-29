@@ -22,6 +22,16 @@ tiers:
     max_tokens: 3000
     timeout_s: 180   # a 3000-token Sonnet answer can take well over a minute
 
+# Which router picks the tier, and each router's settings. Compare them with
+# py -m gearbox.routers.compare (results in reports/routers.md).
+routing:
+  router: v3-embed
+  v2_llm:
+    tier: M                          # Haiku classifies; costs a call per request
+    prompt: prompts/classifier_v1.md
+  v3_embed:
+    artifact: models/router_v3.json  # py -m gearbox.routers.embed train
+
 # Scores answers 1-5 to make the labels (cheapest tier scoring >= 4). Sonnet, the
 # strongest of the three tiers; whether it can be trusted is measured against Uv's hand
 # labels (Cohen's kappa), not assumed. Low effort: grading against a reference answer

@@ -1,0 +1,143 @@
+{
+  "test_prompts": 91,
+  "label_mix": {
+    "S": 42,
+    "M": 44,
+    "L": 5
+  },
+  "baselines": {
+    "always-S": {
+      "pass_rate": 0.46153846153846156,
+      "mean_score": 2.934065934065934,
+      "answer_cost_gbp": 0.0
+    },
+    "always-M": {
+      "pass_rate": 0.945054945054945,
+      "mean_score": 4.714285714285714,
+      "answer_cost_gbp": 0.01938581
+    },
+    "always-L": {
+      "pass_rate": 0.945054945054945,
+      "mean_score": 4.736263736263736,
+      "answer_cost_gbp": 0.3347625
+    },
+    "oracle (label)": {
+      "pass_rate": 0.978021978021978,
+      "mean_score": 4.648351648351649,
+      "answer_cost_gbp": 0.027654345
+    }
+  },
+  "routers": {
+    "v1-rules": {
+      "routing": {
+        "accuracy": 0.5164835164835165,
+        "under_rate": 0.4065934065934066,
+        "over_rate": 0.07692307692307693,
+        "confusion": [
+          [
+            35,
+            6,
+            1
+          ],
+          [
+            32,
+            12,
+            0
+          ],
+          [
+            3,
+            2,
+            0
+          ]
+        ],
+        "latency_p50_ms": 0.03,
+        "latency_p95_ms": 0.09,
+        "routing_cost_gbp": 0.0,
+        "picks": {
+          "S": 70,
+          "M": 20,
+          "L": 1
+        }
+      },
+      "outcome": {
+        "pass_rate": 0.5934065934065934,
+        "mean_score": 3.3846153846153846,
+        "answer_cost_gbp": 0.009337010000000001
+      }
+    },
+    "v2-llm": {
+      "routing": {
+        "accuracy": 0.6593406593406593,
+        "under_rate": 0.15384615384615385,
+        "over_rate": 0.18681318681318682,
+        "confusion": [
+          [
+            25,
+            17,
+            0
+          ],
+          [
+            9,
+            35,
+            0
+          ],
+          [
+            2,
+            3,
+            0
+          ]
+        ],
+        "latency_p50_ms": 1807.97,
+        "latency_p95_ms": 3425.78,
+        "routing_cost_gbp": 0.011519464,
+        "picks": {
+          "S": 36,
+          "M": 55,
+          "L": 0
+        }
+      },
+      "outcome": {
+        "pass_rate": 0.8461538461538461,
+        "mean_score": 4.263736263736264,
+        "answer_cost_gbp": 0.013854388
+      }
+    },
+    "v3-embed": {
+      "routing": {
+        "accuracy": 0.4945054945054945,
+        "under_rate": 0.054945054945054944,
+        "over_rate": 0.45054945054945056,
+        "confusion": [
+          [
+            1,
+            41,
+            0
+          ],
+          [
+            0,
+            44,
+            0
+          ],
+          [
+            0,
+            5,
+            0
+          ]
+        ],
+        "latency_p50_ms": 18.89,
+        "latency_p95_ms": 49.58,
+        "routing_cost_gbp": 0.0,
+        "picks": {
+          "S": 1,
+          "M": 90,
+          "L": 0
+        }
+      },
+      "outcome": {
+        "pass_rate": 0.945054945054945,
+        "mean_score": 4.714285714285714,
+        "answer_cost_gbp": 0.019348917
+      }
+    }
+  }
+}
