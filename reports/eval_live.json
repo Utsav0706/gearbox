@@ -1,0 +1,18 @@
+{
+  "prompts": 119,
+  "quality_pct": 94.5,
+  "mean_score": 4.05,
+  "pass_rate": 0.7647,
+  "answer_cost_gbp": 0.04028,
+  "saved_pct": 92.5,
+  "judge_cost_gbp": 0.19934,
+  "picks": {
+    "S": 0,
+    "M": 117,
+    "L": 2
+  },
+  "cache_hits": 0,
+  "fallbacks": 0,
+  "latency_p50_ms": 2793,
+  "latency_p95_ms": 12835
+}

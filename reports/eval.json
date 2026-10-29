@@ -1,0 +1,174 @@
+{
+  "router": "v3-embed",
+  "test_prompts": 119,
+  "results": {
+    "always-S": {
+      "quality_pct": 57.3,
+      "quality_pct_ci95": [
+        50.6,
+        63.9
+      ],
+      "mean_score": 2.454,
+      "pass_rate": 0.3277,
+      "cost_gbp": 0.0,
+      "cost_per_1k_requests_gbp": 0.0,
+      "cost_pct": 0.0,
+      "saved_pct": 100.0,
+      "saved_pct_ci95": [
+        100.0,
+        100.0
+      ],
+      "route_p50_ms": 0.0,
+      "route_p95_ms": 0.0,
+      "picks": {
+        "S": 119,
+        "M": 0,
+        "L": 0
+      }
+    },
+    "always-M": {
+      "quality_pct": 94.7,
+      "quality_pct_ci95": [
+        90.5,
+        98.6
+      ],
+      "mean_score": 4.059,
+      "pass_rate": 0.7815,
+      "cost_gbp": 0.03206,
+      "cost_per_1k_requests_gbp": 0.269,
+      "cost_pct": 6.0,
+      "saved_pct": 94.0,
+      "saved_pct_ci95": [
+        93.4,
+        94.6
+      ],
+      "route_p50_ms": 0.0,
+      "route_p95_ms": 0.0,
+      "picks": {
+        "S": 0,
+        "M": 119,
+        "L": 0
+      }
+    },
+    "always-L": {
+      "quality_pct": 100.0,
+      "quality_pct_ci95": [
+        100.0,
+        100.0
+      ],
+      "mean_score": 4.286,
+      "pass_rate": 0.8403,
+      "cost_gbp": 0.53764,
+      "cost_per_1k_requests_gbp": 4.518,
+      "cost_pct": 100.0,
+      "saved_pct": 0.0,
+      "saved_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "route_p50_ms": 0.0,
+      "route_p95_ms": 0.0,
+      "picks": {
+        "S": 0,
+        "M": 0,
+        "L": 119
+      }
+    },
+    "oracle": {
+      "quality_pct": 98.4,
+      "quality_pct_ci95": [
+        96.5,
+        100.4
+      ],
+      "mean_score": 4.218,
+      "pass_rate": 0.8571,
+      "cost_gbp": 0.07081,
+      "cost_per_1k_requests_gbp": 0.595,
+      "cost_pct": 13.2,
+      "saved_pct": 86.8,
+      "saved_pct_ci95": [
+        77.9,
+        94.3
+      ],
+      "route_p50_ms": 0.0,
+      "route_p95_ms": 0.0,
+      "picks": {
+        "S": 52,
+        "M": 57,
+        "L": 10
+      }
+    },
+    "v1-rules": {
+      "quality_pct": 68.0,
+      "quality_pct_ci95": [
+        61.1,
+        75.1
+      ],
+      "mean_score": 2.916,
+      "pass_rate": 0.4538,
+      "cost_gbp": 0.01364,
+      "cost_per_1k_requests_gbp": 0.115,
+      "cost_pct": 2.5,
+      "saved_pct": 97.5,
+      "saved_pct_ci95": [
+        95.6,
+        98.7
+      ],
+      "route_p50_ms": 0.0,
+      "route_p95_ms": 0.2,
+      "picks": {
+        "S": 87,
+        "M": 30,
+        "L": 2
+      }
+    },
+    "v2-llm": {
+      "quality_pct": 90.6,
+      "quality_pct_ci95": [
+        85.5,
+        94.9
+      ],
+      "mean_score": 3.882,
+      "pass_rate": 0.7395,
+      "cost_gbp": 0.1049,
+      "cost_per_1k_requests_gbp": 0.882,
+      "cost_pct": 19.5,
+      "saved_pct": 80.5,
+      "saved_pct_ci95": [
+        70.4,
+        89.9
+      ],
+      "route_p50_ms": 1951.7,
+      "route_p95_ms": 4712.4,
+      "picks": {
+        "S": 31,
+        "M": 82,
+        "L": 6
+      }
+    },
+    "v3-embed": {
+      "quality_pct": 94.7,
+      "quality_pct_ci95": [
+        90.5,
+        98.6
+      ],
+      "mean_score": 4.059,
+      "pass_rate": 0.7815,
+      "cost_gbp": 0.038,
+      "cost_per_1k_requests_gbp": 0.319,
+      "cost_pct": 7.1,
+      "saved_pct": 92.9,
+      "saved_pct_ci95": [
+        91.1,
+        94.3
+      ],
+      "route_p50_ms": 35.5,
+      "route_p95_ms": 124.7,
+      "picks": {
+        "S": 0,
+        "M": 117,
+        "L": 2
+      }
+    }
+  }
+}

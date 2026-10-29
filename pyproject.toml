@@ -36,6 +36,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# The Streamlit dashboard (py -m streamlit run src/gearbox/dashboard/app.py).
+dashboard = [
+    "streamlit>=1.40",
+]
 # Only for rebuilding the dataset (py -m gearbox.data.build); the service never needs it.
 data = [
     "huggingface_hub>=0.26",
@@ -48,6 +52,7 @@ dev = [
     "ruff>=0.8",
     "httpx>=0.28",  # scripts/bench_tier_s.py asks Ollama what is loaded
     "fakeredis>=2.26",  # Redis cache tests without a Redis server
+    "streamlit>=1.40",  # dashboard tests (AppTest)
 ]
 
 [tool.hatch.build.targets.wheel]

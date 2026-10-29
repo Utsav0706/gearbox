@@ -6,8 +6,18 @@ An LLM auto-router. An app sends a chat request to Gearbox as it would to any mo
 Gearbox predicts the **cheapest model tier that will still answer it well**, calls that
 model, handles failures, and logs the cost, latency and reason for every route.
 
-> Headline (coming in M8): **"Gearbox cuts LLM cost by X% at Y% of quality"**,
-> reproducible with one command.
+> **Gearbox cuts LLM cost by 93% at 95% of quality** against always using the large
+> model (Claude Sonnet 5.5), on 119 held-out prompts (95% intervals: 91-94% saved,
+> 90-99% quality). Reproduce with `py -m gearbox.eval` (free: replays stored answers).
+
+The honest reading: on these prompts the medium tier (Claude Haiku 5.5) is good enough
+so often that the best router mostly learns to pick it, and always-Haiku scores the
+same. A perfect router would reach 98% quality at 13% of the cost; which prompts truly
+need the large model proved hard to predict from the prompt alone. Details:
+[`reports/eval.md`](reports/eval.md), [`reports/routers.md`](reports/routers.md),
+[`reports/probe.md`](reports/probe.md).
+
+![Cost vs quality per routing strategy](reports/cost_quality.svg)
 
 | Tier | Model | Cost |
 |---|---|---|
@@ -18,7 +28,7 @@ model, handles failures, and logs the cost, latency and reason for every route.
 Model names live in [`config.yaml`](config.yaml), so a tier can be swapped without
 code changes.
 
-Status: **M7, the full service** (cache, budget policy, fallback, canary, tracing, Docker Compose); routers compared in [`reports/routers.md`](reports/routers.md). One of four connected projects:
+Status: **M8, measured**: the service (cache, budget policy, fallback, canary, tracing, Docker Compose), an eval and a dashboard. One of four connected projects:
 [Scout](https://github.com/Utsav0706/scout) (research agent), Gearbox (router),
 Dyno (eval harness) and Pitwall (LLMOps).
 
@@ -58,6 +68,18 @@ With Docker, `docker compose up --build` starts the API with Postgres (request l
 Redis (answer cache) on http://localhost:8002; tier S still uses Ollama on the host. Set
 `LANGFUSE_PUBLIC_KEY` and `LANGFUSE_SECRET_KEY` in `.env` to send one trace per request
 (routing decision, tokens, cost; never prompt or answer text) to Langfuse.
+
+## Eval and dashboard
+
+```powershell
+.venv\Scripts\python.exe -m gearbox.eval          # headline + reports/eval.md (free)
+.venv\Scripts\python.exe -m gearbox.eval live     # through the running API (paid; --yes)
+.venv\Scripts\python.exe -m pip install -e ".[dashboard]"
+.venv\Scripts\python.exe scripts\dev_dashboard.py # http://127.0.0.1:8502
+```
+
+The dashboard shows spend over time, requests per tier and recent requests from the
+request log, plus the eval's cost-vs-quality chart.
 
 ## Plan
 
