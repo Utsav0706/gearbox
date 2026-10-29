@@ -33,7 +33,7 @@ routing:
     artifact: models/router_v3.json  # py -m gearbox.routers.embed train
 
 # Scores answers 1-5 to make the labels (cheapest tier scoring >= 4). Sonnet, the
-# strongest of the three tiers; whether it can be trusted is measured against Uv's hand
+# strongest of the three tiers; whether it can be trusted is measured against human hand
 # labels (Cohen's kappa), not assumed. Low effort: grading against a reference answer
 # needs little thinking, and thinking tokens are billed as output.
 judge:

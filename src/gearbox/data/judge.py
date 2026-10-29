@@ -38,7 +38,7 @@ from gearbox.data.schema import PromptItem
 from gearbox.log import setup_logging
 from gearbox.tiers import Usage, cost_gbp
 
-DEFAULT_CAP_GBP = 3.50  # the M4 budget Uv approved
+DEFAULT_CAP_GBP = 3.50  # spend cap for judging one dataset version
 PASS_SCORE = 4  # "good enough to send as it is" (see prompts/judge_v1.md)
 
 JUDGE_SCHEMA: dict[str, Any] = {

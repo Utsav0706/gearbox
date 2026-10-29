@@ -18,7 +18,7 @@ model, handles failures, and logs the cost, latency and reason for every route.
 Model names live in [`config.yaml`](config.yaml), so a tier can be swapped without
 code changes.
 
-Status: **M5, three routers compared** ([`reports/routers.md`](reports/routers.md)). Part of a four-project portfolio:
+Status: **M5, three routers compared** ([`reports/routers.md`](reports/routers.md)). One of four connected projects:
 [Scout](https://github.com/Utsav0706/scout) (research agent), Gearbox (router),
 Dyno (eval harness) and Pitwall (LLMOps).
 

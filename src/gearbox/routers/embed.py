@@ -19,7 +19,7 @@ mistakes, an over-route as one, because a bad answer is worse than a wasted penn
 
     py -m gearbox.routers.embed train      # writes models/router_v3.json
 
-This is the module Uv plans to rewrite by hand; tests/test_router_v3.py is the contract.
+tests/test_router_v3.py is the contract: any rewrite of this module must keep it passing.
 """
 
 from __future__ import annotations

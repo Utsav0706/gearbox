@@ -36,7 +36,7 @@ from gearbox.log import setup_logging
 from gearbox.tiers import TierError, Usage, call_tier, cost_gbp
 
 BATCH_DISCOUNT = 0.5  # Message Batches bill every token at half price
-DEFAULT_CAP_GBP = 2.50  # the M3 budget Uv approved
+DEFAULT_CAP_GBP = 2.50  # spend cap for answering one dataset version
 PILOT_PER_TYPE = 5
 # Anthropic stop reasons, in the OpenAI-style names call_tier (LiteLLM) returns.
 _FINISH = {"end_turn": "stop", "max_tokens": "length", "stop_sequence": "stop"}

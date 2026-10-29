@@ -1,8 +1,8 @@
 """Labels, the train/test split, and the human check on the judge (M4). All free.
 
     py -m gearbox.data.labels build         # labels.jsonl + split.json + manifest hashes
-    py -m gearbox.data.labels export-hand   # 40 blind items for Uv to score by hand
-    py -m gearbox.data.labels kappa         # judge vs Uv agreement (after scoring)
+    py -m gearbox.data.labels export-hand   # 40 blind items for a human to score
+    py -m gearbox.data.labels kappa         # judge vs human agreement (after scoring)
 
 Label = the cheapest tier whose answer the judge scored >= 4 ("good enough to send").
 If no tier passes, the label is L: the biggest model is the safest bet when nothing is
