@@ -1,0 +1,57 @@
+{
+  "version": "probe",
+  "seed": 20261029,
+  "prompts_sha256": "34db068269236747e61f2ab27c27860253d29d9c77bd4ddd5924fe60742c6ffb",
+  "total": 30,
+  "by_task_type": {
+    "reasoning": 18,
+    "research": 12
+  },
+  "by_difficulty": {
+    "reasoning": {
+      "hard": 18
+    },
+    "research": {
+      "hard": 12
+    }
+  },
+  "with_reference": 30,
+  "sources": [
+    {
+      "pick": "aime2025-i",
+      "repo": "opencompass/AIME2025",
+      "revision": "a6ad95f611d72cf628a80b58bd0432ef6638f958",
+      "file": "aime2025-I.jsonl",
+      "licence": "MIT",
+      "taken": 5,
+      "usable": 15
+    },
+    {
+      "pick": "aime2025-ii",
+      "repo": "opencompass/AIME2025",
+      "revision": "a6ad95f611d72cf628a80b58bd0432ef6638f958",
+      "file": "aime2025-II.jsonl",
+      "licence": "MIT",
+      "taken": 5,
+      "usable": 15
+    },
+    {
+      "pick": "mmlu-pro",
+      "repo": "TIGER-Lab/MMLU-Pro",
+      "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be",
+      "file": "data/test-00000-of-00001.parquet",
+      "licence": "MIT",
+      "taken": 10,
+      "usable": 4501
+    },
+    {
+      "pick": "simpleqa",
+      "repo": "basicv8vc/SimpleQA",
+      "revision": "e319282ab125c3dbd0c7fd00be2e4dd54e7e8f94",
+      "file": "simple_qa_test_set.csv",
+      "licence": "MIT",
+      "taken": 10,
+      "usable": 4326
+    }
+  ]
+}

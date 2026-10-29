@@ -1,0 +1,14 @@
+[
+  {
+    "batch_id": "msgbatch_011CpSRXs3pxBg4q9qT73rWr",
+    "requests": 19,
+    "estimate_gbp": 0.1646,
+    "collected": true
+  },
+  {
+    "batch_id": "msgbatch_014noGS2GQmDjctjyBgSEQjF",
+    "requests": 39,
+    "estimate_gbp": 0.0649,
+    "collected": true
+  }
+]

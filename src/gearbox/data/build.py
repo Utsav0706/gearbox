@@ -11,6 +11,7 @@ cache on first run.
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
 import json
 import os
@@ -39,7 +40,9 @@ def load_rows(source: SourceFile) -> list[dict[str, Any]]:
         import pyarrow.parquet as pq
 
         return pq.read_table(path).to_pylist()
-    with open(path, encoding="utf-8") as f:
+    with open(path, encoding="utf-8", newline="") as f:
+        if source.file.endswith(".csv"):
+            return list(csv.DictReader(f))
         return [json.loads(line) for line in f if line.strip()]
 
 
@@ -86,12 +89,18 @@ def select(
     return chosen, usable
 
 
-def build(out_dir: Path, loader: Loader = load_rows, seed: int = SEED) -> list[PromptItem]:
+def build(
+    out_dir: Path,
+    loader: Loader = load_rows,
+    seed: int = SEED,
+    picks: list[Pick] | None = None,
+) -> list[PromptItem]:
+    """picks defaults to the v1 dataset (sources.PICKS); other sets pass their own."""
     cache: dict[SourceFile, list[dict[str, Any]]] = {}
     seen: set[str] = set()
     items: list[PromptItem] = []
     sources = []
-    for pick in PICKS:
+    for pick in picks if picks is not None else PICKS:
         if pick.source not in cache:
             cache[pick.source] = loader(pick.source)
         chosen, usable = select(pick, cache[pick.source], seen, seed)
