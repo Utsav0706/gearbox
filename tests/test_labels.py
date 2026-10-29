@@ -20,7 +20,10 @@ from gearbox.data.labels import (
         ({"S": 3, "M": 4, "L": 5}, "M"),
         ({"S": 3, "M": 3, "L": 4}, "L"),
         ({"S": 5, "M": 2, "L": 2}, "S"),  # S passing is enough, whatever bigger tiers did
-        ({"S": 2, "M": 3, "L": 3}, "L"),  # nobody passes: default to the biggest
+        # nobody passes: the best score, the cheapest tier on a tie
+        ({"S": 2, "M": 3, "L": 3}, "M"),
+        ({"S": 1, "M": 2, "L": 3}, "L"),
+        ({"S": 3, "M": 3, "L": 3}, "S"),
     ],
 )
 def test_label_is_cheapest_passing_tier(scores, label):

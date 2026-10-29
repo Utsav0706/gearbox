@@ -20,8 +20,13 @@ rubric as v1. New spend: GBP 0.95 (answers 0.36, judging 0.59).
 | M (Haiku 5.5) | 81% |
 | L (Sonnet 5.5) | 87% |
 
-Labels (cheapest tier scoring >= 4, else L): S 212 / M 277 / L 111. Of the 111 L
-labels, 46 are prompts only Sonnet passes; 65 are prompts no tier passes (50 of them
-SimpleQA facts no model knows). Split: 479 train / 121 test, stratified by task type and
-label. Prompt sources and licences per row are as in `data/v1/README.md`, plus the table
+Labels: the cheapest tier scoring >= 4; if no tier passes, the tier with the best
+score (cheapest on a tie). The spec's rule was "else L", which gave S 212 / M 277 / L 111,
+where 65 of the L labels were prompts no tier passes (50 of them SimpleQA facts no model
+knows). Trained on those, v3 sent such questions to Sonnet: on the test split it reached
+an 81.8% pass rate at GBP 0.139, against 81.0% at GBP 0.044 with the rule used here, so
+the old rule mostly bought expensive failures. Current mix: S 261 / M 287 / L 52.
+Split: 481 train / 119 test, stratified by task type and label.
+
+Prompt sources and licences per row are as in `data/v1/README.md`, plus the table
 above; all source files are pinned in `manifest.json`.

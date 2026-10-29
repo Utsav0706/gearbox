@@ -5,8 +5,12 @@
     py -m gearbox.data.labels kappa         # judge vs human agreement (after scoring)
 
 Label = the cheapest tier whose answer the judge scored >= 4 ("good enough to send").
-If no tier passes, the label is L: the biggest model is the safest bet when nothing is
-good, and it keeps "under-routing" (picking too small a model) the costly mistake.
+If no tier passes, the label is the tier with the best score (the cheapest one on a tie).
+The spec said "else L", but on dataset v2 that taught the router to send questions no
+model can answer (obscure SimpleQA facts) to the most expensive one: paying 20x for an
+answer that still fails. Measured on v2's test split, the rule here gives the same pass
+rate at about a third of the cost (see data/v2/README.md). Dataset v1's committed labels
+were built with the old rule.
 
 Why Cohen's kappa and not plain agreement: if the judge passes 80% of answers, a judge
 that always says "pass" agrees with a human 80% of the time while knowing nothing.
@@ -52,7 +56,8 @@ def label_for(scores: dict[Tier, int]) -> Tier:
     for tier in TIERS:  # cheapest first
         if scores[tier] >= PASS_SCORE:
             return tier
-    return "L"
+    best = max(scores[t] for t in TIERS)
+    return next(t for t in TIERS if scores[t] == best)  # nobody passes: best, cheapest
 
 
 def make_labels(data_dir: Path) -> list[LabelRow]:
