@@ -1,0 +1,34 @@
+[
+  {
+    "batch_id": "msgbatch_01HzE9q7BsX31Gdw6eme9GPv",
+    "tier": "M",
+    "model": "anthropic/claude-haiku-5-5",
+    "requests": 20,
+    "estimate_gbp": 0.006,
+    "collected": true
+  },
+  {
+    "batch_id": "msgbatch_01PEFzQcR5KqdCHb5sqb6koa",
+    "tier": "L",
+    "model": "anthropic/claude-sonnet-5-5",
+    "requests": 20,
+    "estimate_gbp": 0.1196,
+    "collected": true
+  },
+  {
+    "batch_id": "msgbatch_013SfPfq3cQJGv8ftQ5pxZzj",
+    "tier": "M",
+    "model": "anthropic/claude-haiku-5-5",
+    "requests": 430,
+    "estimate_gbp": 0.0313,
+    "collected": true
+  },
+  {
+    "batch_id": "msgbatch_01QmfgUvsSRfcb5okDYNbu2C",
+    "tier": "L",
+    "model": "anthropic/claude-sonnet-5-5",
+    "requests": 431,
+    "estimate_gbp": 0.6505,
+    "collected": true
+  }
+]

@@ -30,3 +30,20 @@ Each row carries its source's licence in its `licence` field.
 | [Databricks Dolly 15k](https://huggingface.co/datasets/databricks/databricks-dolly-15k) | CC-BY-SA-3.0 |
 
 The Dolly rows are share-alike: if you redistribute them, keep them under CC-BY-SA-3.0.
+
+## Answers (M3)
+
+`answers.jsonl`: one answer per prompt per tier (1,350 rows), sorted by id then tier.
+Built with `py -m gearbox.data.answer` (tier S on a laptop GPU, tiers M and L through
+Anthropic's Message Batches API at half price; `batches.json` lists the batch ids).
+Every tier used the same `max_tokens` (3,000, from `config.yaml`) and default settings,
+so these are the answers the router would get live.
+
+| tier | model | avg output tokens | cut off at max_tokens | cost |
+|---|---|---|---|---|
+| S | llama3.2:3b (local) | 265 | 1 | £0 |
+| M | claude-haiku-5-5 | 585 | 6 | £0.054 |
+| L | claude-sonnet-5-5 | 491 | 3 | £0.911 |
+
+Output tokens include thinking. One Haiku answer (`mbpp-438`) is empty: it spent all
+3,000 tokens thinking. It is kept: a real failure is what the labels should record.

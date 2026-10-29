@@ -3,23 +3,24 @@
 
 # The three tiers, cheapest first. Model ids use LiteLLM's "provider/model" form.
 # max_tokens is a hard ceiling per call (thinking tokens included), so one request
-# can't run up a bill. Tier S was picked by scripts/bench_tier_s.py (M1): llama3.2:3b
+# can't run up a bill. 3000 leaves room for long essays and code: at 1500, the M3 pilot
+# cut off 1 of 20 Sonnet answers mid-table. Tier S was picked by scripts/bench_tier_s.py (M1): llama3.2:3b
 # answered 19/20 sample prompts at ~47 tokens/s; qwen3:4b always thinks first (even with
 # think=false), so it took 15-25 s per answer.
 tiers:
   S:
     model: ollama_chat/llama3.2:3b
     api_base: http://localhost:11434
-    max_tokens: 1500
+    max_tokens: 3000
     timeout_s: 120   # local model on a laptop GPU: slow but free
   M:
     model: anthropic/claude-haiku-5-5
-    max_tokens: 1500
-    timeout_s: 60
+    max_tokens: 3000
+    timeout_s: 120
   L:
     model: anthropic/claude-sonnet-5-5
-    max_tokens: 1500
-    timeout_s: 90
+    max_tokens: 3000
+    timeout_s: 180   # a 3000-token Sonnet answer can take well over a minute
 
 # USD per million tokens (Anthropic first-party API, checked 2026-10-22 for Scout).
 # Re-check on the pricing page before any paid run. Local models cost 0.

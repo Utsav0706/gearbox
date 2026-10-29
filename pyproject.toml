@@ -25,6 +25,8 @@ dependencies = [
 data = [
     "huggingface_hub>=0.26",
     "pyarrow>=17",
+    # Message Batches for answering/judging the dataset at half price (1.x, as in Scout).
+    "anthropic>=1.17,<2",
 ]
 dev = [
     "pytest>=8.3",
