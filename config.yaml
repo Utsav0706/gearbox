@@ -31,6 +31,24 @@ routing:
     prompt: prompts/classifier_v1.md
   v3_embed:
     artifact: models/router_v3.json  # py -m gearbox.routers.embed train
+  # Try another router on a share of live traffic, e.g. {router: v2-llm, percent: 10}.
+  canary: null
+
+# Exact-match answer cache: Redis when REDIS_URL is set, else in-process memory.
+cache:
+  enabled: true
+  ttl_s: 86400       # one day
+  max_entries: 1000  # in-memory backend only
+
+# Once this calendar month's spend reaches the budget, requests drop to tier S (free)
+# until the month ends, and responses say so. null = no cap.
+policy:
+  monthly_budget_gbp: 5.00
+
+# When a tier is down or times out: retry it once after this delay, then try the other
+# tiers (bigger ones first, so quality never drops unless it has to).
+fallback:
+  retry_delay_s: 0.5
 
 # Scores answers 1-5 to make the labels (cheapest tier scoring >= 4). Sonnet, the
 # strongest of the three tiers; whether it can be trusted is measured against human hand

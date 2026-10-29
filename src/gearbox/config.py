@@ -69,12 +69,43 @@ class EmbedRouterConfig(BaseModel):
     artifact: Path  # trained weights + metadata (JSON), written by gearbox.routers.embed
 
 
+class CanaryConfig(BaseModel):
+    """Send `percent` of auto-routed requests to another router, to try it on live
+    traffic before switching (Pitwall's promotion flow uses this)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    router: str
+    percent: float = Field(gt=0, le=100)
+
+
 class RoutingConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     router: str = "v3-embed"  # the router the service uses (any registered name)
+    canary: CanaryConfig | None = None
     v2_llm: LLMRouterConfig
     v3_embed: EmbedRouterConfig
+
+
+class CacheConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    enabled: bool = True
+    ttl_s: int = Field(default=86_400, gt=0)
+    max_entries: int = Field(default=1000, gt=0)  # in-memory backend only
+
+
+class PolicyConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    monthly_budget_gbp: float | None = Field(default=None, gt=0)  # None = no cap
+
+
+class FallbackConfig(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    retry_delay_s: float = Field(default=0.5, ge=0, le=10)
 
 
 class AppConfig(BaseModel):
@@ -82,6 +113,9 @@ class AppConfig(BaseModel):
 
     tiers: dict[Tier, TierConfig]
     routing: RoutingConfig
+    cache: CacheConfig = Field(default_factory=CacheConfig)
+    policy: PolicyConfig = Field(default_factory=PolicyConfig)
+    fallback: FallbackConfig = Field(default_factory=FallbackConfig)
     judge: JudgeConfig
     prices_usd_per_mtok: dict[str, ModelPrice]
     usd_to_gbp: float = Field(gt=0)
@@ -111,6 +145,8 @@ class Secrets(BaseSettings):
     anthropic_api_key: SecretStr | None = None
     # Request log. A local SQLite file by default; Postgres in Docker Compose and CI.
     database_url: str = "sqlite:///gearbox_local.db"
+    # Answer cache. Unset = an in-memory cache inside the process (local runs).
+    redis_url: str | None = None
     log_level: str = "INFO"
     config_path: Path = Path("config.yaml")
 

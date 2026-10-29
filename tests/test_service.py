@@ -12,6 +12,7 @@ from fastapi.testclient import TestClient
 from gearbox.config import get_config
 from gearbox.routers import Route
 from gearbox.service.app import create_app
+from gearbox.service.cache import NoCache
 from gearbox.service.db import Base, make_engine
 from gearbox.tiers import TierRequestError, TierResult, TierUnavailableError, Usage
 
@@ -59,13 +60,15 @@ def engine():
     engine.dispose()
 
 
-def _client(engine, router=None, call=None):
+def _client(engine, router=None, call=None, config=None, cache=None, canary=None):
     app = create_app(
-        config=get_config(),
+        config=config or get_config(),
         router=router or FakeRouter(),
         engine=engine,
         call=call or FakeCall(),
         warm_up=False,
+        cache=cache or NoCache(),  # cache behaviour is tested on its own below
+        canary=canary,
     )
     return TestClient(app)
 

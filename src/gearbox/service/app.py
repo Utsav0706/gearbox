@@ -19,7 +19,7 @@ import uuid
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Query, Request
+from fastapi import FastAPI, Header, Query, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from sqlalchemy import Engine
@@ -27,6 +27,8 @@ from sqlalchemy import Engine
 from gearbox.config import AppConfig, Secrets, get_config, get_secrets
 from gearbox.log import setup_logging
 from gearbox.routers import Router, create_router
+from gearbox.service import policy
+from gearbox.service.cache import Cache, make_cache
 from gearbox.service.db import db_is_up, make_engine, make_sessions, stats
 from gearbox.service.pipeline import CallTier, Pipeline
 from gearbox.service.schemas import ChatCompletionRequest, error_body
@@ -43,18 +45,27 @@ def create_app(
     engine: Engine | None = None,
     call: CallTier = call_tier,
     warm_up: bool = True,
+    cache: Cache | None = None,
+    canary: Router | None = None,
 ) -> FastAPI:
     config = config or get_config()
     secrets = secrets or get_secrets()
     engine = engine or make_engine(secrets.database_url)
     router = router or create_router(config.routing.router, config)
-    pipeline = Pipeline(config, router, make_sessions(engine), call)
+    if canary is None and config.routing.canary is not None:
+        canary = create_router(config.routing.canary.router, config)
+    if cache is None:
+        c = config.cache
+        cache = make_cache(c.enabled, c.ttl_s, c.max_entries, secrets.redis_url)
+    pipeline = Pipeline(config, router, make_sessions(engine), call, cache, canary)
 
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         if warm_up:
-            # Load the router's model now (v3: ~2 s), not inside the first user request.
-            await router.route("warm up")
+            # Load the routers' models now (v3: ~2 s), not inside the first user request.
+            for r in (router, canary):
+                if r is not None:
+                    await r.route("warm up")
         yield
         engine.dispose()
 
@@ -68,10 +79,17 @@ def create_app(
         return JSONResponse(error_body(message, "invalid_request_error", "invalid_request"), 400)
 
     @app.post("/v1/chat/completions")
-    async def chat_completions(req: ChatCompletionRequest) -> JSONResponse:
+    async def chat_completions(
+        req: ChatCompletionRequest,
+        x_gearbox_max_tier: str | None = Header(default=None),
+    ) -> JSONResponse:
         request_id = f"gbx-{uuid.uuid4().hex[:24]}"
         try:
-            done = await pipeline.complete(req, request_id)
+            max_tier = policy.parse_max_tier(x_gearbox_max_tier)
+        except ValueError as exc:
+            return JSONResponse(error_body(str(exc), "invalid_request_error", "bad_header"), 400)
+        try:
+            done = await pipeline.complete(req, request_id, max_tier)
         except TierUnavailableError as exc:
             return JSONResponse(
                 error_body(str(exc), "service_unavailable", "tier_unavailable"),
@@ -90,7 +108,12 @@ def create_app(
             "x-gearbox-model": done.result.model,
             "x-gearbox-cost": f"{done.result.cost_gbp:.6f}",  # GBP
             "x-gearbox-router": done.router,
+            "x-gearbox-cache": "hit" if done.cache_hit else "miss",
         }
+        if done.policy_notes:
+            headers["x-gearbox-policy"] = "; ".join(done.policy_notes)
+        if done.fallback_used:
+            headers["x-gearbox-fallback"] = "->".join(done.attempts)  # e.g. "S->S->M"
         if req.temperature is not None or req.top_p is not None:
             headers["x-gearbox-note"] = SAMPLING_NOTE
         log.info(

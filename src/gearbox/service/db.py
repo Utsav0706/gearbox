@@ -82,6 +82,19 @@ def write_log(sessions: sessionmaker[Session], row: RequestLog) -> None:
         s.add(row)
 
 
+def month_spend(sessions: sessionmaker[Session], now: datetime | None = None) -> float:
+    """GBP spent so far this calendar month (UTC), for the monthly budget cap."""
+    now = now or datetime.now(UTC)
+    start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+    with sessions() as s:
+        total = s.execute(
+            select(func.coalesce(func.sum(RequestLog.cost_gbp), 0.0)).where(
+                RequestLog.created_at >= start
+            )
+        ).scalar_one()
+    return float(total)
+
+
 def stats(sessions: sessionmaker[Session], hours: int = 24) -> dict[str, object]:
     """Cost and route split for the last `hours` (GET /stats)."""
     since = datetime.now(UTC) - timedelta(hours=hours)

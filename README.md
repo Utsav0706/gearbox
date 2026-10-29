@@ -18,7 +18,7 @@ model, handles failures, and logs the cost, latency and reason for every route.
 Model names live in [`config.yaml`](config.yaml), so a tier can be swapped without
 code changes.
 
-Status: **M6, the API runs** (OpenAI-compatible, request log); routers compared in [`reports/routers.md`](reports/routers.md). One of four connected projects:
+Status: **M7a, cache, budget policy and fallback** on the OpenAI-compatible API; routers compared in [`reports/routers.md`](reports/routers.md). One of four connected projects:
 [Scout](https://github.com/Utsav0706/scout) (research agent), Gearbox (router),
 Dyno (eval harness) and Pitwall (LLMOps).
 
@@ -46,8 +46,12 @@ reply = client.chat.completions.create(
 )
 ```
 
-Every answer carries `x-gearbox-tier`, `x-gearbox-model`, `x-gearbox-cost` (GBP) and
-`x-gearbox-router` headers. `GET /health` and `GET /stats?hours=24` (cost and route
+Every answer carries `x-gearbox-tier`, `x-gearbox-model`, `x-gearbox-cost` (GBP),
+`x-gearbox-router` and `x-gearbox-cache` headers, plus `x-gearbox-policy` or
+`x-gearbox-fallback` when a limit or a fallback changed the tier. Send
+`x-gearbox-max-tier: M` to cap a request's tier. Repeated requests are served from a
+cache at no cost, and once the monthly budget in `config.yaml` is spent, requests drop to
+the free local tier. `GET /health` and `GET /stats?hours=24` (cost and route
 split) are also served. Tests: `.venv\Scripts\python.exe -m pytest`.
 
 ## Plan

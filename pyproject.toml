@@ -28,6 +28,7 @@ dependencies = [
     "sqlalchemy>=2.0.36",
     "alembic>=1.14,<2",
     "psycopg[binary]>=3.2",
+    "redis>=5.0",  # answer cache in Compose/deployment (M7)
 ]
 
 [project.optional-dependencies]
@@ -42,6 +43,7 @@ dev = [
     "pytest>=8.3",
     "ruff>=0.8",
     "httpx>=0.28",  # scripts/bench_tier_s.py asks Ollama what is loaded
+    "fakeredis>=2.26",  # Redis cache tests without a Redis server
 ]
 
 [tool.hatch.build.targets.wheel]
