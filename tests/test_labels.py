@@ -81,6 +81,16 @@ def test_hand_items_cover_tiers_and_pass_fail():
     assert pick_hand_items(judgments, n=12) == items
 
 
+def test_reads_excel_cp1252_csv(tmp_path):
+    from gearbox.data.labels import read_csv_text
+
+    path = tmp_path / "scores.csv"
+    path.write_bytes("item,score,notes\n1,5,“ok” at 28°\n".encode("cp1252"))
+    assert "“ok” at 28°" in read_csv_text(path)
+    path.write_bytes("﻿item,score\n".encode())  # UTF-8 with BOM, also from Excel
+    assert read_csv_text(path).startswith("item,score")
+
+
 def test_cohen_kappa_known_values():
     assert cohen_kappa([1, 1, 0, 0], [1, 1, 0, 0]) == 1.0
     # Always-"pass" vs a rater with 80% passes: 80% agreement, kappa 0.

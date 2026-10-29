@@ -72,3 +72,28 @@ judge-fail, spread over the tiers), to measure judge-human agreement with Cohen'
 (`py -m gearbox.data.labels kappa`).
 
 `manifest.json` `files_sha256` holds a hash of every data file.
+
+### Judge vs human (40 blind hand labels)
+
+| measure | value |
+|---|---|
+| pass/fail agreement | 82.5% (33/40) |
+| pass/fail Cohen's kappa | 0.65 (substantial) |
+| 1-5 quadratic-weighted kappa | 0.78 |
+| judge stricter / more lenient than the human | 13 / 2 |
+
+All 7 pass/fail disagreements go the same way: the human passed the answer, the judge
+failed it. Reading the judge's reasons:
+- 3 are fair catches the human missed: "fewer than two paragraphs" answered in two
+  (mt-bench-85); "one line per equation" ignored (mt-bench-139); a parity function that
+  passes the given tests but checks odd/even instead of bit parity (mbpp-406).
+- 2 are judgment calls on a 3-vs-4 border: small factual slips in a travel list
+  (dolly-1227) and plot holes in a story (mt-bench-87).
+- 2 are judge errors: its reason says the answer is correct, yet it scored 2
+  (math500-geometry-434, mt-bench-125). A minor wording slip was treated as a wrong answer.
+
+So the judge errs on the strict side. For routing that is the safe direction: a too
+strict label sends a prompt to a bigger tier than needed (costs a little more), never to
+a smaller one (worse answers). The headline saving is therefore, if anything,
+understated. Rubric v1 is kept; a v2 that stops penalising correct answers for wording
+slips is a candidate for Dyno's judge calibration.

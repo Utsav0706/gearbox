@@ -1,41 +1,41 @@
 item,score,notes
-1,,
-2,,
-3,,
-4,,
-5,,
-6,,
-7,,
-8,,
-9,,
-10,,
-11,,
-12,,
-13,,
-14,,
-15,,
-16,,
-17,,
-18,,
-19,,
-20,,
-21,,
-22,,
-23,,
-24,,
-25,,
-26,,
-27,,
-28,,
-29,,
-30,,
-31,,
-32,,
-33,,
-34,,
-35,,
-36,,
-37,,
-38,,
-39,,
-40,,
+1,5,Correct implementation; ignores spaces and separates balanced groups as requested.
+2,5,Modulo correctly returns True for odd numbers and False for even numbers; all tests pass.
+3,2,"Contains broad, misleading health claims about pesticide risks, nutrition, and foodborne illness."
+4,5,Correctly explains that many wild elephants perceive humans as threats while acknowledging individual variation.
+5,5,"Provides a useful, well-organized list of typical groceries."
+6,2,"Useful first-day material, but the response cuts off mid-table and omits the rest of the three-day plan."
+7,2,The response cuts off during the US section and does not compare China or provide case studies.
+8,5,"Correct equation, arithmetic, and final age."
+9,5,Correctly calculates $84 minus $63 equals $21.
+10,5,Validates the required format and month/day ranges; given examples are handled correctly.
+11,2,"Misapplies the ceiling expression by squaring 13; the correct result is -3, not 153."
+12,5,Correctly sums ASCII codes only for uppercase characters.
+13,3,Describes the handprint collectible but does not directly identify tegata as the sumo version of an autograph.
+14,5,Floor division satisfies the requested behavior and all tests.
+15,5,"Vivid, distinctive character description in two paragraphs with strong imagery."
+16,5,"Correctly identifies red, green, and blue as the primary colours of light."
+17,3,"The core contradiction proof is sound, but the added prose summary violates the requested poem-only format and the rhyme is inconsistent."
+18,2,"The final answer conflicts with the supplied gold reference, which expects John Key."
+19,1,Does not write a tenant pitch; it answers literally as an AI instead of fulfilling the request.
+20,5,The all() expression correctly checks whether the number exceeds every array element.
+21,5,"Correctly computes half of $8,000 as $4,000 and totals $12,000."
+22,2,Does not address that no single fact is known by all “truthers” and frames selected claims as universal.
+23,5,"Accurately gives both stages, their chloroplast locations, inputs, outputs, and roles."
+24,4,Informative overview with relevant scale and features; some added operational details are caveated or not sourced.
+25,2,"Final result is 26 days, but the supplied reference expects 28 days using the net rate."
+26,1,The reasoning is invalid and never establishes the contradiction needed to prove irrationality.
+27,5,All quantities are calculated correctly and sum to 98 pens.
+28,4,"Useful destination suggestions, though the request asks for one place and the answer expands into a long list."
+29,5,"Comprehensive, actionable checklist organized by timeline and tailored to a larger home."
+30,4,Begins with the exact required sentence and delivers a complete story; the plot is somewhat predictable.
+31,5,Angle relationships and isosceles-triangle reasoning correctly yield x = 28°.
+32,2,"Counts seven units instead of six; the correct total is 3! × 5! = 720, not 4320."
+33,5,Clearly covers five relevant principles with concrete evaluation questions and examples.
+34,4,Correctly identifies the root as the highest common ancestor; implementation is unnecessarily elaborate but works.
+35,5,"Correctly adds the 25% fee, delivery fee, and tip to get $57."
+36,1,Contradicts itself and gives Apollo; the expected answer is Dionysus.
+37,5,Returns the variable names once per equation in valid JSON and explains the exclusion choices.
+38,5,Correctly computes 250 pieces placed by each person and 500 remaining.
+39,5,Correctly states that Latinos do not all speak one language and gives representative examples.
+40,5,Correctly sorts the values and computes the median for odd and even list lengths.

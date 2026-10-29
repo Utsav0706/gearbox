@@ -1,0 +1,8 @@
+{
+  "items": 40,
+  "pass_fail_agreement": 0.825,
+  "pass_fail_kappa": 0.65,
+  "score_weighted_kappa": 0.775,
+  "judge_stricter": 13,
+  "judge_more_lenient": 2
+}

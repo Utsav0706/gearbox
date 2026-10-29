@@ -205,21 +205,30 @@ def weighted_kappa(a: Sequence[int], b: Sequence[int], k: int = 5) -> float:
     return 1.0 if den == 0 else 1 - num / den
 
 
+def read_csv_text(path: Path) -> str:
+    """Excel on Windows saves "CSV" in the cp1252 code page, not UTF-8, so curly quotes
+    and symbols in notes would crash a UTF-8 read. Try UTF-8 first, then cp1252."""
+    raw = path.read_bytes()
+    try:
+        return raw.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        return raw.decode("cp1252")
+
+
 def agreement(data_dir: Path) -> dict[str, object]:
     out = data_dir / "hand_labels"
     key = {row["item"]: row for row in json.loads((out / "key.json").read_text(encoding="utf-8"))}
     judged = {(j.id, j.tier): j.score for j in load_judgments(data_dir)}
     human, judge = [], []
-    with (out / "scores.csv").open(encoding="utf-8-sig", newline="") as f:
-        for row in csv.DictReader(f):
-            if not row["score"].strip():
-                continue
-            score = int(row["score"])
-            if not 1 <= score <= 5:
-                raise ValueError(f"item {row['item']}: score must be 1-5, got {score}")
-            k = key[int(row["item"])]
-            human.append(score)
-            judge.append(judged[(k["id"], k["tier"])])
+    for row in csv.DictReader(read_csv_text(out / "scores.csv").splitlines()):
+        if not row["score"].strip():
+            continue
+        score = int(row["score"])
+        if not 1 <= score <= 5:
+            raise ValueError(f"item {row['item']}: score must be 1-5, got {score}")
+        k = key[int(row["item"])]
+        human.append(score)
+        judge.append(judged[(k["id"], k["tier"])])
     if not human:
         raise ValueError("no scores filled in yet")
     h_pass = [s >= PASS_SCORE for s in human]
