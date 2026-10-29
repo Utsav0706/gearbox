@@ -18,7 +18,7 @@ model, handles failures, and logs the cost, latency and reason for every route.
 Model names live in [`config.yaml`](config.yaml), so a tier can be swapped without
 code changes.
 
-Status: **M0, skeleton** (config, logging, tests, CI). Part of a four-project portfolio:
+Status: **M2, dataset built** (450 prompts in [`data/v1`](data/v1)); tier clients working. Part of a four-project portfolio:
 [Scout](https://github.com/Utsav0706/scout) (research agent), Gearbox (router),
 Dyno (eval harness) and Pitwall (LLMOps).
 

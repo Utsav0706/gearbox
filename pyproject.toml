@@ -21,6 +21,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# Only for rebuilding the dataset (py -m gearbox.data.build); the service never needs it.
+data = [
+    "huggingface_hub>=0.26",
+    "pyarrow>=17",
+]
 dev = [
     "pytest>=8.3",
     "ruff>=0.8",

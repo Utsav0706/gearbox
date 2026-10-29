@@ -1,0 +1,126 @@
+{
+  "version": "v1",
+  "seed": 20261029,
+  "prompts_sha256": "5b9f44109144d7e63e8d616852de96fd4edcb7dbd51d4fcc55489fe0d88d1848",
+  "total": 450,
+  "by_task_type": {
+    "coding": 112,
+    "reasoning": 112,
+    "research": 112,
+    "writing": 114
+  },
+  "by_difficulty": {
+    "coding": {
+      "easy": 51,
+      "hard": 10,
+      "medium": 51
+    },
+    "reasoning": {
+      "easy": 16,
+      "hard": 35,
+      "medium": 61
+    },
+    "research": {
+      "easy": 46,
+      "hard": 66
+    },
+    "writing": {
+      "easy": 56,
+      "hard": 30,
+      "medium": 28
+    }
+  },
+  "with_reference": 408,
+  "sources": [
+    {
+      "pick": "mt-bench",
+      "repo": "HuggingFaceH4/mt_bench_prompts",
+      "revision": "e3a795c5e9a82ee40611c416b8a7786c73198991",
+      "file": "raw/question.jsonl",
+      "licence": "Apache-2.0",
+      "taken": 80,
+      "usable": 80
+    },
+    {
+      "pick": "humaneval",
+      "repo": "openai/openai_humaneval",
+      "revision": "7dce6050a7d6d172f3cc5c32aa97f52fa1a2e544",
+      "file": "openai_humaneval/test-00000-of-00001.parquet",
+      "licence": "MIT",
+      "taken": 51,
+      "usable": 164
+    },
+    {
+      "pick": "mbpp",
+      "repo": "google-research-datasets/mbpp",
+      "revision": "4bb6404fdc6cacfda99d4ac4205087b89d32030c",
+      "file": "sanitized/test-00000-of-00001.parquet",
+      "licence": "CC-BY-4.0",
+      "taken": 51,
+      "usable": 257
+    },
+    {
+      "pick": "gsm8k",
+      "repo": "openai/gsm8k",
+      "revision": "740312add88f781978c0658806c59bc2815b9866",
+      "file": "main/test-00000-of-00001.parquet",
+      "licence": "MIT",
+      "taken": 46,
+      "usable": 1319
+    },
+    {
+      "pick": "math500",
+      "repo": "HuggingFaceH4/MATH-500",
+      "revision": "6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be",
+      "file": "test.jsonl",
+      "licence": "MIT",
+      "taken": 46,
+      "usable": 500
+    },
+    {
+      "pick": "triviaqa",
+      "repo": "mandarjoshi/trivia_qa",
+      "revision": "0f7faf33a3908546c6fd5b73a660e0f8ff173c2f",
+      "file": "rc.web.nocontext/validation-00000-of-00001.parquet",
+      "licence": "Apache-2.0",
+      "taken": 46,
+      "usable": 9951
+    },
+    {
+      "pick": "truthfulqa",
+      "repo": "truthfulqa/truthful_qa",
+      "revision": "741b8276f2d1982aa3d5b832d3ee81ed3b896490",
+      "file": "generation/validation-00000-of-00001.parquet",
+      "licence": "Apache-2.0",
+      "taken": 46,
+      "usable": 817
+    },
+    {
+      "pick": "dolly-creative",
+      "repo": "databricks/databricks-dolly-15k",
+      "revision": "bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a",
+      "file": "databricks-dolly-15k.jsonl",
+      "licence": "CC-BY-SA-3.0",
+      "taken": 28,
+      "usable": 709
+    },
+    {
+      "pick": "dolly-brainstorming",
+      "repo": "databricks/databricks-dolly-15k",
+      "revision": "bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a",
+      "file": "databricks-dolly-15k.jsonl",
+      "licence": "CC-BY-SA-3.0",
+      "taken": 28,
+      "usable": 1766
+    },
+    {
+      "pick": "dolly-summarization",
+      "repo": "databricks/databricks-dolly-15k",
+      "revision": "bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a",
+      "file": "databricks-dolly-15k.jsonl",
+      "licence": "CC-BY-SA-3.0",
+      "taken": 28,
+      "usable": 1060
+    }
+  ]
+}
