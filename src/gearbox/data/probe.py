@@ -122,6 +122,17 @@ PROBE_PICKS: list[Pick] = [
     Pick("simpleqa", SIMPLEQA, 10, simpleqa, strata=by_difficulty),
 ]
 
+# The hard slice of dataset v2 (gearbox.data.v2). Same pick names and seed as the probe,
+# so the probe's 30 prompts are the first ones drawn and their answers can be reused.
+# Weighted to where the probe found the gap (niche facts), with all of AIME 2025, and
+# MMLU-Pro kept as "looks hard, but Haiku is fine" counter-examples.
+HARD_PICKS: list[Pick] = [
+    Pick("aime2025-i", AIME_I, 15, aime("i")),  # all of AIME 2025 I
+    Pick("aime2025-ii", AIME_II, 15, aime("ii")),  # and II
+    Pick("mmlu-pro", MMLU_PRO, 40, mmlu_pro, strata=mmlu_category),
+    Pick("simpleqa", SIMPLEQA, 80, simpleqa, strata=by_difficulty),
+]
+
 
 def main(argv: list[str]) -> int:
     out = Path(argv[0]) if argv else Path("data/probe")

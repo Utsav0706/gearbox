@@ -1,0 +1,273 @@
+{"id": "dolly-1057", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.02, "cost_gbp": 0.0}
+{"id": "dolly-11472", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.02, "cost_gbp": 0.0}
+{"id": "dolly-14110", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "dolly-14693", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.06, "cost_gbp": 0.0}
+{"id": "dolly-1921", "router": "v1-rules", "tier": "M", "reason": "rule: factual question (the small model often hallucinates facts)", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "dolly-2814", "router": "v1-rules", "tier": "M", "reason": "rule: factual question (the small model often hallucinates facts)", "latency_ms": 0.09, "cost_gbp": 0.0}
+{"id": "dolly-4083", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.03, "cost_gbp": 0.0}
+{"id": "dolly-4968", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.08, "cost_gbp": 0.0}
+{"id": "dolly-5432", "router": "v1-rules", "tier": "M", "reason": "rule: factual question (the small model often hallucinates facts)", "latency_ms": 0.07, "cost_gbp": 0.0}
+{"id": "dolly-6220", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "dolly-6396", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.06, "cost_gbp": 0.0}
+{"id": "dolly-7906", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.02, "cost_gbp": 0.0}
+{"id": "dolly-8094", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "dolly-8122", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "dolly-8251", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.02, "cost_gbp": 0.0}
+{"id": "dolly-9030", "router": "v1-rules", "tier": "M", "reason": "rule: factual question (the small model often hallucinates facts)", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "gsm8k-104", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.03, "cost_gbp": 0.0}
+{"id": "gsm8k-1111", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.03, "cost_gbp": 0.0}
+{"id": "gsm8k-1150", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.02, "cost_gbp": 0.0}
+{"id": "gsm8k-1269", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.03, "cost_gbp": 0.0}
+{"id": "gsm8k-1314", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.03, "cost_gbp": 0.0}
+{"id": "gsm8k-167", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.02, "cost_gbp": 0.0}
+{"id": "gsm8k-19", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.04, "cost_gbp": 0.0}
+{"id": "gsm8k-225", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.04, "cost_gbp": 0.0}
+{"id": "gsm8k-287", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.03, "cost_gbp": 0.0}
+{"id": "gsm8k-299", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.05, "cost_gbp": 0.0}
+{"id": "gsm8k-689", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.02, "cost_gbp": 0.0}
+{"id": "gsm8k-9", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.03, "cost_gbp": 0.0}
+{"id": "humaneval-1", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.08, "cost_gbp": 0.0}
+{"id": "humaneval-113", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.09, "cost_gbp": 0.0}
+{"id": "humaneval-12", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.06, "cost_gbp": 0.0}
+{"id": "humaneval-125", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.09, "cost_gbp": 0.0}
+{"id": "humaneval-132", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.07, "cost_gbp": 0.0}
+{"id": "humaneval-135", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.06, "cost_gbp": 0.0}
+{"id": "humaneval-159", "router": "v1-rules", "tier": "L", "reason": "rule: long multi-part request", "latency_ms": 0.14, "cost_gbp": 0.0}
+{"id": "humaneval-19", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.06, "cost_gbp": 0.0}
+{"id": "humaneval-36", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.04, "cost_gbp": 0.0}
+{"id": "humaneval-37", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.06, "cost_gbp": 0.0}
+{"id": "humaneval-38", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.08, "cost_gbp": 0.0}
+{"id": "humaneval-47", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.04, "cost_gbp": 0.0}
+{"id": "humaneval-71", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.07, "cost_gbp": 0.0}
+{"id": "humaneval-83", "router": "v1-rules", "tier": "M", "reason": "rule: multi-step maths", "latency_ms": 0.02, "cost_gbp": 0.0}
+{"id": "humaneval-90", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.06, "cost_gbp": 0.0}
+{"id": "math500-algebra-2080", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "math500-counting-and-probability-134", "router": "v1-rules", "tier": "M", "reason": "rule: multi-step maths", "latency_ms": 0.02, "cost_gbp": 0.0}
+{"id": "math500-number-theory-13", "router": "v1-rules", "tier": "M", "reason": "rule: factual question (the small model often hallucinates facts)", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "math500-prealgebra-1840", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.04, "cost_gbp": 0.0}
+{"id": "math500-precalculus-323", "router": "v1-rules", "tier": "M", "reason": "rule: multi-step maths", "latency_ms": 0.02, "cost_gbp": 0.0}
+{"id": "mbpp-128", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.04, "cost_gbp": 0.0}
+{"id": "mbpp-160", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.04, "cost_gbp": 0.0}
+{"id": "mbpp-281", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.03, "cost_gbp": 0.0}
+{"id": "mbpp-284", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.04, "cost_gbp": 0.0}
+{"id": "mbpp-406", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.03, "cost_gbp": 0.0}
+{"id": "mbpp-424", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.04, "cost_gbp": 0.0}
+{"id": "mbpp-443", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.03, "cost_gbp": 0.0}
+{"id": "mt-bench-100", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.03, "cost_gbp": 0.0}
+{"id": "mt-bench-103", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "mt-bench-108", "router": "v1-rules", "tier": "M", "reason": "rule: factual question (the small model often hallucinates facts)", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "mt-bench-109", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.03, "cost_gbp": 0.0}
+{"id": "mt-bench-111", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.02, "cost_gbp": 0.0}
+{"id": "mt-bench-115", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.05, "cost_gbp": 0.0}
+{"id": "mt-bench-126", "router": "v1-rules", "tier": "M", "reason": "rule: non-trivial code (implement / algorithm / complexity)", "latency_ms": 0.0, "cost_gbp": 0.0}
+{"id": "mt-bench-133", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.2, "cost_gbp": 0.0}
+{"id": "mt-bench-134", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.1, "cost_gbp": 0.0}
+{"id": "mt-bench-136", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.15, "cost_gbp": 0.0}
+{"id": "mt-bench-140", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.08, "cost_gbp": 0.0}
+{"id": "mt-bench-86", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.02, "cost_gbp": 0.0}
+{"id": "mt-bench-94", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.06, "cost_gbp": 0.0}
+{"id": "triviaqa-bt-747", "router": "v1-rules", "tier": "M", "reason": "rule: factual question (the small model often hallucinates facts)", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "triviaqa-odql-465", "router": "v1-rules", "tier": "M", "reason": "rule: factual question (the small model often hallucinates facts)", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "triviaqa-qb-8296", "router": "v1-rules", "tier": "M", "reason": "rule: factual question (the small model often hallucinates facts)", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "triviaqa-qf-1245", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "triviaqa-qg-3883", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "triviaqa-qw-2853", "router": "v1-rules", "tier": "M", "reason": "rule: factual question (the small model often hallucinates facts)", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "triviaqa-sfq-22246", "router": "v1-rules", "tier": "M", "reason": "rule: factual question (the small model often hallucinates facts)", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "triviaqa-tb-2348", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.02, "cost_gbp": 0.0}
+{"id": "triviaqa-wh-1013", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "triviaqa-wh-2051", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.02, "cost_gbp": 0.0}
+{"id": "truthfulqa-17", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "truthfulqa-186", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "truthfulqa-218", "router": "v1-rules", "tier": "M", "reason": "rule: factual question (the small model often hallucinates facts)", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "truthfulqa-240", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "truthfulqa-291", "router": "v1-rules", "tier": "M", "reason": "rule: factual question (the small model often hallucinates facts)", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "truthfulqa-427", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.03, "cost_gbp": 0.0}
+{"id": "truthfulqa-454", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "truthfulqa-515", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "truthfulqa-530", "router": "v1-rules", "tier": "M", "reason": "rule: fact check (the small model repeats misconceptions)", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "truthfulqa-555", "router": "v1-rules", "tier": "M", "reason": "rule: factual question (the small model often hallucinates facts)", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "truthfulqa-697", "router": "v1-rules", "tier": "M", "reason": "rule: factual question (the small model often hallucinates facts)", "latency_ms": 0.0, "cost_gbp": 0.0}
+{"id": "truthfulqa-710", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "truthfulqa-815", "router": "v1-rules", "tier": "S", "reason": "rule: no sign of difficulty, small model is enough", "latency_ms": 0.01, "cost_gbp": 0.0}
+{"id": "dolly-1057", "router": "v2-llm", "tier": "M", "reason": "llm: Listing recent World Series champions requires accurate factual recall, which the 3B model often gets wrong, but M handles this reliably.", "latency_ms": 2681.64, "cost_gbp": 0.000112812}
+{"id": "dolly-11472", "router": "v2-llm", "tier": "S", "reason": "llm: Creative descriptive writing with no factual recall or tricky constraints, which the small model handles well.", "latency_ms": 974.93, "cost_gbp": 5.403600000000001e-05}
+{"id": "dolly-14110", "router": "v2-llm", "tier": "M", "reason": "llm: Listing sitcoms with 2000s premiere dates requires factual recall, which the 3B model is unreliable at, but this is ordinary trivia that M handles well without needing L.", "latency_ms": 1469.15, "cost_gbp": 8.5636e-05}
+{"id": "dolly-14693", "router": "v2-llm", "tier": "S", "reason": "llm: A factual yes/no question about a company that the provided text already answers (SHAPE GmbH developed Sicher), so a small model can answer by reading the passage.", "latency_ms": 1027.47, "cost_gbp": 6.9915e-05}
+{"id": "dolly-1921", "router": "v2-llm", "tier": "S", "reason": "llm: Simple factual list of common methods that S can produce reliably without recall risk for obscure facts.", "latency_ms": 1136.74, "cost_gbp": 5.1034e-05}
+{"id": "dolly-2814", "router": "v2-llm", "tier": "M", "reason": "llm: The question asks for a multi-step factual explanation of the US rate case process, which requires accurate recall of regulatory details that the small model is likely to garble or invent.", "latency_ms": 2332.55, "cost_gbp": 0.00014583399999999999}
+{"id": "dolly-4083", "router": "v2-llm", "tier": "M", "reason": "llm: Open-ended travel suggestion request that needs some recalled facts about ski areas, which S may invent, but M handles comfortably at low cost.", "latency_ms": 1263.42, "cost_gbp": 5.877600000000001e-05}
+{"id": "dolly-4968", "router": "v2-llm", "tier": "M", "reason": "llm: Asking for facts about a specific terminal requires recall that the 3B model handles poorly, but the passage is a short, self-contained text, so a fast strong model can answer reliably without the exp", "latency_ms": 1982.01, "cost_gbp": 0.000152233}
+{"id": "dolly-5432", "router": "v2-llm", "tier": "S", "reason": "llm: The answer, February 2002, is stated directly in the provided text, so a small model can extract it reliably.", "latency_ms": 1154.78, "cost_gbp": 8.8638e-05}
+{"id": "dolly-6220", "router": "v2-llm", "tier": "S", "reason": "llm: Simple list-generation task with no factual recall risk or trap, which the small model handles well.", "latency_ms": 920.75, "cost_gbp": 5.056e-05}
+{"id": "dolly-6396", "router": "v2-llm", "tier": "S", "reason": "llm: The request asks for key aspects drawn from a short passage the user supplies, which is a summarising task the small model handles well without needing outside recall.", "latency_ms": 1357.06, "cost_gbp": 9.3378e-05}
+{"id": "dolly-7906", "router": "v2-llm", "tier": "S", "reason": "llm: A short creative story with a plot twist and resolution is simple writing that the small model handles well.", "latency_ms": 1023.75, "cost_gbp": 5.2535000000000004e-05}
+{"id": "dolly-8094", "router": "v2-llm", "tier": "M", "reason": "llm: Generic personal finance advice request with no specific constraints; M can handle it well, and S may produce invented facts, so M is the cheapest adequate choice.", "latency_ms": 1078.85, "cost_gbp": 5.838100000000001e-05}
+{"id": "dolly-8122", "router": "v2-llm", "tier": "M", "reason": "llm: A general explanatory question about organic food benefits; M can answer well with nuance, while S might invent or oversimplify claims.", "latency_ms": 1007.39, "cost_gbp": 5.443100000000001e-05}
+{"id": "dolly-8251", "router": "v2-llm", "tier": "S", "reason": "llm: Open-ended gift brainstorming with no factual recall or traps; a small model can produce a usable list of ideas.", "latency_ms": 1092.74, "cost_gbp": 5.6563999999999996e-05}
+{"id": "dolly-9030", "router": "v2-llm", "tier": "S", "reason": "llm: Simple, low-stakes list of easy meal ideas that a small model can handle without factual recall traps.", "latency_ms": 792.93, "cost_gbp": 5.2456e-05}
+{"id": "gsm8k-104", "router": "v2-llm", "tier": "S", "reason": "llm: This is a simple two-step arithmetic word problem with no factual recall or trick, which the small model handles well.", "latency_ms": 1310.14, "cost_gbp": 9.961900000000001e-05}
+{"id": "gsm8k-1111", "router": "v2-llm", "tier": "S", "reason": "llm: A simple arithmetic word problem with three multiplications and one addition, which the small model handles well.", "latency_ms": 2859.85, "cost_gbp": 7.923700000000001e-05}
+{"id": "gsm8k-1150", "router": "v2-llm", "tier": "S", "reason": "llm: Simple two-step arithmetic word problem (30 - 24 + 15 = 21), well within the small model's abilities.", "latency_ms": 1204.16, "cost_gbp": 5.711700000000001e-05}
+{"id": "gsm8k-1269", "router": "v2-llm", "tier": "M", "reason": "llm: Two-step distance problem with a likely trap (net displacement vs. total distance), which the small model is prone to getting wrong.", "latency_ms": 2276.93, "cost_gbp": 0.000173879}
+{"id": "gsm8k-1314", "router": "v2-llm", "tier": "M", "reason": "llm: This is a multi-step age problem with distractors and a possible trap (identifying which son is youngest), which a small model is likely to get wrong, but a strong mid-tier model handles reliably.", "latency_ms": 2128.37, "cost_gbp": 0.000153734}
+{"id": "gsm8k-167", "router": "v2-llm", "tier": "M", "reason": "llm: A two-variable age word problem needs multi-step algebra, which is a known weak point for the small model, so the cheap strong model is the safe choice.", "latency_ms": 1891.14, "cost_gbp": 0.00012742700000000003}
+{"id": "gsm8k-19", "router": "v2-llm", "tier": "M", "reason": "llm: Multi-step rate problem requiring total-time reasoning, which the 3B model is weak at; M handles it reliably.", "latency_ms": 2003.55, "cost_gbp": 0.000150495}
+{"id": "gsm8k-225", "router": "v2-llm", "tier": "S", "reason": "llm: A simple arithmetic word problem: 6 days by bus plus 3 days by car (half of 6) gives 9 days.", "latency_ms": 1975.99, "cost_gbp": 0.00010404299999999998}
+{"id": "gsm8k-287", "router": "v2-llm", "tier": "S", "reason": "llm: A short arithmetic word problem with only a few steps (24 + 12 subtracted from 76, then divided by 5), which falls within the simple arithmetic S handles well.", "latency_ms": 2612.2, "cost_gbp": 0.00020721700000000005}
+{"id": "gsm8k-299", "router": "v2-llm", "tier": "M", "reason": "llm: Multi-step word problem with several traps (round trip doubles the mileage, 50 weeks not 52, monthly bonus over 12 months), which a 3B model is likely to get wrong.", "latency_ms": 3114.37, "cost_gbp": 0.000207138}
+{"id": "gsm8k-689", "router": "v2-llm", "tier": "M", "reason": "llm: This is a multi-step arithmetic word problem (derive the candy price first, then scale up), which is a known weak spot for the small model.", "latency_ms": 2390.93, "cost_gbp": 0.00019197}
+{"id": "gsm8k-9", "router": "v2-llm", "tier": "S", "reason": "llm: A simple two-step arithmetic word problem (40 regular hours plus 5 overtime hours) that the small model can handle reliably.", "latency_ms": 1404.2, "cost_gbp": 8.200200000000002e-05}
+{"id": "humaneval-1", "router": "v2-llm", "tier": "M", "reason": "llm: A stack-based bracket-grouping function is a moderate coding task that a 3B model could get wrong, but a fast strong model handles it reliably at low cost.", "latency_ms": 1475.65, "cost_gbp": 0.00010878299999999999}
+{"id": "humaneval-113", "router": "v2-llm", "tier": "M", "reason": "llm: Short but non-trivial string-processing function with a subtle replace-every-'i' requirement; a strong mid-tier model handles this reliably, while the 3B model risks getting the replacement logic wron", "latency_ms": 2563.76, "cost_gbp": 0.00017782900000000004}
+{"id": "humaneval-12", "router": "v2-llm", "tier": "S", "reason": "llm: A short, standard Python function with a clear spec and simple logic; a small model can handle it reliably.", "latency_ms": 1049.17, "cost_gbp": 6.3911e-05}
+{"id": "humaneval-125", "router": "v2-llm", "tier": "M", "reason": "llm: A short standard function, but the odd-order letter count is an easy off-by-one trap for a small model, so a strong mid-tier model is needed.", "latency_ms": 2753.75, "cost_gbp": 0.00018881}
+{"id": "humaneval-132", "router": "v2-llm", "tier": "M", "reason": "llm: A short but non-trivial coding task whose correct logic (detecting a nested bracket subsequence) needs careful reasoning that M handles reliably, while S is likely to get it wrong.", "latency_ms": 5169.82, "cost_gbp": 0.00037983200000000003}
+{"id": "humaneval-135", "router": "v2-llm", "tier": "S", "reason": "llm: A short, standard single-loop Python function with a clear example, which falls within the small model's strengths.", "latency_ms": 2085.78, "cost_gbp": 0.000170798}
+{"id": "humaneval-159", "router": "v2-llm", "tier": "S", "reason": "llm: This is a short, standard Python function with simple min/subtract logic, well within a small model's ability.", "latency_ms": 1550.82, "cost_gbp": 0.000122134}
+{"id": "humaneval-19", "router": "v2-llm", "tier": "S", "reason": "llm: A short, standard function (map words to digits, sort, map back) is within the small model's listed strengths.", "latency_ms": 2569.08, "cost_gbp": 0.000135564}
+{"id": "humaneval-36", "router": "v2-llm", "tier": "S", "reason": "llm: This is a short, standard function: loop over integers below n, check divisibility by 11 or 13, and count the digit 7, which falls within what S handles well.", "latency_ms": 2854.95, "cost_gbp": 0.000233998}
+{"id": "humaneval-37", "router": "v2-llm", "tier": "M", "reason": "llm: This is a short, standard function, but the docstring's index-based sorting rule is easy to get subtly wrong, so a model stronger than the 3B one is safer.", "latency_ms": 2283.42, "cost_gbp": 0.00016590000000000002}
+{"id": "humaneval-38", "router": "v2-llm", "tier": "S", "reason": "llm: Decoding is a short, standard inverse of the given encoder: rotate each full group of three characters back by one, leaving partial groups unchanged.", "latency_ms": 1841.83, "cost_gbp": 0.00013714400000000001}
+{"id": "humaneval-47", "router": "v2-llm", "tier": "M", "reason": "llm: The request is a short function, but the second doctest is wrong (the true median of that list is 8.0, not 15.0), so the model must notice the inconsistency rather than just write code. M is likely to", "latency_ms": 2325.85, "cost_gbp": 0.00016037}
+{"id": "humaneval-71", "router": "v2-llm", "tier": "S", "reason": "llm: This is a short, standard function (Heron's formula with a triangle-inequality check), which falls within the small model's strengths.", "latency_ms": 2785.95, "cost_gbp": 0.00020619}
+{"id": "humaneval-83", "router": "v2-llm", "tier": "M", "reason": "llm: A short function that needs a counting formula and an n=1 edge case; a strong mid-tier model handles this reliably without the cost of L.", "latency_ms": 3526.45, "cost_gbp": 0.00022601900000000002}
+{"id": "humaneval-90", "router": "v2-llm", "tier": "M", "reason": "llm: A short function, but the [1, 1] == None case requires deduplicating values, which a 3B model is likely to miss, so the cheap strong model is the safer choice.", "latency_ms": 2288.24, "cost_gbp": 0.00012719}
+{"id": "math500-algebra-2080", "router": "v2-llm", "tier": "M", "reason": "llm: Two polynomial expansions and a subtraction is multi-step algebra, which the 3B model is weak at, but it isn't hard enough to need L.", "latency_ms": 1807.97, "cost_gbp": 0.000115893}
+{"id": "math500-counting-and-probability-134", "router": "v2-llm", "tier": "M", "reason": "llm: A circular-arrangement count with a block constraint needs multi-step combinatorics that a small model may get wrong, but a strong mid-tier model handles it reliably.", "latency_ms": 2371.91, "cost_gbp": 0.00014275300000000002}
+{"id": "math500-number-theory-13", "router": "v2-llm", "tier": "M", "reason": "llm: Solving a linear congruence with a non-trivial gcd (2) needs multi-step modular arithmetic, which is beyond S, but M handles this reliably without needing L.", "latency_ms": 2121.26, "cost_gbp": 0.00015863200000000002}
+{"id": "math500-prealgebra-1840", "router": "v2-llm", "tier": "S", "reason": "llm: This is a short, straightforward arithmetic word problem with a few easy steps, which falls within the small model's strengths.", "latency_ms": 2670.1, "cost_gbp": 0.00020690099999999998}
+{"id": "math500-precalculus-323", "router": "v2-llm", "tier": "M", "reason": "llm: The problem needs multi-step linear algebra (solving for the matrix, then transforming a line), which M handles reliably without the trap-level difficulty that would justify L.", "latency_ms": 3425.78, "cost_gbp": 0.000274762}
+{"id": "mbpp-128", "router": "v2-llm", "tier": "S", "reason": "llm: This is a short, standard string-filtering function with simple test cases, well within a small model's ability.", "latency_ms": 1349.55, "cost_gbp": 9.4879e-05}
+{"id": "mbpp-160", "router": "v2-llm", "tier": "M", "reason": "llm: Requires extended Euclidean logic plus handling of the no-solution case, and the tests pin exact outputs, so a small model would likely miss; a strong mid-tier model should handle it.", "latency_ms": 2401.02, "cost_gbp": 0.000166532}
+{"id": "mbpp-281", "router": "v2-llm", "tier": "S", "reason": "llm: A short, standard Python function checking uniqueness with simple test cases is well within the small model's ability.", "latency_ms": 866.42, "cost_gbp": 5.751200000000001e-05}
+{"id": "mbpp-284", "router": "v2-llm", "tier": "S", "reason": "llm: A short, standard list-checking function with three simple asserts is well within the small model's ability.", "latency_ms": 1264.09, "cost_gbp": 7.3549e-05}
+{"id": "mbpp-406", "router": "v2-llm", "tier": "S", "reason": "llm: A short, standard Python function that checks whether a number is odd, with simple test cases; the small local model can handle this easily.", "latency_ms": 1077.82, "cost_gbp": 5.838100000000001e-05}
+{"id": "mbpp-424", "router": "v2-llm", "tier": "S", "reason": "llm: This is a short, standard one-line function (take the last character of each string in a tuple), which the small model can write reliably.", "latency_ms": 1262.8, "cost_gbp": 8.460899999999999e-05}
+{"id": "mbpp-443", "router": "v2-llm", "tier": "S", "reason": "llm: A short, standard list-filtering function with simple tests; the small model can handle it.", "latency_ms": 2675.18, "cost_gbp": 0.000114313}
+{"id": "mt-bench-100", "router": "v2-llm", "tier": "S", "reason": "llm: This is a creative roleplay writing task with no factual recall, tricky reasoning, or heavy constraints, so the free small model can produce a sendable answer.", "latency_ms": 837.9, "cost_gbp": 6.3516e-05}
+{"id": "mt-bench-103", "router": "v2-llm", "tier": "S", "reason": "llm: This is an open-ended list of everyday explanations (work, visiting someone, donating, research), which a small model can handle without recalling facts.", "latency_ms": 2862.87, "cost_gbp": 0.00020224}
+{"id": "mt-bench-108", "router": "v2-llm", "tier": "S", "reason": "llm: This is a simple odd-one-out question where 'car' is the whole vehicle and the other three are its parts, so a small model can answer it reliably.", "latency_ms": 1883.31, "cost_gbp": 0.00013351}
+{"id": "mt-bench-109", "router": "v2-llm", "tier": "M", "reason": "llm: This is a multi-step spatial reasoning puzzle with a distractor (the 'right' detail) that could mislead a weaker model, but a strong mid-tier model can handle it reliably.", "latency_ms": 2624.15, "cost_gbp": 0.000199001}
+{"id": "mt-bench-111", "router": "v2-llm", "tier": "M", "reason": "llm: Computing a triangle's area from coordinates is a short multi-step calculation (shoelace formula with signs), which is beyond the 3B model's reliable range but easy for M.", "latency_ms": 1937.56, "cost_gbp": 0.000136749}
+{"id": "mt-bench-115", "router": "v2-llm", "tier": "M", "reason": "llm: Multi-step word problem that requires setting up and solving a linear equation, which a small model is likely to get wrong, so a cheap strong model is needed.", "latency_ms": 2504.06, "cost_gbp": 0.000173168}
+{"id": "mt-bench-126", "router": "v2-llm", "tier": "M", "reason": "llm: A two-pointer walk to the middle gives O(n) time and O(1) space, a standard algorithm that needs careful edge-case handling (even/odd totals, empty arrays) beyond S's reliable range but well within M.", "latency_ms": 2394.48, "cost_gbp": 0.00013825}
+{"id": "mt-bench-133", "router": "v2-llm", "tier": "S", "reason": "llm: All the needed facts are stated in the text and the output format is explicit, so this is extraction from given text, which the small model handles well.", "latency_ms": 3726.33, "cost_gbp": 0.00028424200000000003}
+{"id": "mt-bench-134", "router": "v2-llm", "tier": "S", "reason": "llm: The answer is a direct comparison of profit figures given in the request (Company V, $25B, CEO Lisa Brown), with no outside facts or multi-step maths needed.", "latency_ms": 1630.43, "cost_gbp": 0.000138803}
+{"id": "mt-bench-136", "router": "v2-llm", "tier": "M", "reason": "llm: Counting three words across a long paragraph with ambiguous cases (riverbanks, river's, yourself) is error-prone for a small model, but M handles it reliably at low cost.", "latency_ms": 3647.5, "cost_gbp": 0.00034357100000000003}
+{"id": "mt-bench-140", "router": "v2-llm", "tier": "S", "reason": "llm: Finding the max and min of two closing prices per month is simple comparison work on data given in the request, which a small model can handle reliably.", "latency_ms": 2098.44, "cost_gbp": 0.00016147600000000002}
+{"id": "mt-bench-86", "router": "v2-llm", "tier": "S", "reason": "llm: A descriptive paragraph with sensory details is simple creative writing that the small model handles well.", "latency_ms": 945.82, "cost_gbp": 5.4115e-05}
+{"id": "mt-bench-94", "router": "v2-llm", "tier": "M", "reason": "llm: Relationship coaching advice on spousal conflict is open-ended but doesn't require recalling facts or solving hard problems, so M handles it well.", "latency_ms": 966.78, "cost_gbp": 6.7624e-05}
+{"id": "triviaqa-bt-747", "router": "v2-llm", "tier": "M", "reason": "llm: This is a factual recall question with some ambiguity about what counts as 'biggest', which S is likely to get wrong but M can handle well.", "latency_ms": 1540.71, "cost_gbp": 0.00010222600000000001}
+{"id": "triviaqa-odql-465", "router": "v2-llm", "tier": "M", "reason": "llm: A single factual recall question with a specific date; a strong mid-tier model handles this reliably, while the small model would likely invent the answer.", "latency_ms": 1938.31, "cost_gbp": 0.000137065}
+{"id": "triviaqa-qb-8296", "router": "v2-llm", "tier": "M", "reason": "llm: A factual recall question about a well-known band; S is prone to inventing names, so the cheap, reliable M is the right choice.", "latency_ms": 1417.3, "cost_gbp": 9.543200000000002e-05}
+{"id": "triviaqa-qf-1245", "router": "v2-llm", "tier": "M", "reason": "llm: A simple factual recall question with a well-known answer (the Colorado River), which S might hallucinate on but M answers reliably.", "latency_ms": 1680.18, "cost_gbp": 5.5458e-05}
+{"id": "triviaqa-qg-3883", "router": "v2-llm", "tier": "M", "reason": "llm: This is a factual recall question with a clear answer (the Statue of Liberty), which M handles reliably, while S often invents facts.", "latency_ms": 1499.07, "cost_gbp": 0.000107124}
+{"id": "triviaqa-qw-2853", "router": "v2-llm", "tier": "M", "reason": "llm: This requires recalling a specific trivia fact (the first MTV video), which the small model is unreliable at, but the mid-tier model handles reliably.", "latency_ms": 1818.85, "cost_gbp": 9.187700000000001e-05}
+{"id": "triviaqa-sfq-22246", "router": "v2-llm", "tier": "M", "reason": "llm: This is a factual recall question about a specific programme, which the small model often gets wrong, so the mid-tier model is the cheapest reliable choice.", "latency_ms": 1776.5, "cost_gbp": 0.000107361}
+{"id": "triviaqa-tb-2348", "router": "v2-llm", "tier": "M", "reason": "llm: This is a niche factual recall question about sumo memorabilia, which the small model is likely to get wrong, but a strong mid-tier model handles it reliably.", "latency_ms": 1997.23, "cost_gbp": 0.000135169}
+{"id": "triviaqa-wh-1013", "router": "v2-llm", "tier": "M", "reason": "llm: This is a factual recall question that the small model may get wrong, but it is not a trap or hard task, so the mid-tier model is enough.", "latency_ms": 1330.33, "cost_gbp": 8.453e-05}
+{"id": "triviaqa-wh-2051", "router": "v2-llm", "tier": "M", "reason": "llm: This is a simple factual recall question, which the 3B model is prone to get wrong, so a fast, reliable model is needed.", "latency_ms": 1668.44, "cost_gbp": 0.000115656}
+{"id": "truthfulqa-17", "router": "v2-llm", "tier": "M", "reason": "llm: This is a common-misconception question that needs accurate recall of the evidence on the 30-minute rule, which S is weak at, but M handles reliably.", "latency_ms": 1676.95, "cost_gbp": 0.00010522799999999999}
+{"id": "truthfulqa-186", "router": "v2-llm", "tier": "M", "reason": "llm: This asks for a nuanced, evidence-based answer on contested research, which S would likely get wrong by inventing studies, but M can handle without needing L.", "latency_ms": 1655.38, "cost_gbp": 0.00010443799999999999}
+{"id": "truthfulqa-218", "router": "v2-llm", "tier": "M", "reason": "llm: This is a well-known misconception question that requires factual recall and debunking, which S handles poorly, but M should answer it correctly without needing L.", "latency_ms": 1719.57, "cost_gbp": 0.000111785}
+{"id": "truthfulqa-240", "router": "v2-llm", "tier": "M", "reason": "llm: The question is a common nutrition misconception that needs accurate, nuanced facts (fat type, added sugar), which the small model would likely get wrong, but the mid-tier model handles this well with", "latency_ms": 1812.74, "cost_gbp": 0.000110047}
+{"id": "truthfulqa-291", "router": "v2-llm", "tier": "M", "reason": "llm: A playful question that mixes the Aladdin myth with reality, which is a light trap for a small model, so a fast strong model is the safer choice.", "latency_ms": 3145.5, "cost_gbp": 0.000192128}
+{"id": "truthfulqa-427", "router": "v2-llm", "tier": "M", "reason": "llm: The question requires recalling a specific real person from vague clues, and the likely answer (Madoff) is a fact-recall task that a small model would probably get wrong, so a mid-tier model is needed", "latency_ms": 2382.91, "cost_gbp": 0.000175696}
+{"id": "truthfulqa-454", "router": "v2-llm", "tier": "M", "reason": "llm: This is a factual recall question with a possible misconception (California has no statewide book ban), so the small model would likely invent titles; a strong mid-tier model can handle it accurately.", "latency_ms": 1463.36, "cost_gbp": 8.358200000000001e-05}
+{"id": "truthfulqa-515", "router": "v2-llm", "tier": "M", "reason": "llm: Factual economic-trend question requiring recall and nuance about price indices, which S is weak at, but M handles well without needing the strongest model.", "latency_ms": 1624.76, "cost_gbp": 5.7275e-05}
+{"id": "truthfulqa-530", "router": "v2-llm", "tier": "M", "reason": "llm: The question rests on a misconception (Africa is a continent, not a country) and requires accurate facts about global poverty, which S is likely to get wrong, but M handles this well.", "latency_ms": 1554.09, "cost_gbp": 9.495800000000001e-05}
+{"id": "truthfulqa-555", "router": "v2-llm", "tier": "M", "reason": "llm: This needs factual recall about two cities' winter climates, which the 3B model handles unreliably, but M handles easily without needing L.", "latency_ms": 1269.23, "cost_gbp": 7.5129e-05}
+{"id": "truthfulqa-697", "router": "v2-llm", "tier": "M", "reason": "llm: A open-ended question about elephants' views of humans requires careful, accurate handling of what is known versus speculative, which S is likely to fill with invented claims, while M handles it well ", "latency_ms": 1354.53, "cost_gbp": 6.272600000000001e-05}
+{"id": "truthfulqa-710", "router": "v2-llm", "tier": "M", "reason": "llm: Primality of 91 is a common misconception trap (it is 7\u00d713), which the small model is likely to get wrong, but the mid-tier model handles it reliably.", "latency_ms": 1477.36, "cost_gbp": 9.748600000000002e-05}
+{"id": "truthfulqa-815", "router": "v2-llm", "tier": "M", "reason": "llm: This requires recalling accurate biographical facts (she died in 1997 and was canonized in 2016), which the small model is weak at, but M handles reliably.", "latency_ms": 1447.21, "cost_gbp": 9.653800000000002e-05}
+{"id": "dolly-1057", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.31 P(M)=0.65 P(L)=0.04, threshold 0.7", "latency_ms": 7708.96, "cost_gbp": 0.0}
+{"id": "dolly-11472", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.32 P(M)=0.62 P(L)=0.05, threshold 0.7", "latency_ms": 17.76, "cost_gbp": 0.0}
+{"id": "dolly-14110", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.41 P(M)=0.53 P(L)=0.06, threshold 0.7", "latency_ms": 14.71, "cost_gbp": 0.0}
+{"id": "dolly-14693", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.52 P(M)=0.42 P(L)=0.06, threshold 0.7", "latency_ms": 32.58, "cost_gbp": 0.0}
+{"id": "dolly-1921", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.44 P(M)=0.50 P(L)=0.06, threshold 0.7", "latency_ms": 16.17, "cost_gbp": 0.0}
+{"id": "dolly-2814", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.48 P(M)=0.44 P(L)=0.08, threshold 0.7", "latency_ms": 25.8, "cost_gbp": 0.0}
+{"id": "dolly-4083", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.28 P(M)=0.67 P(L)=0.05, threshold 0.7", "latency_ms": 14.09, "cost_gbp": 0.0}
+{"id": "dolly-4968", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.55 P(M)=0.38 P(L)=0.07, threshold 0.7", "latency_ms": 24.75, "cost_gbp": 0.0}
+{"id": "dolly-5432", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.51 P(M)=0.41 P(L)=0.09, threshold 0.7", "latency_ms": 31.55, "cost_gbp": 0.0}
+{"id": "dolly-6220", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.34 P(M)=0.60 P(L)=0.06, threshold 0.7", "latency_ms": 11.51, "cost_gbp": 0.0}
+{"id": "dolly-6396", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.63 P(M)=0.32 P(L)=0.06, threshold 0.7", "latency_ms": 26.3, "cost_gbp": 0.0}
+{"id": "dolly-7906", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.54 P(M)=0.39 P(L)=0.07, threshold 0.7", "latency_ms": 16.14, "cost_gbp": 0.0}
+{"id": "dolly-8094", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.44 P(M)=0.49 P(L)=0.07, threshold 0.7", "latency_ms": 10.85, "cost_gbp": 0.0}
+{"id": "dolly-8122", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.49 P(M)=0.43 P(L)=0.08, threshold 0.7", "latency_ms": 11.39, "cost_gbp": 0.0}
+{"id": "dolly-8251", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.36 P(M)=0.60 P(L)=0.04, threshold 0.7", "latency_ms": 16.54, "cost_gbp": 0.0}
+{"id": "dolly-9030", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.37 P(M)=0.57 P(L)=0.06, threshold 0.7", "latency_ms": 12.73, "cost_gbp": 0.0}
+{"id": "gsm8k-104", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.59 P(M)=0.37 P(L)=0.04, threshold 0.7", "latency_ms": 18.89, "cost_gbp": 0.0}
+{"id": "gsm8k-1111", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.67 P(M)=0.30 P(L)=0.03, threshold 0.7", "latency_ms": 16.87, "cost_gbp": 0.0}
+{"id": "gsm8k-1150", "router": "v3-embed", "tier": "S", "reason": "embed: P(S)=0.76 P(M)=0.20 P(L)=0.04, threshold 0.7", "latency_ms": 15.63, "cost_gbp": 0.0}
+{"id": "gsm8k-1269", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.51 P(M)=0.44 P(L)=0.04, threshold 0.7", "latency_ms": 19.14, "cost_gbp": 0.0}
+{"id": "gsm8k-1314", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.52 P(M)=0.40 P(L)=0.09, threshold 0.7", "latency_ms": 19.39, "cost_gbp": 0.0}
+{"id": "gsm8k-167", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.39 P(M)=0.55 P(L)=0.06, threshold 0.7", "latency_ms": 15.81, "cost_gbp": 0.0}
+{"id": "gsm8k-19", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.47 P(M)=0.49 P(L)=0.04, threshold 0.7", "latency_ms": 19.88, "cost_gbp": 0.0}
+{"id": "gsm8k-225", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.56 P(M)=0.38 P(L)=0.06, threshold 0.7", "latency_ms": 20.87, "cost_gbp": 0.0}
+{"id": "gsm8k-287", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.58 P(M)=0.39 P(L)=0.04, threshold 0.7", "latency_ms": 18.65, "cost_gbp": 0.0}
+{"id": "gsm8k-299", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.63 P(M)=0.33 P(L)=0.04, threshold 0.7", "latency_ms": 24.6, "cost_gbp": 0.0}
+{"id": "gsm8k-689", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.62 P(M)=0.34 P(L)=0.04, threshold 0.7", "latency_ms": 18.17, "cost_gbp": 0.0}
+{"id": "gsm8k-9", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.52 P(M)=0.42 P(L)=0.06, threshold 0.7", "latency_ms": 20.95, "cost_gbp": 0.0}
+{"id": "humaneval-1", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.55 P(M)=0.41 P(L)=0.05, threshold 0.7", "latency_ms": 35.58, "cost_gbp": 0.0}
+{"id": "humaneval-113", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.60 P(M)=0.35 P(L)=0.05, threshold 0.7", "latency_ms": 46.58, "cost_gbp": 0.0}
+{"id": "humaneval-12", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.51 P(M)=0.45 P(L)=0.04, threshold 0.7", "latency_ms": 35.49, "cost_gbp": 0.0}
+{"id": "humaneval-125", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.61 P(M)=0.33 P(L)=0.06, threshold 0.7", "latency_ms": 43.85, "cost_gbp": 0.0}
+{"id": "humaneval-132", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.56 P(M)=0.38 P(L)=0.06, threshold 0.7", "latency_ms": 43.96, "cost_gbp": 0.0}
+{"id": "humaneval-135", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.47 P(M)=0.48 P(L)=0.06, threshold 0.7", "latency_ms": 28.49, "cost_gbp": 0.0}
+{"id": "humaneval-159", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.60 P(M)=0.35 P(L)=0.04, threshold 0.7", "latency_ms": 57.84, "cost_gbp": 0.0}
+{"id": "humaneval-19", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.54 P(M)=0.41 P(L)=0.04, threshold 0.7", "latency_ms": 34.39, "cost_gbp": 0.0}
+{"id": "humaneval-36", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.51 P(M)=0.45 P(L)=0.04, threshold 0.7", "latency_ms": 21.66, "cost_gbp": 0.0}
+{"id": "humaneval-37", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.50 P(M)=0.45 P(L)=0.05, threshold 0.7", "latency_ms": 34.1, "cost_gbp": 0.0}
+{"id": "humaneval-38", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.45 P(M)=0.50 P(L)=0.05, threshold 0.7", "latency_ms": 46.23, "cost_gbp": 0.0}
+{"id": "humaneval-47", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.56 P(M)=0.40 P(L)=0.04, threshold 0.7", "latency_ms": 23.33, "cost_gbp": 0.0}
+{"id": "humaneval-71", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.50 P(M)=0.46 P(L)=0.04, threshold 0.7", "latency_ms": 31.63, "cost_gbp": 0.0}
+{"id": "humaneval-83", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.48 P(M)=0.48 P(L)=0.04, threshold 0.7", "latency_ms": 19.59, "cost_gbp": 0.0}
+{"id": "humaneval-90", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.46 P(M)=0.50 P(L)=0.04, threshold 0.7", "latency_ms": 34.86, "cost_gbp": 0.0}
+{"id": "math500-algebra-2080", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.53 P(M)=0.41 P(L)=0.06, threshold 0.7", "latency_ms": 17.7, "cost_gbp": 0.0}
+{"id": "math500-counting-and-probability-134", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.53 P(M)=0.42 P(L)=0.05, threshold 0.7", "latency_ms": 19.93, "cost_gbp": 0.0}
+{"id": "math500-number-theory-13", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.33 P(M)=0.62 P(L)=0.05, threshold 0.7", "latency_ms": 17.17, "cost_gbp": 0.0}
+{"id": "math500-prealgebra-1840", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.44 P(M)=0.53 P(L)=0.03, threshold 0.7", "latency_ms": 26.13, "cost_gbp": 0.0}
+{"id": "math500-precalculus-323", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.44 P(M)=0.50 P(L)=0.07, threshold 0.7", "latency_ms": 36.75, "cost_gbp": 0.0}
+{"id": "mbpp-128", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.52 P(M)=0.42 P(L)=0.06, threshold 0.7", "latency_ms": 26.85, "cost_gbp": 0.0}
+{"id": "mbpp-160", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.41 P(M)=0.54 P(L)=0.05, threshold 0.7", "latency_ms": 26.64, "cost_gbp": 0.0}
+{"id": "mbpp-281", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.51 P(M)=0.43 P(L)=0.05, threshold 0.7", "latency_ms": 25.71, "cost_gbp": 0.0}
+{"id": "mbpp-284", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.53 P(M)=0.42 P(L)=0.05, threshold 0.7", "latency_ms": 32.05, "cost_gbp": 0.0}
+{"id": "mbpp-406", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.41 P(M)=0.54 P(L)=0.05, threshold 0.7", "latency_ms": 21.58, "cost_gbp": 0.0}
+{"id": "mbpp-424", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.39 P(M)=0.55 P(L)=0.06, threshold 0.7", "latency_ms": 34.76, "cost_gbp": 0.0}
+{"id": "mbpp-443", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.38 P(M)=0.55 P(L)=0.07, threshold 0.7", "latency_ms": 27.3, "cost_gbp": 0.0}
+{"id": "mt-bench-100", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.38 P(M)=0.54 P(L)=0.08, threshold 0.7", "latency_ms": 20.17, "cost_gbp": 0.0}
+{"id": "mt-bench-103", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.52 P(M)=0.41 P(L)=0.07, threshold 0.7", "latency_ms": 15.84, "cost_gbp": 0.0}
+{"id": "mt-bench-108", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.56 P(M)=0.38 P(L)=0.06, threshold 0.7", "latency_ms": 14.09, "cost_gbp": 0.0}
+{"id": "mt-bench-109", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.50 P(M)=0.44 P(L)=0.06, threshold 0.7", "latency_ms": 19.93, "cost_gbp": 0.0}
+{"id": "mt-bench-111", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.52 P(M)=0.44 P(L)=0.04, threshold 0.7", "latency_ms": 17.82, "cost_gbp": 0.0}
+{"id": "mt-bench-115", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.62 P(M)=0.33 P(L)=0.04, threshold 0.7", "latency_ms": 23.91, "cost_gbp": 0.0}
+{"id": "mt-bench-126", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.34 P(M)=0.61 P(L)=0.05, threshold 0.7", "latency_ms": 16.68, "cost_gbp": 0.0}
+{"id": "mt-bench-133", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.40 P(M)=0.54 P(L)=0.06, threshold 0.7", "latency_ms": 82.21, "cost_gbp": 0.0}
+{"id": "mt-bench-134", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.29 P(M)=0.65 P(L)=0.06, threshold 0.7", "latency_ms": 45.3, "cost_gbp": 0.0}
+{"id": "mt-bench-136", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.49 P(M)=0.47 P(L)=0.04, threshold 0.7", "latency_ms": 61.71, "cost_gbp": 0.0}
+{"id": "mt-bench-140", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.32 P(M)=0.62 P(L)=0.06, threshold 0.7", "latency_ms": 49.58, "cost_gbp": 0.0}
+{"id": "mt-bench-86", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.48 P(M)=0.48 P(L)=0.05, threshold 0.7", "latency_ms": 17.41, "cost_gbp": 0.0}
+{"id": "mt-bench-94", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.48 P(M)=0.45 P(L)=0.08, threshold 0.7", "latency_ms": 27.39, "cost_gbp": 0.0}
+{"id": "triviaqa-bt-747", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.29 P(M)=0.65 P(L)=0.06, threshold 0.7", "latency_ms": 13.04, "cost_gbp": 0.0}
+{"id": "triviaqa-odql-465", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.48 P(M)=0.45 P(L)=0.07, threshold 0.7", "latency_ms": 14.25, "cost_gbp": 0.0}
+{"id": "triviaqa-qb-8296", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.30 P(M)=0.63 P(L)=0.07, threshold 0.7", "latency_ms": 15.72, "cost_gbp": 0.0}
+{"id": "triviaqa-qf-1245", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.42 P(M)=0.51 P(L)=0.06, threshold 0.7", "latency_ms": 13.3, "cost_gbp": 0.0}
+{"id": "triviaqa-qg-3883", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.43 P(M)=0.51 P(L)=0.07, threshold 0.7", "latency_ms": 14.88, "cost_gbp": 0.0}
+{"id": "triviaqa-qw-2853", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.49 P(M)=0.42 P(L)=0.09, threshold 0.7", "latency_ms": 13.21, "cost_gbp": 0.0}
+{"id": "triviaqa-sfq-22246", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.28 P(M)=0.66 P(L)=0.06, threshold 0.7", "latency_ms": 14.23, "cost_gbp": 0.0}
+{"id": "triviaqa-tb-2348", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.28 P(M)=0.66 P(L)=0.06, threshold 0.7", "latency_ms": 16.88, "cost_gbp": 0.0}
+{"id": "triviaqa-wh-1013", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.38 P(M)=0.55 P(L)=0.07, threshold 0.7", "latency_ms": 14.29, "cost_gbp": 0.0}
+{"id": "triviaqa-wh-2051", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.31 P(M)=0.61 P(L)=0.07, threshold 0.7", "latency_ms": 16.81, "cost_gbp": 0.0}
+{"id": "truthfulqa-17", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.34 P(M)=0.60 P(L)=0.06, threshold 0.7", "latency_ms": 12.96, "cost_gbp": 0.0}
+{"id": "truthfulqa-186", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.36 P(M)=0.51 P(L)=0.13, threshold 0.7", "latency_ms": 12.91, "cost_gbp": 0.0}
+{"id": "truthfulqa-218", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.36 P(M)=0.58 P(L)=0.06, threshold 0.7", "latency_ms": 13.09, "cost_gbp": 0.0}
+{"id": "truthfulqa-240", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.35 P(M)=0.58 P(L)=0.07, threshold 0.7", "latency_ms": 12.97, "cost_gbp": 0.0}
+{"id": "truthfulqa-291", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.47 P(M)=0.45 P(L)=0.08, threshold 0.7", "latency_ms": 12.48, "cost_gbp": 0.0}
+{"id": "truthfulqa-427", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.41 P(M)=0.47 P(L)=0.11, threshold 0.7", "latency_ms": 15.37, "cost_gbp": 0.0}
+{"id": "truthfulqa-454", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.41 P(M)=0.50 P(L)=0.09, threshold 0.7", "latency_ms": 12.36, "cost_gbp": 0.0}
+{"id": "truthfulqa-515", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.48 P(M)=0.45 P(L)=0.07, threshold 0.7", "latency_ms": 13.9, "cost_gbp": 0.0}
+{"id": "truthfulqa-530", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.45 P(M)=0.48 P(L)=0.06, threshold 0.7", "latency_ms": 12.97, "cost_gbp": 0.0}
+{"id": "truthfulqa-555", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.33 P(M)=0.62 P(L)=0.05, threshold 0.7", "latency_ms": 13.51, "cost_gbp": 0.0}
+{"id": "truthfulqa-697", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.44 P(M)=0.48 P(L)=0.07, threshold 0.7", "latency_ms": 12.88, "cost_gbp": 0.0}
+{"id": "truthfulqa-710", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.53 P(M)=0.39 P(L)=0.08, threshold 0.7", "latency_ms": 12.54, "cost_gbp": 0.0}
+{"id": "truthfulqa-815", "router": "v3-embed", "tier": "M", "reason": "embed: P(S)=0.37 P(M)=0.50 P(L)=0.13, threshold 0.7", "latency_ms": 12.73, "cost_gbp": 0.0}

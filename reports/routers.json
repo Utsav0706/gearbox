@@ -1,142 +1,142 @@
 {
-  "test_prompts": 91,
+  "test_prompts": 121,
   "label_mix": {
-    "S": 42,
-    "M": 44,
-    "L": 5
+    "S": 43,
+    "M": 56,
+    "L": 22
   },
   "baselines": {
     "always-S": {
-      "pass_rate": 0.46153846153846156,
-      "mean_score": 2.934065934065934,
+      "pass_rate": 0.35537190082644626,
+      "mean_score": 2.520661157024793,
       "answer_cost_gbp": 0.0
     },
     "always-M": {
-      "pass_rate": 0.945054945054945,
-      "mean_score": 4.714285714285714,
-      "answer_cost_gbp": 0.01938581
+      "pass_rate": 0.8099173553719008,
+      "mean_score": 4.223140495867769,
+      "answer_cost_gbp": 0.037576271
     },
     "always-L": {
-      "pass_rate": 0.945054945054945,
-      "mean_score": 4.736263736263736,
-      "answer_cost_gbp": 0.3347625
+      "pass_rate": 0.8842975206611571,
+      "mean_score": 4.4958677685950414,
+      "answer_cost_gbp": 0.57713292
     },
     "oracle (label)": {
-      "pass_rate": 0.978021978021978,
-      "mean_score": 4.648351648351649,
-      "answer_cost_gbp": 0.027654345
+      "pass_rate": 0.9008264462809917,
+      "mean_score": 4.338842975206612,
+      "answer_cost_gbp": 0.169065609
     }
   },
   "routers": {
     "v1-rules": {
       "routing": {
-        "accuracy": 0.5164835164835165,
-        "under_rate": 0.4065934065934066,
-        "over_rate": 0.07692307692307693,
+        "accuracy": 0.4214876033057851,
+        "under_rate": 0.5289256198347108,
+        "over_rate": 0.049586776859504134,
         "confusion": [
           [
-            35,
-            6,
+            37,
+            5,
             1
           ],
           [
-            32,
-            12,
+            42,
+            14,
             0
           ],
           [
-            3,
-            2,
+            12,
+            10,
             0
           ]
         ],
         "latency_p50_ms": 0.03,
-        "latency_p95_ms": 0.09,
+        "latency_p95_ms": 0.1,
         "routing_cost_gbp": 0.0,
         "picks": {
-          "S": 70,
-          "M": 20,
+          "S": 91,
+          "M": 29,
           "L": 1
         }
       },
       "outcome": {
-        "pass_rate": 0.5934065934065934,
-        "mean_score": 3.3846153846153846,
-        "answer_cost_gbp": 0.009337010000000001
+        "pass_rate": 0.47107438016528924,
+        "mean_score": 2.909090909090909,
+        "answer_cost_gbp": 0.014083646000000002
       }
     },
     "v2-llm": {
       "routing": {
-        "accuracy": 0.6593406593406593,
-        "under_rate": 0.15384615384615385,
-        "over_rate": 0.18681318681318682,
+        "accuracy": 0.6363636363636364,
+        "under_rate": 0.2066115702479339,
+        "over_rate": 0.15702479338842976,
         "confusion": [
           [
-            25,
-            17,
+            27,
+            16,
             0
           ],
           [
-            9,
-            35,
-            0
+            7,
+            46,
+            3
           ],
           [
             2,
-            3,
-            0
+            16,
+            4
           ]
         ],
-        "latency_p50_ms": 1807.97,
-        "latency_p95_ms": 3425.78,
-        "routing_cost_gbp": 0.011519464,
+        "latency_p50_ms": 1859.67,
+        "latency_p95_ms": 3971.76,
+        "routing_cost_gbp": 0.01704583,
         "picks": {
           "S": 36,
-          "M": 55,
-          "L": 0
+          "M": 78,
+          "L": 7
         }
       },
       "outcome": {
-        "pass_rate": 0.8461538461538461,
-        "mean_score": 4.263736263736264,
-        "answer_cost_gbp": 0.013854388
+        "pass_rate": 0.7603305785123967,
+        "mean_score": 3.9834710743801653,
+        "answer_cost_gbp": 0.106016025
       }
     },
     "v3-embed": {
       "routing": {
-        "accuracy": 0.4945054945054945,
-        "under_rate": 0.054945054945054944,
-        "over_rate": 0.45054945054945056,
+        "accuracy": 0.49586776859504134,
+        "under_rate": 0.08264462809917356,
+        "over_rate": 0.4214876033057851,
         "confusion": [
           [
-            1,
-            41,
-            0
+            0,
+            40,
+            3
           ],
           [
             0,
-            44,
-            0
+            48,
+            8
           ],
           [
             0,
-            5,
-            0
+            10,
+            12
           ]
         ],
-        "latency_p50_ms": 18.89,
-        "latency_p95_ms": 49.58,
+        "latency_p50_ms": 18.32,
+        "latency_p95_ms": 55.76,
         "routing_cost_gbp": 0.0,
         "picks": {
-          "S": 1,
-          "M": 90,
-          "L": 0
+          "S": 0,
+          "M": 98,
+          "L": 23
         }
       },
       "outcome": {
-        "pass_rate": 0.945054945054945,
-        "mean_score": 4.714285714285714,
-        "answer_cost_gbp": 0.019348917
+        "pass_rate": 0.8181818181818182,
+        "mean_score": 4.2727272727272725,
+        "answer_cost_gbp": 0.13853748100000002
       }
     }
   }

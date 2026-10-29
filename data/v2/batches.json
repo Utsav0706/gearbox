@@ -1,0 +1,18 @@
+[
+  {
+    "batch_id": "msgbatch_01RfF4TcUSjAFViZBydUQidc",
+    "tier": "M",
+    "model": "anthropic/claude-haiku-5-5",
+    "requests": 120,
+    "estimate_gbp": 0.015,
+    "collected": true
+  },
+  {
+    "batch_id": "msgbatch_01VS8SPgqW4YPu1LwosN7w7v",
+    "tier": "L",
+    "model": "anthropic/claude-sonnet-5-5",
+    "requests": 120,
+    "estimate_gbp": 0.2514,
+    "collected": true
+  }
+]
