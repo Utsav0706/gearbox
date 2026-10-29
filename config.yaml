@@ -22,6 +22,16 @@ tiers:
     max_tokens: 3000
     timeout_s: 180   # a 3000-token Sonnet answer can take well over a minute
 
+# Scores answers 1-5 to make the labels (cheapest tier scoring >= 4). Sonnet, the
+# strongest of the three tiers; whether it can be trusted is measured against Uv's hand
+# labels (Cohen's kappa), not assumed. Low effort: grading against a reference answer
+# needs little thinking, and thinking tokens are billed as output.
+judge:
+  model: anthropic/claude-sonnet-5-5
+  prompt: prompts/judge_v1.md
+  effort: low
+  max_tokens: 2000
+
 # USD per million tokens (Anthropic first-party API, checked 2026-10-22 for Scout).
 # Re-check on the pricing page before any paid run. Local models cost 0.
 prices_usd_per_mtok:

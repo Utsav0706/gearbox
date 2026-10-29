@@ -122,5 +122,11 @@
       "taken": 28,
       "usable": 1060
     }
-  ]
+  ],
+  "files_sha256": {
+    "answers.jsonl": "92dbc6bd377cc59a6255467928b631e90d1f484e05ba6f23fb052d5baf3253ce",
+    "judgments.jsonl": "487aad105ee236ef85dd0afb8206db71205113e5e4ab04714744f3e851d8b0f4",
+    "labels.jsonl": "8f0f5b3649e93dd8ad32977571a9eadfc5049f9bbe16a5534cf48465cb7fac3f",
+    "split.json": "51d8f6208d45e46e5075e998720a7b1f790a08d0affaee451e55242930de1e7c"
+  }
 }

@@ -45,10 +45,22 @@ class ModelPrice(BaseModel):
     output: float = Field(ge=0)
 
 
+class JudgeConfig(BaseModel):
+    """The LLM judge that scores answers to make the labels (M4) and the eval (M8)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    model: str = Field(min_length=1)
+    prompt: Path  # versioned rubric file, e.g. prompts/judge_v1.md
+    effort: Literal["low", "medium", "high"] = "low"
+    max_tokens: int = Field(default=2000, gt=0, le=16_000)
+
+
 class AppConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     tiers: dict[Tier, TierConfig]
+    judge: JudgeConfig
     prices_usd_per_mtok: dict[str, ModelPrice]
     usd_to_gbp: float = Field(gt=0)
 
@@ -58,7 +70,8 @@ class AppConfig(BaseModel):
         if missing:
             raise ValueError(f"config.yaml is missing tiers: {sorted(missing)}")
         # Without a price, cost logging and the budget cap would silently read 0.
-        unpriced = {t.model for t in self.tiers.values()} - set(self.prices_usd_per_mtok)
+        models = {t.model for t in self.tiers.values()} | {self.judge.model}
+        unpriced = models - set(self.prices_usd_per_mtok)
         if unpriced:
             raise ValueError(f"prices_usd_per_mtok is missing: {sorted(unpriced)}")
         return self

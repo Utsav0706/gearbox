@@ -47,3 +47,28 @@ so these are the answers the router would get live.
 
 Output tokens include thinking. One Haiku answer (`mbpp-438`) is empty: it spent all
 3,000 tokens thinking. It is kept: a real failure is what the labels should record.
+
+## Judgments, labels and split (M4)
+
+`judgments.jsonl`: every answer scored 1-5 by the judge (`config.yaml` `judge`:
+Claude Sonnet 5.5, low effort, rubric `prompts/judge_v1.md`), blind to which tier wrote
+it, with the reference answer when one exists, as structured JSON with a one-line reason.
+Two rules are applied in code: an empty answer scores 1 without a model call, and the
+overall score never exceeds the correctness score. Cost: GBP 2.39 (Message Batches).
+
+| tier | pass rate (score >= 4) | mean score |
+|---|---|---|
+| S (llama3.2:3b) | 46% | 3.04 |
+| M (Haiku 5.5) | 93% | 4.68 |
+| L (Sonnet 5.5) | 96% | 4.75 |
+
+`labels.jsonl`: label = cheapest tier scoring >= 4, else L. Mix: S 208, M 215, L 27.
+Only 15 prompts pass on L alone; the other 12 L labels are prompts no tier passed.
+
+`split.json`: 359 train / 91 test, stratified by task type and label (seeded).
+
+`hand_labels/`: 40 answers for a human to score blind (half judge-pass, half
+judge-fail, spread over the tiers), to measure judge-human agreement with Cohen's kappa
+(`py -m gearbox.data.labels kappa`).
+
+`manifest.json` `files_sha256` holds a hash of every data file.

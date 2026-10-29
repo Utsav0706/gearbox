@@ -1,0 +1,202 @@
+[
+  {
+    "item": 1,
+    "id": "humaneval-1",
+    "tier": "M"
+  },
+  {
+    "item": 2,
+    "id": "mbpp-406",
+    "tier": "M"
+  },
+  {
+    "item": 3,
+    "id": "dolly-8122",
+    "tier": "S"
+  },
+  {
+    "item": 4,
+    "id": "truthfulqa-697",
+    "tier": "M"
+  },
+  {
+    "item": 5,
+    "id": "dolly-7262",
+    "tier": "S"
+  },
+  {
+    "item": 6,
+    "id": "mt-bench-154",
+    "tier": "M"
+  },
+  {
+    "item": 7,
+    "id": "mt-bench-153",
+    "tier": "M"
+  },
+  {
+    "item": 8,
+    "id": "gsm8k-167",
+    "tier": "L"
+  },
+  {
+    "item": 9,
+    "id": "gsm8k-569",
+    "tier": "S"
+  },
+  {
+    "item": 10,
+    "id": "humaneval-124",
+    "tier": "L"
+  },
+  {
+    "item": 11,
+    "id": "math500-algebra-2232",
+    "tier": "S"
+  },
+  {
+    "item": 12,
+    "id": "humaneval-66",
+    "tier": "L"
+  },
+  {
+    "item": 13,
+    "id": "triviaqa-tb-2348",
+    "tier": "M"
+  },
+  {
+    "item": 14,
+    "id": "mbpp-292",
+    "tier": "S"
+  },
+  {
+    "item": 15,
+    "id": "mt-bench-85",
+    "tier": "L"
+  },
+  {
+    "item": 16,
+    "id": "triviaqa-qz-2",
+    "tier": "M"
+  },
+  {
+    "item": 17,
+    "id": "mt-bench-99",
+    "tier": "L"
+  },
+  {
+    "item": 18,
+    "id": "triviaqa-odql-2147",
+    "tier": "L"
+  },
+  {
+    "item": 19,
+    "id": "dolly-10383",
+    "tier": "L"
+  },
+  {
+    "item": 20,
+    "id": "mbpp-433",
+    "tier": "S"
+  },
+  {
+    "item": 21,
+    "id": "mt-bench-112",
+    "tier": "L"
+  },
+  {
+    "item": 22,
+    "id": "truthfulqa-632",
+    "tier": "L"
+  },
+  {
+    "item": 23,
+    "id": "mt-bench-143",
+    "tier": "M"
+  },
+  {
+    "item": 24,
+    "id": "dolly-4968",
+    "tier": "L"
+  },
+  {
+    "item": 25,
+    "id": "gsm8k-1303",
+    "tier": "M"
+  },
+  {
+    "item": 26,
+    "id": "mt-bench-99",
+    "tier": "S"
+  },
+  {
+    "item": 27,
+    "id": "gsm8k-204",
+    "tier": "M"
+  },
+  {
+    "item": 28,
+    "id": "dolly-1227",
+    "tier": "S"
+  },
+  {
+    "item": 29,
+    "id": "dolly-4435",
+    "tier": "M"
+  },
+  {
+    "item": 30,
+    "id": "mt-bench-87",
+    "tier": "S"
+  },
+  {
+    "item": 31,
+    "id": "math500-geometry-434",
+    "tier": "M"
+  },
+  {
+    "item": 32,
+    "id": "math500-counting-and-probability-134",
+    "tier": "L"
+  },
+  {
+    "item": 33,
+    "id": "mt-bench-157",
+    "tier": "L"
+  },
+  {
+    "item": 34,
+    "id": "mt-bench-125",
+    "tier": "M"
+  },
+  {
+    "item": 35,
+    "id": "gsm8k-58",
+    "tier": "L"
+  },
+  {
+    "item": 36,
+    "id": "triviaqa-bb-8468",
+    "tier": "S"
+  },
+  {
+    "item": 37,
+    "id": "mt-bench-139",
+    "tier": "L"
+  },
+  {
+    "item": 38,
+    "id": "gsm8k-104",
+    "tier": "M"
+  },
+  {
+    "item": 39,
+    "id": "truthfulqa-529",
+    "tier": "S"
+  },
+  {
+    "item": 40,
+    "id": "humaneval-47",
+    "tier": "S"
+  }
+]
