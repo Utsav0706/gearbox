@@ -92,7 +92,9 @@ client.messages.create(
 )  # -> Haiku
 ```
 
-Only the two Claude tiers serve this endpoint (the local model can't do tool calls or
+First real use: Scout through Gearbox cost 50% less per report and ran 34% faster on
+3 questions, covering the same key points; most of the saving came from a Haiku planner
+making smaller research plans ([`reports/scout.md`](reports/scout.md)). Only the two Claude tiers serve this endpoint (the local model can't do tool calls or
 structured output reliably), and it is not cached. Errors from Anthropic pass through
 unchanged; overload, rate limits and 5xx are retried, then the other tier is tried.
 
