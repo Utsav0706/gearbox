@@ -15,7 +15,15 @@ DASH = Path(__file__).resolve().parents[1] / "src/gearbox/dashboard"
 def fake_api(monkeypatch):
     calls = []
 
-    def ask(base_url, prompt, model="auto", max_tier=None, max_tokens=None, transport=None):
+    def ask(
+        base_url,
+        prompt,
+        model="auto",
+        max_tier=None,
+        max_tokens=None,
+        cascade=False,
+        transport=None,
+    ):
         calls.append(
             {"prompt": prompt, "model": model, "max_tier": max_tier, "max_tokens": max_tokens}
         )
@@ -79,3 +87,19 @@ def test_empty_prompt_is_not_sent(fake_api):
     at = _send(at, "   ")
     assert fake_api == []
     assert "Type a prompt" in at.warning[0].value
+
+
+def test_quality_mode_checkbox_sends_cascade(monkeypatch):
+    seen = {}
+
+    def ask(base_url, prompt, cascade=False, **kwargs):
+        seen["cascade"] = cascade
+        return TryResult(ok=True, answer="391", tier="L", cascade="M->L (2/5: wrong total)")
+
+    monkeypatch.setattr(client, "ask", ask)
+    at = AppTest.from_file(str(DASH / "try_it.py"), default_timeout=30).run()
+    at.text_area[0].input("What is 17 * 23?")
+    at.checkbox[0].check()
+    at = at.button[0].click().run()
+    assert seen == {"cascade": True}
+    assert any("Quality mode: M->L" in i.value for i in at.info)

@@ -21,6 +21,7 @@ from sqlalchemy import (
     Integer,
     String,
     create_engine,
+    false,
     func,
     select,
     text,
@@ -50,6 +51,9 @@ class RequestLog(Base):
     route_ms: Mapped[int] = mapped_column(Integer)  # the routing decision alone
     cache_hit: Mapped[bool] = mapped_column(Boolean, default=False)  # M7
     fallback_used: Mapped[bool] = mapped_column(Boolean, default=False)  # M7
+    # Quality mode: the cascade's check failed and a bigger tier answered instead.
+    # server_default so rows written before migration 0002 read as False.
+    escalated: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
     error: Mapped[str | None] = mapped_column(String(500))
 
 
@@ -100,7 +104,7 @@ def stats(sessions: sessionmaker[Session], hours: int = 24) -> dict[str, object]
     since = datetime.now(UTC) - timedelta(hours=hours)
     window = RequestLog.created_at >= since
     with sessions() as s:
-        total, cost, avg_ms, avg_route_ms, errors, cache_hits, fallbacks = s.execute(
+        total, cost, avg_ms, avg_route_ms, errors, cache_hits, fallbacks, escalations = s.execute(
             select(
                 func.count(),
                 func.coalesce(func.sum(RequestLog.cost_gbp), 0.0),
@@ -109,6 +113,7 @@ def stats(sessions: sessionmaker[Session], hours: int = 24) -> dict[str, object]
                 func.coalesce(func.sum(func.cast(RequestLog.status == "error", Integer)), 0),
                 func.coalesce(func.sum(func.cast(RequestLog.cache_hit, Integer)), 0),
                 func.coalesce(func.sum(func.cast(RequestLog.fallback_used, Integer)), 0),
+                func.coalesce(func.sum(func.cast(RequestLog.escalated, Integer)), 0),
             ).where(window)
         ).one()
         by_tier = dict(
@@ -134,4 +139,5 @@ def stats(sessions: sessionmaker[Session], hours: int = 24) -> dict[str, object]
         "by_router": by_router,
         "cache_hits": int(cache_hits),
         "fallbacks": int(fallbacks),
+        "escalations": int(escalations),
     }

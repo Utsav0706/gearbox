@@ -33,6 +33,7 @@ class TryResult:
     policy: str | None = None
     fallback: str | None = None
     note: str | None = None
+    cascade: str | None = None
     error: str | None = None
 
 
@@ -42,6 +43,7 @@ def ask(
     model: str = "auto",
     max_tier: str | None = None,
     max_tokens: int | None = None,
+    cascade: bool = False,
     transport: httpx.BaseTransport | None = None,
 ) -> TryResult:
     """Send one prompt; `transport` lets tests swap in a fake API."""
@@ -49,6 +51,8 @@ def ask(
     if max_tokens:
         body["max_tokens"] = max_tokens
     headers = {"x-gearbox-max-tier": max_tier} if max_tier else {}
+    if cascade:
+        headers["x-gearbox-cascade"] = "on"
     start = time.perf_counter()
     try:
         with httpx.Client(transport=transport, timeout=TIMEOUT_S) as client:
@@ -91,4 +95,5 @@ def ask(
         policy=h.get("x-gearbox-policy"),
         fallback=h.get("x-gearbox-fallback"),
         note=h.get("x-gearbox-note"),
+        cascade=h.get("x-gearbox-cascade"),
     )

@@ -32,6 +32,13 @@ answer along with which model answered, the router's reason, the cost and the ti
 try costs what that model charges; repeating a prompt is free because it comes from the
 cache.
 
+## Can I get better answers when it matters, without always paying for the big model?
+
+Yes: send `x-gearbox-cascade: on` (or tick "Quality mode" on the Try it page). Gearbox
+checks the answer before sending it and lets the bigger model answer when the check
+fails. On the test prompts that gave 98.8% of the big model's quality at 42% of its cost,
+but about 7 times the cost of normal mode, so it is off unless you ask for it.
+
 ## Can I force a particular model?
 
 Yes. `model="S"`, `"M"` or `"L"` pins a tier and skips the router. The

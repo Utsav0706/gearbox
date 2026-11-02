@@ -22,12 +22,16 @@ from typing import Any, Protocol
 from gearbox.service.schemas import ChatCompletionRequest
 
 
-def cache_key(req: ChatCompletionRequest) -> str:
-    payload = {
+def cache_key(req: ChatCompletionRequest, quality: bool = False) -> str:
+    """quality: the request runs the cascade, so a normal-mode answer must not be served
+    to it (and the other way round). Only added when on, so normal keys never change."""
+    payload: dict[str, object] = {
         "model": req.model,
         "max_tokens": req.token_limit,
         "messages": [[m["role"], " ".join(m["content"].split())] for m in req.plain_messages()],
     }
+    if quality:
+        payload["cascade"] = True
     digest = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
     return f"gearbox:answer:{digest}"
 

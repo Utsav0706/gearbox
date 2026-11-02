@@ -44,7 +44,8 @@ flowchart LR
 Each answer says what happened in its headers: `x-gearbox-tier`, `x-gearbox-model`,
 `x-gearbox-cost` (GBP), `x-gearbox-router`, `x-gearbox-reason` (the router's own
 explanation), `x-gearbox-cache`, and `x-gearbox-policy` or
-`x-gearbox-fallback` when a limit or a failure changed the tier. The full request path,
+`x-gearbox-fallback` when a limit or a failure changed the tier (and `x-gearbox-cascade`
+in quality mode). The full request path,
 the training data and the trade-offs are in [`docs/design.md`](docs/design.md); common
 questions in [`docs/faq.md`](docs/faq.md).
 
@@ -65,6 +66,27 @@ using tier L ([`reports/eval.md`](reports/eval.md) has the intervals and pass ra
 
 v2's cost includes its own classifier call on every request. A live run of the 119
 prompts through the API gave 94.5% quality and 92.5% saved, matching the replay.
+
+## Quality mode (opt-in cascade)
+
+Send `x-gearbox-cascade: on` and Gearbox checks the answer before sending it: free
+signals first (an empty answer, a cut-off one, or one that says it can't verify), then a
+quick Haiku check that scores the answer 1-5 without a reference. If the check fails, the
+next tier up answers instead (once, never above the cap or budget), and
+`x-gearbox-cascade` says what happened, for example `M->L (answer hedges: 'I can't
+confirm')`.
+
+| On the 119 test prompts | Pass rate | Quality | Cost vs always-L |
+|---|---|---|---|
+| always-M (Haiku) | 78.1% | 94.7% | 6.0% |
+| **Haiku, escalating to Sonnet when the check fails** | **83.2%** | **98.8%** | **42.2%** |
+| always-L (Sonnet) | 84.0% | 100% | 100% |
+
+The check catches failing Haiku answers well (precision 0.84, recall 0.81), and 14 of
+the 25 escalations needed no checker call at all. But escalated prompts are the hard
+ones, where Sonnet writes long answers, so quality mode costs about 7x normal mode. It
+missed the bar set before the experiment (+2 points at no more than 2x always-M), so it
+is off by default. Details: [`reports/cascade.md`](reports/cascade.md).
 
 ## Why X over Y
 
@@ -123,7 +145,8 @@ reply = client.chat.completions.create(
 )
 ```
 
-Send `x-gearbox-max-tier: M` to cap a request's tier. `GET /health` and
+Send `x-gearbox-max-tier: M` to cap a request's tier, or `x-gearbox-cascade: on` for
+quality mode. `GET /health` and
 `GET /stats?hours=24` (cost and route split) are also served.
 
 With Docker, `docker compose up --build` starts the API with Postgres (request log) and
@@ -177,3 +200,4 @@ tier, model, the router's reason, cost, time, cache, and any policy or fallback.
 | M7 | Cache, budget policy, fallback, canary, tracing, Docker Compose |
 | M8 | Offline and live eval, cost-vs-quality chart, dashboard |
 | M9 | Design doc, FAQ, this README |
+| Polish | Try it page in the dashboard; cascade experiment, then opt-in quality mode |

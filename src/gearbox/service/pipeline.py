@@ -6,6 +6,8 @@
 3. policy   x-gearbox-max-tier and the monthly budget can only lower the tier
 4. call     the chosen tier; if it is down: retry once, then the other allowed tiers
             (bigger first, so quality only drops when nothing bigger is allowed or up)
+4b. cascade only in quality mode: check the answer; if it fails, the next tier up
+            (within the cap) answers instead, at most once
 5. store    complete answers go into the cache
 6. log      one request_log row, success or failure
 
@@ -28,6 +30,7 @@ from typing import Any
 from opentelemetry.trace import StatusCode
 from sqlalchemy.orm import Session, sessionmaker
 
+from gearbox.cascade import CheckResult, escalate, free_signal
 from gearbox.config import TIERS, AppConfig, Tier
 from gearbox.routers import Route, Router
 from gearbox.service import policy
@@ -46,6 +49,7 @@ from gearbox.tiers import Usage as TierUsage
 
 log = logging.getLogger(__name__)
 CallTier = Callable[..., Awaitable[TierResult]]
+CheckFn = Callable[[str, str], Awaitable[CheckResult]]  # (prompt, answer) -> verdict
 
 
 @dataclass
@@ -57,6 +61,8 @@ class Completed:
     cache_hit: bool = False
     policy_notes: list[str] = field(default_factory=list)
     attempts: list[Tier] = field(default_factory=list)  # tiers tried, in order
+    cascade: str | None = None  # what quality mode did, e.g. "M->L (2/5: wrong total)"
+    escalated: bool = False
 
     @property
     def fallback_used(self) -> bool:
@@ -90,6 +96,7 @@ class Pipeline:
         call: CallTier = call_tier,
         cache: Cache | None = None,
         canary: Router | None = None,
+        check: CheckFn | None = None,
     ) -> None:
         self.config = config
         self.router = router
@@ -97,16 +104,23 @@ class Pipeline:
         self.sessions = sessions
         self._call = call
         self._cache = cache or NoCache()
+        self._check = check
 
     async def complete(
-        self, req: ChatCompletionRequest, request_id: str, max_tier: Tier | None = None
+        self,
+        req: ChatCompletionRequest,
+        request_id: str,
+        max_tier: Tier | None = None,
+        cascade: bool | None = None,
     ) -> Completed:
-        """Raises TierError (after logging it) when no allowed tier can answer."""
+        """Raises TierError (after logging it) when no allowed tier can answer.
+        cascade: the request's x-gearbox-cascade choice; None = the config default."""
+        quality = self.config.cascade.enabled if cascade is None else cascade
         with tracer().start_as_current_span("gearbox.request") as span:
             span.set_attribute("langfuse.trace.name", "chat.completions")
             span.set_attribute("gearbox.request_id", request_id)
             try:
-                done = await self._complete(req, request_id, max_tier)
+                done = await self._complete(req, request_id, max_tier, quality)
             except TierError as exc:
                 span.set_attribute("gearbox.status", "error")
                 span.set_status(StatusCode.ERROR, str(exc)[:200])
@@ -124,18 +138,20 @@ class Pipeline:
                     "gearbox.cost_gbp": done.result.cost_gbp,
                     "gearbox.tokens_in": done.result.usage.input_tokens,
                     "gearbox.tokens_out": done.result.usage.output_tokens,
+                    "gearbox.cascade": done.cascade or "",
+                    "gearbox.escalated": done.escalated,
                 }
             )
             return done
 
     async def _complete(
-        self, req: ChatCompletionRequest, request_id: str, max_tier: Tier | None
+        self, req: ChatCompletionRequest, request_id: str, max_tier: Tier | None, quality: bool
     ) -> Completed:
         start = time.perf_counter()
         row: dict[str, Any] = {"request_id": request_id, "created_at": datetime.now(UTC)}
 
-        # 1. cache
-        key = cache_key(req)
+        # 1. cache (a quality-mode answer and a normal one are cached separately)
+        key = cache_key(req, quality=quality)
         hit = await self._cache_call(self._cache.get, key)
         if hit is not None:
             done = self._from_cache(hit, request_id)
@@ -184,6 +200,13 @@ class Pipeline:
             )
             raise
 
+        # 4b. cascade (quality mode only)
+        cascade_note, escalated = None, False
+        if quality:
+            result, cascade_note, escalated = await self._cascade(req, result, decision)
+            reason = f"{reason}; cascade: {cascade_note}"[:500]
+            row["reason"] = reason
+
         # 5. store (complete answers only)
         if result.finish_reason == "stop":
             await self._cache_call(self._cache.set, key, _to_cache(result))
@@ -199,6 +222,7 @@ class Pipeline:
                 tokens_out=result.usage.output_tokens,
                 cost_gbp=result.cost_gbp,
                 fallback_used=len(attempts) > 1,
+                escalated=escalated,
                 latency_ms=_ms(start),
             )
         )
@@ -209,7 +233,59 @@ class Pipeline:
             result,
             policy_notes=decision.notes,
             attempts=attempts,
+            cascade=cascade_note,
+            escalated=escalated,
         )
+
+    async def _cascade(
+        self, req: ChatCompletionRequest, first: TierResult, decision: policy.Decision
+    ) -> tuple[TierResult, str, bool]:
+        """Check `first`; if it fails, have the next tier up answer instead (once).
+        Returns (the answer to send, with the total cost of everything paid for; a short
+        note for the x-gearbox-cascade header; whether it escalated)."""
+        c = self.config.cascade
+        if c.min_score is None:
+            return first, "off (cascade.min_score is not set)", False
+        if TIERS.index(first.tier) >= TIERS.index(decision.cap):
+            return first, f"{first.tier} not checked (no higher tier allowed)", False
+
+        signal = free_signal(first.text, first.finish_reason)
+        if signal is not None:
+            verdict = CheckResult(None, signal, 0.0)
+        else:
+            with tracer().start_as_current_span(f"check {first.tier}") as span:
+                span.set_attribute("langfuse.observation.type", "generation")
+                span.set_attribute("gen_ai.request.model", c.model)
+                verdict = await self._run_check(req.routing_text(), first.text)
+                usd = verdict.cost_gbp / self.config.usd_to_gbp
+                span.set_attribute("langfuse.observation.cost_details", json.dumps({"total": usd}))
+        why = verdict.reason if verdict.score is None else f"{verdict.score}/5: {verdict.reason}"
+        spent = first.cost_gbp + verdict.cost_gbp
+
+        if not escalate(verdict.score, signal, c.min_score):
+            return _with_cost(first, spent), f"{first.tier} passed check ({why})", False
+
+        nxt = TIERS[TIERS.index(first.tier) + 1]
+        higher = TIERS[TIERS.index(nxt) : TIERS.index(decision.cap) + 1]
+        attempts: list[Tier] = []
+        try:
+            second = await self._call_with_fallback(
+                req, policy.Decision(nxt, decision.cap), attempts, order=[nxt, *higher]
+            )
+        except TierError:
+            note = f"{first.tier} failed check ({why}); {nxt} unavailable, kept {first.tier}"
+            return _with_cost(first, spent), note, False
+        total = _with_cost(second, spent + second.cost_gbp)
+        return total, f"{first.tier}->{second.tier} ({why})", True
+
+    async def _run_check(self, prompt: str, answer: str) -> CheckResult:
+        if self._check is not None:
+            return await self._check(prompt, answer)
+        from gearbox.cascade import run_check
+        from gearbox.config import get_secrets
+
+        key = get_secrets().anthropic_api_key
+        return await run_check(prompt, answer, self.config, key.get_secret_value() if key else None)
 
     async def _route(self, req: ChatCompletionRequest, request_id: str) -> tuple[Route, str]:
         pinned: Tier | None = req.pinned_tier  # type: ignore[assignment]
@@ -222,10 +298,16 @@ class Pipeline:
         return await router.route(req.routing_text()), router.name
 
     async def _call_with_fallback(
-        self, req: ChatCompletionRequest, decision: policy.Decision, attempts: list[Tier]
+        self,
+        req: ChatCompletionRequest,
+        decision: policy.Decision,
+        attempts: list[Tier],
+        order: list[Tier] | None = None,
     ) -> TierResult:
+        """Try tiers in `order` (default: fallback_order from the decision) until one
+        answers. The cascade passes only tiers above the one that failed its check."""
         last_error: TierUnavailableError | None = None
-        for i, tier in enumerate(fallback_order(decision.tier, decision.cap)):
+        for i, tier in enumerate(order or fallback_order(decision.tier, decision.cap)):
             if i == 1:  # the retry of the same tier: give a blip a moment to clear
                 await asyncio.sleep(self.config.fallback.retry_delay_s)
             attempts.append(tier)
@@ -283,6 +365,19 @@ class Pipeline:
             await asyncio.to_thread(write_log, self.sessions, row)
         except Exception:
             log.exception("could not write request log", extra={"request_id": row.request_id})
+
+
+def _with_cost(result: TierResult, cost_gbp: float) -> TierResult:
+    """The same answer, carrying the total cost of producing it (answers + check)."""
+    return TierResult(
+        tier=result.tier,
+        model=result.model,
+        text=result.text,
+        finish_reason=result.finish_reason,
+        usage=result.usage,
+        cost_gbp=cost_gbp,
+        latency_ms=result.latency_ms,
+    )
 
 
 def _to_cache(result: TierResult) -> dict[str, Any]:

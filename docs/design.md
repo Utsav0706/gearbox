@@ -46,8 +46,13 @@ order:
    the prompt is too long for it), retry once, then try bigger tiers up to the cap, then
    smaller ones. A request the model rejects as invalid is not retried elsewhere,
    because every tier would reject it.
-5. **Store** complete answers (not ones cut off by the token limit).
-6. **Log** one row per request, success or failure.
+5. **Cascade, quality mode only** (`x-gearbox-cascade: on`). Free signals first (an
+   empty answer, one cut off, or one that says it can't verify), then a Haiku check
+   that scores the answer 1-5 with no reference, using the exact request the threshold
+   was tuned on. A failed check means the next tier up answers instead, once, never
+   above the cap. Quality-mode answers are cached apart from normal ones.
+6. **Store** complete answers (not ones cut off by the token limit).
+7. **Log** one row per request, success or failure.
 
 ## 2. How the router learned
 
@@ -110,7 +115,7 @@ that is what v3 learned.
 
 | Where | What | Never |
 |---|---|---|
-| Request log (`request_log` table) | request id, time, router, tier, model, routing reason, tokens, GBP cost, latency, routing time, cache hit, fallback used, error | prompt or answer text |
+| Request log (`request_log` table) | request id, time, router, tier, model, routing reason, tokens, GBP cost, latency, routing time, cache hit, fallback used, escalated (quality mode), error | prompt or answer text |
 | Trace (Langfuse, if keys are set) | one root span per request with the same metadata; one generation span per model call, with tokens and USD cost | prompt or answer text |
 | Cache (memory or Redis, 1-day expiry) | the answer text, under a hash of the request | the prompt itself |
 | Logs (stdout, JSON lines) | one line per model call and per request | prompt or answer text |
@@ -128,6 +133,7 @@ match the models.
 | An LLM judge with reference answers, checked against human scores | Exact-match grading only | Most prompts (writing, explanations, code) have no single right string; the reference keeps the judge factual, and kappa shows how far it can be trusted. |
 | Message Batches for dataset answers and judging | Live API calls | Half the price for work that does not need an answer in seconds. |
 | Offline eval that replays stored answers | Re-running every model for every eval | Free and exactly reproducible; a separate live run through the API confirmed it (94.5% vs 94.7% quality). |
+| Cascade as an opt-in mode, measured first | Turning it on for everyone | It lifted pass rate 78% to 83%, but at 7x the cost of always-Haiku: a trade-off for the caller to choose, not a default (`reports/cascade.md`). |
 | Exact-match cache | Semantic cache (similar prompts) | No risk of answering a different question; a semantic cache needs its own evaluation. |
 | Monthly budget that downgrades to the free tier and says so | Rejecting requests over budget | The app keeps working; the response header makes the downgrade visible. |
 | Sync SQLAlchemy, writes moved off the event loop | An async database driver | One small insert per request; a thread call is enough, with one less dependency. |

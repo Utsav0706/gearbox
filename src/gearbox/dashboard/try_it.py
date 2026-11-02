@@ -31,6 +31,11 @@ with st.form("try"):
     model_label = c1.radio("Model", list(MODELS), horizontal=True)
     max_tier_label = c2.selectbox("Max tier", list(MAX_TIERS))
     max_tokens = c3.number_input("Max tokens", min_value=16, max_value=3000, value=1000)
+    quality = st.checkbox(
+        "Quality mode (cascade): check the answer; if it looks wrong, a bigger model answers",
+        help="About 99% of the large model's quality at 42% of its cost on the test set "
+        "(reports/cascade.md), but several times the cost of normal mode.",
+    )
     sent = st.form_submit_button("Send", type="primary")
 
 if sent:
@@ -44,6 +49,7 @@ if sent:
                 model=MODELS[model_label],
                 max_tier=MAX_TIERS[max_tier_label],
                 max_tokens=int(max_tokens),
+                cascade=quality,
             )
         history = st.session_state.setdefault("tries", [])
         history.insert(0, (prompt, result))
@@ -71,6 +77,7 @@ if tries:
         st.code(r.reason or "(no reason given)", language=None, wrap_lines=True)
         st.caption(f"{r.tokens_in} tokens in, {r.tokens_out} tokens out")
         for label, value in (
+            ("Quality mode", r.cascade),
             ("Policy", r.policy),
             ("Fallback path", r.fallback),
             ("Note", r.note),

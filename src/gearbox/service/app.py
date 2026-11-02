@@ -30,7 +30,7 @@ from gearbox.routers import Router, create_router
 from gearbox.service import policy
 from gearbox.service.cache import Cache, make_cache
 from gearbox.service.db import db_is_up, make_engine, make_sessions, stats
-from gearbox.service.pipeline import CallTier, Pipeline
+from gearbox.service.pipeline import CallTier, CheckFn, Pipeline
 from gearbox.service.schemas import ChatCompletionRequest, error_body
 from gearbox.telemetry import setup_tracing
 from gearbox.tiers import TierRequestError, TierUnavailableError, call_tier
@@ -49,6 +49,16 @@ def header_safe(text: str, limit: int = REASON_HEADER_CHARS) -> str:
     return " ".join(one_line.split())[:limit]
 
 
+def parse_on_off(value: str | None, name: str) -> bool | None:
+    """An optional on/off request header: None when absent."""
+    if value is None or not value.strip():
+        return None
+    v = value.strip().lower()
+    if v not in ("on", "off"):
+        raise ValueError(f"{name} must be on or off, got {value!r}")
+    return v == "on"
+
+
 def create_app(
     config: AppConfig | None = None,
     secrets: Secrets | None = None,
@@ -58,6 +68,7 @@ def create_app(
     warm_up: bool = True,
     cache: Cache | None = None,
     canary: Router | None = None,
+    check: CheckFn | None = None,
 ) -> FastAPI:
     secrets = secrets or get_secrets()
     config = with_env_overrides(config or get_config(), secrets)
@@ -68,7 +79,7 @@ def create_app(
     if cache is None:
         c = config.cache
         cache = make_cache(c.enabled, c.ttl_s, c.max_entries, secrets.redis_url)
-    pipeline = Pipeline(config, router, make_sessions(engine), call, cache, canary)
+    pipeline = Pipeline(config, router, make_sessions(engine), call, cache, canary, check)
 
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
@@ -93,14 +104,16 @@ def create_app(
     async def chat_completions(
         req: ChatCompletionRequest,
         x_gearbox_max_tier: str | None = Header(default=None),
+        x_gearbox_cascade: str | None = Header(default=None),
     ) -> JSONResponse:
         request_id = f"gbx-{uuid.uuid4().hex[:24]}"
         try:
             max_tier = policy.parse_max_tier(x_gearbox_max_tier)
+            cascade = parse_on_off(x_gearbox_cascade, "x-gearbox-cascade")
         except ValueError as exc:
             return JSONResponse(error_body(str(exc), "invalid_request_error", "bad_header"), 400)
         try:
-            done = await pipeline.complete(req, request_id, max_tier)
+            done = await pipeline.complete(req, request_id, max_tier, cascade)
         except TierUnavailableError as exc:
             return JSONResponse(
                 error_body(str(exc), "service_unavailable", "tier_unavailable"),
@@ -126,6 +139,8 @@ def create_app(
             headers["x-gearbox-policy"] = "; ".join(done.policy_notes)
         if done.fallback_used:
             headers["x-gearbox-fallback"] = "->".join(done.attempts)  # e.g. "S->S->M"
+        if done.cascade:
+            headers["x-gearbox-cascade"] = header_safe(done.cascade)  # e.g. "M->L (2/5: ...)"
         if req.temperature is not None or req.top_p is not None:
             headers["x-gearbox-note"] = SAMPLING_NOTE
         log.info(

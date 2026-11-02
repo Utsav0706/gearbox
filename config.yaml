@@ -50,16 +50,18 @@ policy:
 fallback:
   retry_delay_s: 0.5
 
-# Cascade: after an answer, a quick check; if it fails, the next tier up answers instead.
-# Off until the experiment (py -m gearbox.eval.cascade, reports/cascade.md) shows it
-# pays for itself.
+# Cascade ("quality mode"): after an answer, a quick check; if it fails, the next tier
+# up answers instead. Opt-in per request with the header x-gearbox-cascade: on (enabled
+# sets the default for requests without the header). Measured in reports/cascade.md:
+# 98.8% of always-L quality at 42% of its cost, but 7x the cost of always-M, so it is
+# off by default.
 cascade:
   enabled: false
   model: anthropic/claude-haiku-5-5
   prompt: prompts/check_v1.md
   effort: low
   max_tokens: 1500
-  min_score: null    # set from the experiment's tuning on the training split
+  min_score: 4       # escalate below this; tuned on the training split (best F1)
 
 # Scores answers 1-5 to make the labels (cheapest tier scoring >= 4). Sonnet, the
 # strongest of the three tiers; whether it can be trusted is measured against human hand
