@@ -19,6 +19,7 @@ import uuid
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
+import httpx
 from fastapi import FastAPI, Header, Query, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
@@ -30,6 +31,9 @@ from gearbox.routers import Router, create_router
 from gearbox.service import policy
 from gearbox.service.cache import Cache, make_cache
 from gearbox.service.db import db_is_up, make_engine, make_sessions, stats
+from gearbox.service.headers import header_safe
+from gearbox.service.messages import MessagesProxy
+from gearbox.service.messages import error as message_error
 from gearbox.service.pipeline import CallTier, CheckFn, Pipeline
 from gearbox.service.schemas import ChatCompletionRequest, error_body
 from gearbox.telemetry import setup_tracing
@@ -37,16 +41,6 @@ from gearbox.tiers import TierRequestError, TierUnavailableError, call_tier
 
 log = logging.getLogger(__name__)
 SAMPLING_NOTE = "temperature/top_p are not forwarded (the Claude tiers reject them)"
-REASON_HEADER_CHARS = 200
-
-
-def header_safe(text: str, limit: int = REASON_HEADER_CHARS) -> str:
-    """HTTP header values must be plain printable ASCII on one line. The router's reason
-    can be anything (v2's comes from a model), so non-ASCII becomes '?', line breaks and
-    control characters become spaces, and it is cut to `limit` characters."""
-    ascii_text = text.encode("ascii", "replace").decode("ascii")
-    one_line = "".join(c if c.isprintable() else " " for c in ascii_text)
-    return " ".join(one_line.split())[:limit]
 
 
 def parse_on_off(value: str | None, name: str) -> bool | None:
@@ -69,6 +63,7 @@ def create_app(
     cache: Cache | None = None,
     canary: Router | None = None,
     check: CheckFn | None = None,
+    upstream: httpx.AsyncBaseTransport | None = None,
 ) -> FastAPI:
     secrets = secrets or get_secrets()
     config = with_env_overrides(config or get_config(), secrets)
@@ -79,7 +74,17 @@ def create_app(
     if cache is None:
         c = config.cache
         cache = make_cache(c.enabled, c.ttl_s, c.max_entries, secrets.redis_url)
-    pipeline = Pipeline(config, router, make_sessions(engine), call, cache, canary, check)
+    sessions = make_sessions(engine)
+    pipeline = Pipeline(config, router, sessions, call, cache, canary, check)
+    key = secrets.anthropic_api_key
+    proxy = MessagesProxy(
+        config,
+        router,
+        sessions,
+        key.get_secret_value() if key else None,
+        secrets.anthropic_base_url,
+        upstream,
+    )
 
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
@@ -153,6 +158,25 @@ def create_app(
             },
         )
         return JSONResponse(done.response.model_dump(), headers=headers)
+
+    @app.post("/v1/messages")
+    async def messages(
+        request: Request,
+        beta: bool = False,
+        x_gearbox_max_tier: str | None = Header(default=None),
+    ) -> JSONResponse:
+        """Anthropic Messages format (Anthropic SDK clients such as Scout): see
+        gearbox.service.messages. The SDK's beta namespace adds ?beta=true."""
+        try:
+            body = await request.json()
+            if not isinstance(body, dict):
+                raise ValueError("the body must be a JSON object")
+            max_tier = policy.parse_max_tier(x_gearbox_max_tier)
+        except ValueError as exc:
+            bad = message_error(400, "invalid_request_error", str(exc) or "invalid JSON body")
+            return JSONResponse(bad.body, bad.status)
+        resp = await proxy.handle(body, beta, request.headers, max_tier)
+        return JSONResponse(resp.body, resp.status, headers=resp.headers)
 
     @app.get("/health")
     async def health() -> JSONResponse:

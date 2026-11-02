@@ -67,6 +67,35 @@ using tier L ([`reports/eval.md`](reports/eval.md) has the intervals and pass ra
 v2's cost includes its own classifier call on every request. A live run of the 119
 prompts through the API gave 94.5% quality and 92.5% saved, matching the replay.
 
+## Anthropic-format endpoint (`/v1/messages`)
+
+Clients that use Anthropic's SDK (such as Scout) point their base URL at Gearbox and keep
+every feature: tools, structured output, `effort`, thinking blocks. Gearbox forwards the
+request to Anthropic unchanged except for the model:
+
+- the model the caller asked for is the ceiling (a Haiku request is never upgraded);
+- a task-type tag (`x-gearbox-task-type`, or Scout's `x-scout-task-type`) picks the tier
+  from `routing.task_types` in `config.yaml` (plan, extract, verify: Haiku; write:
+  Sonnet); untagged requests use the router;
+- the max-tier header and the monthly budget still apply, and when Gearbox swaps a Sonnet
+  request to Haiku it drops the Sonnet-only refusal fallback.
+
+```python
+from anthropic import Anthropic
+
+client = Anthropic(api_key="unused", base_url="http://127.0.0.1:8002")
+client.messages.create(
+    model="claude-sonnet-5-5",
+    max_tokens=300,
+    messages=[{"role": "user", "content": "Summarise ..."}],
+    extra_headers={"x-gearbox-task-type": "extract"},
+)  # -> Haiku
+```
+
+Only the two Claude tiers serve this endpoint (the local model can't do tool calls or
+structured output reliably), and it is not cached. Errors from Anthropic pass through
+unchanged; overload, rate limits and 5xx are retried, then the other tier is tried.
+
 ## Quality mode (opt-in cascade)
 
 Send `x-gearbox-cascade: on` and Gearbox checks the answer before sending it: free

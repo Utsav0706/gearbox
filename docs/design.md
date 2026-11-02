@@ -133,6 +133,7 @@ match the models.
 | An LLM judge with reference answers, checked against human scores | Exact-match grading only | Most prompts (writing, explanations, code) have no single right string; the reference keeps the judge factual, and kappa shows how far it can be trusted. |
 | Message Batches for dataset answers and judging | Live API calls | Half the price for work that does not need an answer in seconds. |
 | Offline eval that replays stored answers | Re-running every model for every eval | Free and exactly reproducible; a separate live run through the API confirmed it (94.5% vs 94.7% quality). |
+| `/v1/messages` as a pass-through that swaps only the model | Translating Anthropic requests through LiteLLM | Every Anthropic feature Scout uses (tools, structured output, effort, thinking, betas) keeps working, including future ones Gearbox doesn't know about. |
 | Cascade as an opt-in mode, measured first | Turning it on for everyone | It lifted pass rate 78% to 83%, but at 7x the cost of always-Haiku: a trade-off for the caller to choose, not a default (`reports/cascade.md`). |
 | Exact-match cache | Semantic cache (similar prompts) | No risk of answering a different question; a semantic cache needs its own evaluation. |
 | Monthly budget that downgrades to the free tier and says so | Rejecting requests over budget | The app keeps working; the response header makes the downgrade visible. |
@@ -145,7 +146,9 @@ match the models.
   registers under a new name and is selected in `config.yaml`, or trialled first on a
   share of traffic through `routing.canary`.
 - **OpenAI-compatible endpoint.** Any OpenAI client works by changing its base URL.
-  Scout calls models through the Anthropic Messages format, so connecting it means
-  adding a thin `/v1/messages` endpoint in front of the same pipeline.
+  Anthropic SDK clients (Scout) use `/v1/messages` instead: a pass-through that only
+  swaps the model, so tools, structured output, effort and thinking blocks keep working.
+  The requested model is the ceiling and a task-type tag picks the tier
+  (`routing.task_types`).
 - **Traces and the request log** carry the router, tier, cost and reason for every
   request, ready for an evaluation harness or a monitoring stack to read.

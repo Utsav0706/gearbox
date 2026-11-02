@@ -33,6 +33,14 @@ routing:
     artifact: models/router_v3.json  # py -m gearbox.routers.embed train
   # Try another router on a share of live traffic, e.g. {router: v2-llm, percent: 10}.
   canary: null
+  # /v1/messages (Anthropic format, used by Scout): a task-type tag on the request picks
+  # the tier. Cheap model for planning, extraction and checking; the big one for writing.
+  # The model the caller asked for is always the ceiling.
+  task_types:
+    plan: M
+    extract: M
+    verify: M
+    write: L
 
 # Exact-match answer cache: Redis when REDIS_URL is set, else in-process memory.
 cache:

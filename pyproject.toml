@@ -53,6 +53,7 @@ dev = [
     "ruff>=0.8",
     "httpx>=0.28",  # scripts/bench_tier_s.py asks Ollama what is loaded
     "fakeredis>=2.26",  # Redis cache tests without a Redis server
+    "httpx2>=2.13",  # drives the Anthropic SDK (built on httpx2) in tests
     "streamlit>=1.40",  # dashboard tests (AppTest)
 ]
 

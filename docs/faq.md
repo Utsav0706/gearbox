@@ -24,6 +24,14 @@ run the migration, start `py -m gearbox.service`, and point an OpenAI client at
 `http://127.0.0.1:8002/v1` with `model="auto"`. With Docker, `docker compose up --build`
 starts it with Postgres and Redis.
 
+## Does it work with Anthropic's SDK, not only OpenAI's?
+
+Yes. Point the Anthropic client's `base_url` at Gearbox and call `messages.create` (or
+`messages.parse`) as usual: Gearbox serves `/v1/messages` and forwards the request with
+only the model changed. The model you ask for is the ceiling, and an
+`x-gearbox-task-type` header (plan, extract, verify, write) picks the tier. Gearbox uses
+its own Anthropic key, so it must not be exposed to the internet without access control.
+
 ## Can I try it without writing code?
 
 Yes: start the API and the dashboard, then open the dashboard's **Try it** page

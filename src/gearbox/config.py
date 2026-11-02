@@ -86,6 +86,9 @@ class RoutingConfig(BaseModel):
     canary: CanaryConfig | None = None
     v2_llm: LLMRouterConfig
     v3_embed: EmbedRouterConfig
+    # /v1/messages: a caller's task-type tag (x-gearbox-task-type or x-scout-task-type)
+    # picks the tier directly, e.g. {extract: M, write: L}. Untagged requests use `router`.
+    task_types: dict[str, Tier] = Field(default_factory=dict)
 
 
 class CacheConfig(BaseModel):
@@ -172,6 +175,8 @@ class Secrets(BaseSettings):
     ollama_base_url: str | None = None
     # Where the dashboard's "Try it" page sends prompts: the running API.
     gearbox_url: str = "http://127.0.0.1:8002"
+    # Where /v1/messages forwards requests (Anthropic's API; tests point it at a fake).
+    anthropic_base_url: str = "https://api.anthropic.com"
     # Tracing to Langfuse (M7). Unset = tracing off.
     langfuse_public_key: SecretStr | None = None
     langfuse_secret_key: SecretStr | None = None
