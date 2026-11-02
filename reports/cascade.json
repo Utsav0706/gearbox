@@ -1,0 +1,306 @@
+{
+  "escalations_m_to_l": {
+    "total": 25,
+    "by_free_signal": 14,
+    "by_source": {
+      "simpleqa": 16,
+      "aime2025": 5,
+      "mmlu-pro": 2,
+      "dolly": 1,
+      "triviaqa": 1
+    }
+  },
+  "min_scores": {
+    "S": 4,
+    "M": 4
+  },
+  "tuning_train": {
+    "S": [
+      {
+        "min_score": 2,
+        "precision": 0.995,
+        "recall": 0.669,
+        "f1": 0.8,
+        "escalation_rate": 0.43,
+        "failing_share": 0.64
+      },
+      {
+        "min_score": 3,
+        "precision": 0.992,
+        "recall": 0.838,
+        "f1": 0.908,
+        "escalation_rate": 0.541,
+        "failing_share": 0.64
+      },
+      {
+        "min_score": 4,
+        "precision": 0.962,
+        "recall": 0.906,
+        "f1": 0.933,
+        "escalation_rate": 0.603,
+        "failing_share": 0.64
+      },
+      {
+        "min_score": 5,
+        "precision": 0.835,
+        "recall": 0.987,
+        "f1": 0.905,
+        "escalation_rate": 0.757,
+        "failing_share": 0.64
+      }
+    ],
+    "M": [
+      {
+        "min_score": 2,
+        "precision": 0.842,
+        "recall": 0.545,
+        "f1": 0.662,
+        "escalation_rate": 0.119,
+        "failing_share": 0.183
+      },
+      {
+        "min_score": 3,
+        "precision": 0.806,
+        "recall": 0.614,
+        "f1": 0.697,
+        "escalation_rate": 0.139,
+        "failing_share": 0.183
+      },
+      {
+        "min_score": 4,
+        "precision": 0.713,
+        "recall": 0.705,
+        "f1": 0.709,
+        "escalation_rate": 0.181,
+        "failing_share": 0.183
+      },
+      {
+        "min_score": 5,
+        "precision": 0.426,
+        "recall": 0.92,
+        "f1": 0.583,
+        "escalation_rate": 0.395,
+        "failing_share": 0.183
+      }
+    ]
+  },
+  "detection_test": {
+    "S": {
+      "min_score": 4,
+      "precision": 0.939,
+      "recall": 0.963,
+      "f1": 0.951,
+      "escalation_rate": 0.689,
+      "failing_share": 0.672
+    },
+    "M": {
+      "min_score": 4,
+      "precision": 0.84,
+      "recall": 0.808,
+      "f1": 0.824,
+      "escalation_rate": 0.21,
+      "failing_share": 0.218
+    }
+  },
+  "results": {
+    "always-S": {
+      "quality_pct": 57.3,
+      "quality_pct_ci95": [
+        50.6,
+        63.9
+      ],
+      "mean_score": 2.454,
+      "pass_rate": 0.3277,
+      "cost_gbp": 0.0,
+      "cost_per_1k_requests_gbp": 0.0,
+      "cost_pct": 0.0,
+      "saved_pct": 100.0,
+      "saved_pct_ci95": [
+        100.0,
+        100.0
+      ],
+      "route_p50_ms": 0.0,
+      "route_p95_ms": 0.0,
+      "picks": {
+        "S": 119,
+        "M": 0,
+        "L": 0
+      }
+    },
+    "always-M": {
+      "quality_pct": 94.7,
+      "quality_pct_ci95": [
+        90.5,
+        98.6
+      ],
+      "mean_score": 4.059,
+      "pass_rate": 0.7815,
+      "cost_gbp": 0.03206,
+      "cost_per_1k_requests_gbp": 0.269,
+      "cost_pct": 6.0,
+      "saved_pct": 94.0,
+      "saved_pct_ci95": [
+        93.4,
+        94.6
+      ],
+      "route_p50_ms": 0.0,
+      "route_p95_ms": 0.0,
+      "picks": {
+        "S": 0,
+        "M": 119,
+        "L": 0
+      }
+    },
+    "always-L": {
+      "quality_pct": 100.0,
+      "quality_pct_ci95": [
+        100.0,
+        100.0
+      ],
+      "mean_score": 4.286,
+      "pass_rate": 0.8403,
+      "cost_gbp": 0.53764,
+      "cost_per_1k_requests_gbp": 4.518,
+      "cost_pct": 100.0,
+      "saved_pct": 0.0,
+      "saved_pct_ci95": [
+        0.0,
+        0.0
+      ],
+      "route_p50_ms": 0.0,
+      "route_p95_ms": 0.0,
+      "picks": {
+        "S": 0,
+        "M": 0,
+        "L": 119
+      }
+    },
+    "oracle": {
+      "quality_pct": 98.4,
+      "quality_pct_ci95": [
+        96.5,
+        100.4
+      ],
+      "mean_score": 4.218,
+      "pass_rate": 0.8571,
+      "cost_gbp": 0.07081,
+      "cost_per_1k_requests_gbp": 0.595,
+      "cost_pct": 13.2,
+      "saved_pct": 86.8,
+      "saved_pct_ci95": [
+        77.9,
+        94.3
+      ],
+      "route_p50_ms": 0.0,
+      "route_p95_ms": 0.0,
+      "picks": {
+        "S": 52,
+        "M": 57,
+        "L": 10
+      }
+    },
+    "v3-embed": {
+      "quality_pct": 94.7,
+      "quality_pct_ci95": [
+        90.5,
+        98.6
+      ],
+      "mean_score": 4.059,
+      "pass_rate": 0.7815,
+      "cost_gbp": 0.038,
+      "cost_per_1k_requests_gbp": 0.319,
+      "cost_pct": 7.1,
+      "saved_pct": 92.9,
+      "saved_pct_ci95": [
+        91.1,
+        94.3
+      ],
+      "route_p50_ms": 35.5,
+      "route_p95_ms": 124.7,
+      "picks": {
+        "S": 0,
+        "M": 117,
+        "L": 2
+      }
+    },
+    "M->L": {
+      "quality_pct": 98.8,
+      "quality_pct_ci95": [
+        96.0,
+        101.4
+      ],
+      "mean_score": 4.235,
+      "pass_rate": 0.8319,
+      "cost_gbp": 0.22661,
+      "cost_per_1k_requests_gbp": 1.904,
+      "cost_pct": 42.2,
+      "saved_pct": 57.8,
+      "saved_pct_ci95": [
+        46.1,
+        70.2
+      ],
+      "route_p50_ms": 0.0,
+      "route_p95_ms": 0.0,
+      "picks": {
+        "S": 0,
+        "M": 94,
+        "L": 25
+      }
+    },
+    "v3-embed+cascade": {
+      "quality_pct": 98.8,
+      "quality_pct_ci95": [
+        96.0,
+        101.4
+      ],
+      "mean_score": 4.235,
+      "pass_rate": 0.8319,
+      "cost_gbp": 0.23005,
+      "cost_per_1k_requests_gbp": 1.933,
+      "cost_pct": 42.8,
+      "saved_pct": 57.2,
+      "saved_pct_ci95": [
+        45.7,
+        69.5
+      ],
+      "route_p50_ms": 0.0,
+      "route_p95_ms": 0.0,
+      "picks": {
+        "S": 0,
+        "M": 93,
+        "L": 26
+      }
+    },
+    "S->M->L": {
+      "quality_pct": 96.9,
+      "quality_pct_ci95": [
+        93.7,
+        99.6
+      ],
+      "mean_score": 4.151,
+      "pass_rate": 0.8151,
+      "cost_gbp": 0.23463,
+      "cost_per_1k_requests_gbp": 1.972,
+      "cost_pct": 43.6,
+      "saved_pct": 56.4,
+      "saved_pct_ci95": [
+        44.7,
+        68.7
+      ],
+      "route_p50_ms": 0.0,
+      "route_p95_ms": 0.0,
+      "picks": {
+        "S": 37,
+        "M": 57,
+        "L": 25
+      }
+    }
+  },
+  "checks": {
+    "total": 1200,
+    "by_signal": 166,
+    "failed": 5,
+    "spend_gbp": 0.0962
+  },
+  "test_prompts": 119
+}

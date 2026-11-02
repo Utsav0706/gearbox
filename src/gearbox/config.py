@@ -102,6 +102,22 @@ class PolicyConfig(BaseModel):
     monthly_budget_gbp: float | None = Field(default=None, gt=0)  # None = no cap
 
 
+class CascadeConfig(BaseModel):
+    """After an answer, check it; if the check fails, ask the next tier up instead.
+    Off by default: only switched on if the measured trade-off is worth it."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    enabled: bool = False
+    model: str = Field(min_length=1)  # the checker
+    prompt: Path
+    effort: Literal["low", "medium", "high"] = "low"
+    max_tokens: int = Field(default=1500, gt=0, le=16_000)
+    # Escalate when the checker's confidence (1-5) is below this. Tuned on the training
+    # split (gearbox.eval.cascade); None until tuned.
+    min_score: int | None = Field(default=None, ge=2, le=5)
+
+
 class FallbackConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -116,6 +132,7 @@ class AppConfig(BaseModel):
     cache: CacheConfig = Field(default_factory=CacheConfig)
     policy: PolicyConfig = Field(default_factory=PolicyConfig)
     fallback: FallbackConfig = Field(default_factory=FallbackConfig)
+    cascade: CascadeConfig
     judge: JudgeConfig
     prices_usd_per_mtok: dict[str, ModelPrice]
     usd_to_gbp: float = Field(gt=0)
@@ -126,7 +143,7 @@ class AppConfig(BaseModel):
         if missing:
             raise ValueError(f"config.yaml is missing tiers: {sorted(missing)}")
         # Without a price, cost logging and the budget cap would silently read 0.
-        models = {t.model for t in self.tiers.values()} | {self.judge.model}
+        models = {t.model for t in self.tiers.values()} | {self.judge.model, self.cascade.model}
         unpriced = models - set(self.prices_usd_per_mtok)
         if unpriced:
             raise ValueError(f"prices_usd_per_mtok is missing: {sorted(unpriced)}")
