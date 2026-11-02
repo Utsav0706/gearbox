@@ -30,6 +30,7 @@ COLUMNS = [
     "route_ms",
     "cache_hit",
     "fallback_used",
+    "escalated",
 ]
 
 
@@ -53,6 +54,7 @@ def summary(df: pd.DataFrame) -> dict[str, float]:
             "errors": 0,
             "cache_hits": 0,
             "fallbacks": 0,
+            "escalations": 0,
             "p50_latency_ms": 0.0,
         }
     return {
@@ -61,6 +63,7 @@ def summary(df: pd.DataFrame) -> dict[str, float]:
         "errors": int((df["status"] == "error").sum()),
         "cache_hits": int(df["cache_hit"].sum()),
         "fallbacks": int(df["fallback_used"].sum()),
+        "escalations": int(df["escalated"].sum()),
         "p50_latency_ms": float(df["latency_ms"].median()),
     }
 

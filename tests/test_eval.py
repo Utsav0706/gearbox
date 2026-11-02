@@ -143,12 +143,14 @@ def test_dashboard_data(tmp_path):
                     latency_ms=100,
                     route_ms=1,
                     cache_hit=hit,
+                    escalated=rid == "a",  # quality mode escalated this one
                 )
             )
     df = load_requests(engine, 24, now=now)
     assert len(df) == 3
     sm = dash_summary(df)
     assert sm["requests"] == 3 and sm["errors"] == 1 and sm["cache_hits"] == 1
+    assert sm["escalations"] == 1
     assert sm["cost_gbp"] == pytest.approx(0.01)
     split = route_split(df).set_index("tier")["requests"].to_dict()
     assert split == {"S": 1, "M": 1, "L": 0}

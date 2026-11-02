@@ -24,7 +24,12 @@ flowchart TD
     policy --> tiercall["Call tier through LiteLLM"]
     tiercall -->|"tier down or timed out"| fallback["Retry once, then bigger tiers, then smaller (never above the cap)"]
     fallback --> tiercall
-    tiercall -->|answer| store["Store complete answers in the cache"]
+    tiercall -->|answer| qm{"Quality mode on?"}
+    qm -->|no| store["Store complete answers in the cache"]
+    qm -->|yes| check["Check: free signals, then a Haiku score 1-5"]
+    check -->|passes| store
+    check -->|fails| up["Next tier up answers instead (once, never above the cap)"]
+    up --> store
     store --> log[("Request log: Postgres or SQLite")]
     log --> reply["Response + x-gearbox-* headers"]
     reply --> client
@@ -53,6 +58,21 @@ order:
    above the cap. Quality-mode answers are cached apart from normal ones.
 6. **Store** complete answers (not ones cut off by the token limit).
 7. **Log** one row per request, success or failure.
+
+### The Anthropic-format path (`/v1/messages`)
+
+Anthropic SDK clients such as Scout take a shorter path, in
+`src/gearbox/service/messages.py`: no cache and no cascade, and only the two Claude tiers.
+
+```mermaid
+flowchart LR
+    sdk["Anthropic SDK client (Scout)"] -->|"POST /v1/messages"| pick["Pick the tier: task-type tag or router, requested model as ceiling, policy"]
+    pick --> swap["Swap only the model (drop the Sonnet-only fallback if moved to Haiku)"]
+    swap --> anthropic["Anthropic API"]
+    anthropic -->|"429, 5xx or overloaded: retry, then the other tier"| swap
+    anthropic --> log2[("Request log")]
+    log2 --> back["Anthropic-format reply + x-gearbox-* headers"]
+```
 
 ## 2. How the router learned
 

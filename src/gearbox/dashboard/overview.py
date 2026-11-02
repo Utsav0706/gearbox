@@ -39,12 +39,17 @@ hours = WINDOWS[window]
 df = load_requests(engine(), hours)
 s = summary(df)
 
-cols = st.columns(5)
+cols = st.columns(6)
 cols[0].metric("Requests", f"{s['requests']:,}")
 cols[1].metric("Spend", f"£{s['cost_gbp']:.4f}")
 cols[2].metric("Cache hits", f"{s['cache_hits']:,}")
 cols[3].metric("Fallbacks", f"{s['fallbacks']:,}")
-cols[4].metric("Errors", f"{s['errors']:,}")
+cols[4].metric(
+    "Escalations",
+    f"{s['escalations']:,}",
+    help="Quality mode: a bigger model answered after a failed check",
+)
+cols[5].metric("Errors", f"{s['errors']:,}")
 
 if df.empty:
     st.info("No requests in this window yet. Send some to the API on port 8002.")

@@ -65,6 +65,12 @@ overall score never exceeds the correctness score. Cost: GBP 2.39 (Message Batch
 `labels.jsonl`: label = cheapest tier scoring >= 4, else L. Mix: S 208, M 215, L 27.
 Only 15 prompts pass on L alone; the other 12 L labels are prompts no tier passed.
 
+These v1 labels were built with that first rule and are kept as they were, so the v1
+results in `reports/v1/` stay reproducible. The code now uses a different rule for the
+"no tier passes" case (the best-scoring tier, cheapest on a tie; why is in
+`data/v2/README.md`), so rebuilding v1 with `py -m gearbox.data.labels build` would
+change about a dozen labels. Dataset v2 is the current one.
+
 `split.json`: 359 train / 91 test, stratified by task type and label (seeded).
 
 `hand_labels/`: 40 answers for a human to score blind (half judge-pass, half
