@@ -37,6 +37,16 @@ from gearbox.tiers import TierRequestError, TierUnavailableError, call_tier
 
 log = logging.getLogger(__name__)
 SAMPLING_NOTE = "temperature/top_p are not forwarded (the Claude tiers reject them)"
+REASON_HEADER_CHARS = 200
+
+
+def header_safe(text: str, limit: int = REASON_HEADER_CHARS) -> str:
+    """HTTP header values must be plain printable ASCII on one line. The router's reason
+    can be anything (v2's comes from a model), so non-ASCII becomes '?', line breaks and
+    control characters become spaces, and it is cut to `limit` characters."""
+    ascii_text = text.encode("ascii", "replace").decode("ascii")
+    one_line = "".join(c if c.isprintable() else " " for c in ascii_text)
+    return " ".join(one_line.split())[:limit]
 
 
 def create_app(
@@ -110,6 +120,7 @@ def create_app(
             "x-gearbox-cost": f"{done.result.cost_gbp:.6f}",  # GBP
             "x-gearbox-router": done.router,
             "x-gearbox-cache": "hit" if done.cache_hit else "miss",
+            "x-gearbox-reason": header_safe(done.route.reason),
         }
         if done.policy_notes:
             headers["x-gearbox-policy"] = "; ".join(done.policy_notes)

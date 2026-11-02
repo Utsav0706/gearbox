@@ -42,7 +42,8 @@ flowchart LR
 ```
 
 Each answer says what happened in its headers: `x-gearbox-tier`, `x-gearbox-model`,
-`x-gearbox-cost` (GBP), `x-gearbox-router`, `x-gearbox-cache`, and `x-gearbox-policy` or
+`x-gearbox-cost` (GBP), `x-gearbox-router`, `x-gearbox-reason` (the router's own
+explanation), `x-gearbox-cache`, and `x-gearbox-policy` or
 `x-gearbox-fallback` when a limit or a failure changed the tier. The full request path,
 the training data and the trade-offs are in [`docs/design.md`](docs/design.md); common
 questions in [`docs/faq.md`](docs/faq.md).
@@ -139,8 +140,10 @@ Redis (answer cache) on http://localhost:8002; tier S still uses Ollama on the h
 .venv\Scripts\python.exe scripts\dev_dashboard.py # http://127.0.0.1:8502
 ```
 
-The dashboard shows spend over time, requests per tier and recent requests from the
-request log, plus the eval's cost-vs-quality chart. Tests:
+The dashboard has two pages. **Overview** shows spend over time, requests per tier and
+recent requests from the request log, plus the eval's cost-vs-quality chart. **Try it**
+sends a prompt to the running API and shows the answer with how Gearbox handled it:
+tier, model, the router's reason, cost, time, cache, and any policy or fallback. Tests:
 `.venv\Scripts\python.exe -m pytest`. On Linux, `make check`, `make eval` and
 `make dashboard` do the same.
 

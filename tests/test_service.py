@@ -91,7 +91,15 @@ def test_completion_shape_and_headers(engine):
     assert r.headers["x-gearbox-model"] == "anthropic/claude-haiku-5-5"
     assert r.headers["x-gearbox-cost"] == "0.000123"
     assert r.headers["x-gearbox-router"] == "fake-router"
+    assert r.headers["x-gearbox-reason"] == "fake: always M"
     assert r.headers["x-request-id"] == body["id"]
+
+
+def test_reason_header_is_plain_ascii_one_line_and_short():
+    from gearbox.service.app import header_safe
+
+    assert header_safe("café → M\nbecause\tfacts") == "caf? ? M because facts"
+    assert len(header_safe("x" * 1000)) == 200
 
 
 def test_router_reads_last_user_message_and_tier_gets_all(engine):

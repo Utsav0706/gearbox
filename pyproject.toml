@@ -39,6 +39,7 @@ dependencies = [
 # The Streamlit dashboard (py -m streamlit run src/gearbox/dashboard/app.py).
 dashboard = [
     "streamlit>=1.40",
+    "httpx>=0.28",  # the Try it page calls the running API
 ]
 # Only for rebuilding the dataset (py -m gearbox.data.build); the service never needs it.
 data = [

@@ -179,12 +179,12 @@ def test_dashboard_page_renders(tmp_path, monkeypatch):
     monkeypatch.setenv("DATABASE_URL", f"sqlite:///{db}")
     monkeypatch.chdir(tmp_path)  # no reports/eval.json here
     get_secrets.cache_clear()
-    app_path = Path(__file__).resolve().parents[1] / "src/gearbox/dashboard/app.py"
+    app_path = Path(__file__).resolve().parents[1] / "src/gearbox/dashboard/overview.py"
     try:
         at = AppTest.from_file(str(app_path), default_timeout=30).run()
     finally:
         get_secrets.cache_clear()
     assert not at.exception
-    assert at.title[0].value == "Gearbox"
+    assert at.title[0].value == "Gearbox overview"
     assert [m.value for m in at.metric][0] == "0"
     assert any("No requests" in i.value for i in at.info)

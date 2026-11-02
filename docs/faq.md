@@ -24,6 +24,14 @@ run the migration, start `py -m gearbox.service`, and point an OpenAI client at
 `http://127.0.0.1:8002/v1` with `model="auto"`. With Docker, `docker compose up --build`
 starts it with Postgres and Redis.
 
+## Can I try it without writing code?
+
+Yes: start the API and the dashboard, then open the dashboard's **Try it** page
+(http://127.0.0.1:8502). Type a prompt, optionally pick a tier or a cap, and it shows the
+answer along with which model answered, the router's reason, the cost and the time. Each
+try costs what that model charges; repeating a prompt is free because it comes from the
+cache.
+
 ## Can I force a particular model?
 
 Yes. `model="S"`, `"M"` or `"L"` pins a tier and skips the router. The

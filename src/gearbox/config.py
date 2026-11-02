@@ -153,6 +153,8 @@ class Secrets(BaseSettings):
     # Overrides the Ollama tier's api_base, e.g. http://host.docker.internal:11434 when
     # the API runs in a container and Ollama on the host.
     ollama_base_url: str | None = None
+    # Where the dashboard's "Try it" page sends prompts: the running API.
+    gearbox_url: str = "http://127.0.0.1:8002"
     # Tracing to Langfuse (M7). Unset = tracing off.
     langfuse_public_key: SecretStr | None = None
     langfuse_secret_key: SecretStr | None = None
