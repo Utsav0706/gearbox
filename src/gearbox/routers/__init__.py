@@ -63,4 +63,4 @@ def create_router(name: str, config: AppConfig | None = None) -> Router:
 def _load_builtins() -> None:
     # Imported on first use: importing the package must not load torch (v3) for
     # callers that only want the rules router.
-    from gearbox.routers import embed, llm, rules  # noqa: F401
+    from gearbox.routers import embed, llm, pitwall, rules  # noqa: F401

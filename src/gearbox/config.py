@@ -69,6 +69,15 @@ class EmbedRouterConfig(BaseModel):
     artifact: Path  # trained weights + metadata (JSON), written by gearbox.routers.embed
 
 
+class PitwallRouterConfig(BaseModel):
+    """Where router v4 (Pitwall's fine-tuned model, an HTTP service) runs."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    url: str = "http://127.0.0.1:8003"
+    timeout_s: float = Field(default=5.0, gt=0)  # then fail safe to M
+
+
 class CanaryConfig(BaseModel):
     """Send `percent` of auto-routed requests to another router, to try it on live
     traffic before switching (Pitwall's promotion flow uses this)."""
@@ -86,6 +95,8 @@ class RoutingConfig(BaseModel):
     canary: CanaryConfig | None = None
     v2_llm: LLMRouterConfig
     v3_embed: EmbedRouterConfig
+    # Router v4 (v4-finetuned / v4-candidate) only: Pitwall's address. None = not used.
+    pitwall: PitwallRouterConfig | None = None
     # /v1/messages: a caller's task-type tag (x-gearbox-task-type or x-scout-task-type)
     # picks the tier directly, e.g. {extract: M, write: L}. Untagged requests use `router`.
     task_types: dict[str, Tier] = Field(default_factory=dict)

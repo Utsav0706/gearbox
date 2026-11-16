@@ -33,6 +33,10 @@ routing:
     artifact: models/router_v3.json  # py -m gearbox.routers.embed train
   # Try another router on a share of live traffic, e.g. {router: v2-llm, percent: 10}.
   canary: null
+  # Router v4 (Pitwall's fine-tuned model, a separate service): set this, then use
+  # router: v4-finetuned (Pitwall's production model) and, for a canary release,
+  # canary: {router: v4-candidate, percent: 10}. Off by default.
+  pitwall: null
   # /v1/messages (Anthropic format, used by Scout): a task-type tag on the request picks
   # the tier. Cheap model for planning, extraction and checking; the big one for writing.
   # The model the caller asked for is always the ceiling.

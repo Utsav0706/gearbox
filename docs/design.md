@@ -131,6 +131,8 @@ majority answer), and so is which prompts only Sonnet answers well. A router tha
 cannot predict those cases does best by picking the medium tier almost every time, and
 that is what v3 learned.
 
+A fourth router, **v4** (`routers/pitwall.py`), lives in another service: Pitwall serves a small LLM fine-tuned on this dataset and manages its versions (gate, promotion, rollback). Gearbox calls `POST {url}/route` and falls back to M if Pitwall is down, slow (5 s) or errors. It is registered twice, `v4-finetuned` (Pitwall's production model) and `v4-candidate` (its candidate), so a new version can be tried on a share of traffic with `routing.canary: {router: v4-candidate, percent: 10}`. Off by default (`routing.pitwall: null`).
+
 ## 4. What is recorded
 
 | Where | What | Never |
@@ -164,7 +166,7 @@ match the models.
 
 - **Routers by name.** A new router (for example a fine-tuned model served over HTTP)
   registers under a new name and is selected in `config.yaml`, or trialled first on a
-  share of traffic through `routing.canary`.
+  share of traffic through `routing.canary`. Pitwall's v4 does exactly that.
 - **OpenAI-compatible endpoint.** Any OpenAI client works by changing its base URL.
   Anthropic SDK clients (Scout) use `/v1/messages` instead: a pass-through that only
   swaps the model, so tools, structured output, effort and thinking blocks keep working.
