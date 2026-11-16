@@ -35,6 +35,7 @@ dependencies = [
     "opentelemetry-api>=1.30",
     "opentelemetry-sdk>=1.30",
     "opentelemetry-exporter-otlp-proto-http>=1.30",
+    "httpx>=0.28",  # router v4 calls Pitwall's service
 ]
 
 [project.optional-dependencies]

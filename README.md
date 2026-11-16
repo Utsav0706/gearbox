@@ -64,7 +64,7 @@ using tier L ([`reports/eval.md`](reports/eval.md) has the intervals and pass ra
 | **v3-embed: embeddings + logistic regression** | **94.7%** | **92.9%** | 0 / 117 / 2 | 36 ms |
 | oracle: perfect labels | 98.4% | 86.8% | 52 / 57 / 10 | n/a |
 
-v2's cost includes its own classifier call on every request. A live run of the 119
+Router v4 is Pitwall's fine-tuned model, called over HTTP (`routing.pitwall`, off by default; see [docs/design.md](docs/design.md)). v2's cost includes its own classifier call on every request. A live run of the 119
 prompts through the API gave 94.5% quality and 92.5% saved, matching the replay.
 
 ## Anthropic-format endpoint (`/v1/messages`)
