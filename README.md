@@ -201,6 +201,12 @@ tier, model, the router's reason, cost, time, cache, and any policy or fallback.
 `.venv\Scripts\python.exe -m pytest`. On Linux, `make check`, `make eval` and
 `make dashboard` do the same.
 
+![Gearbox dashboard: requests, spend, cache hits and requests per tier](docs/images/dashboard_overview.png)
+
+**Try it** sends a prompt through the API and shows how Gearbox routed it:
+
+![Try it page: the answer, then tier, cost, time and cache](docs/images/try_it.gif)
+
 ## Repository layout
 
 | Path | What |
