@@ -141,6 +141,7 @@ A fourth router, **v4** (`routers/pitwall.py`), lives in another service: Pitwal
 | Trace (Langfuse, if keys are set) | one root span per request with the same metadata; one generation span per model call, with tokens and USD cost | prompt or answer text |
 | Cache (memory or Redis, 1-day expiry) | the answer text, under a hash of the request | the prompt itself |
 | Logs (stdout, JSON lines) | one line per model call and per request | prompt or answer text |
+| Prometheus (`GET /metrics`) | counters and histograms built from the request log rows as they are saved: requests by router / tier / status / cache / fallback / escalation, GBP cost by tier and model, tokens, latency, routing time, this month's spend against the budget | prompt or answer text |
 
 `GET /stats` and the Streamlit dashboard read the request log. The schema is created by
 Alembic migrations, never by the app at startup, and a test checks that the migrations

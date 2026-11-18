@@ -23,6 +23,7 @@ import httpx
 from fastapi import FastAPI, Header, Query, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+from prometheus_client import make_asgi_app
 from sqlalchemy import Engine
 
 from gearbox.config import AppConfig, Secrets, get_config, get_secrets, with_env_overrides
@@ -34,6 +35,7 @@ from gearbox.service.db import db_is_up, make_engine, make_sessions, stats
 from gearbox.service.headers import header_safe
 from gearbox.service.messages import MessagesProxy
 from gearbox.service.messages import error as message_error
+from gearbox.service.metrics import GearboxMetrics
 from gearbox.service.pipeline import CallTier, CheckFn, Pipeline
 from gearbox.service.schemas import ChatCompletionRequest, error_body
 from gearbox.telemetry import setup_tracing
@@ -97,6 +99,10 @@ def create_app(
         engine.dispose()
 
     app = FastAPI(title="Gearbox", version="0.1.0", lifespan=lifespan)
+    # Prometheus: GET /metrics, counted from the request log (service/metrics.py).
+    metrics = GearboxMetrics(sessions, config.policy.monthly_budget_gbp)
+    app.mount("/metrics", make_asgi_app(registry=metrics.registry))
+    app.state.metrics = metrics
 
     @app.exception_handler(RequestValidationError)
     async def bad_request(request: Request, exc: RequestValidationError) -> JSONResponse:

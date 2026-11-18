@@ -36,6 +36,7 @@ dependencies = [
     "opentelemetry-sdk>=1.30",
     "opentelemetry-exporter-otlp-proto-http>=1.30",
     "httpx>=0.28",  # router v4 calls Pitwall's service
+    "prometheus-client>=0.21",  # GET /metrics
 ]
 
 [project.optional-dependencies]
