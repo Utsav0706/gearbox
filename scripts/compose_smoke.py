@@ -50,6 +50,15 @@ def main(base: str) -> None:
     status, stats = call("GET", f"{base}/stats")
     check("failure reached the request log", stats["requests"] == 1 and stats["errors"] == 1, stats)
     check("fallback was recorded", stats["fallbacks"] == 1, stats)
+
+    # Prometheus metrics come from the same request log, so they must show that failure.
+    with urllib.request.urlopen(f"{base}/metrics/", timeout=30) as r:
+        metrics = r.read().decode()
+    check(
+        "the failure is on /metrics",
+        'status="error"' in metrics and "gearbox_month_spend_gbp" in metrics,
+        metrics[:300],
+    )
     print("compose smoke test passed")
 
 
