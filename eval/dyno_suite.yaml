@@ -1,0 +1,12 @@
+# The live eval's settings for Dyno (py -m gearbox.eval.dyno). The cases come from
+# data/v2's test split, written to runs/ at run time (the prompts stay in this repo's
+# data, under their sources' licences).
+name: gearbox-live
+agent: gearbox
+k: 1
+scorers:
+  # Prompts with a gold answer (not code): does the reply give it?
+  - task_rubric
+  # Every prompt: correct, helpful, clear (Dyno's calibrated quality judge).
+  - quality
+  - cost_latency
