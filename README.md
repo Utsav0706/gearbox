@@ -26,7 +26,8 @@ need the large model proved hard to predict from the prompt alone.
 Model names and prices live in [`config.yaml`](config.yaml), so a tier can be swapped
 without code changes. Gearbox is one of four connected projects:
 [Scout](https://github.com/Utsav0706/scout) (research agent), Gearbox (router), Dyno
-(eval harness) and Pitwall (LLMOps).
+(eval harness) and Pitwall (LLMOps); they run together as one system in
+[uv-ai-stack](https://github.com/Utsav0706/uv-ai-stack).
 
 ## How it works
 
