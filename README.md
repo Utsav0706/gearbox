@@ -65,7 +65,11 @@ using tier L ([`reports/eval.md`](reports/eval.md) has the intervals and pass ra
 | oracle: perfect labels | 98.4% | 86.8% | 52 / 57 / 10 | n/a |
 
 Router v4 is Pitwall's fine-tuned model, called over HTTP (`routing.pitwall`, off by default; see [docs/design.md](docs/design.md)). v2's cost includes its own classifier call on every request. A live run of the 119
-prompts through the API gave 94.5% quality and 92.5% saved, matching the replay.
+prompts through the API gave 94.5% quality and 92.5% saved, matching the replay. The live
+check now runs through [Dyno](https://github.com/Utsav0706/dyno) (`make eval-live`): on 30
+prompts, Dyno's quality judge passed 90.0%, the run saved 91.3% against always-L, and
+Dyno's judge agreed with Gearbox's stored judge on 28 of 30 prompts
+([reports/eval_dyno.md](reports/eval_dyno.md)).
 
 ## Anthropic-format endpoint (`/v1/messages`)
 
@@ -129,7 +133,7 @@ is off by default. Details: [`reports/cascade.md`](reports/cascade.md).
   agreed with blind human scores on pass/fail 82.5% of the time (Cohen's kappa 0.65).
 - **Offline replay as the main eval.** Every test prompt already has every tier's answer
   and score, so an eval is a lookup: free and identical on every run. A live run through
-  the API checks it.
+  the API, judged by Dyno (the agent-eval harness), checks it.
 - **LiteLLM, pinned, as the gateway.** One call shape for the local model and both
   Claude models. Pinned to a release at least two weeks old after its March 2026 PyPI
   compromise, with its copy-`.env`-into-the-environment default turned off.
@@ -189,7 +193,7 @@ Redis (answer cache) on http://localhost:8002; tier S still uses Ollama on the h
 
 ```powershell
 .venv\Scripts\python.exe -m gearbox.eval          # headline + reports/eval.md (free)
-.venv\Scripts\python.exe -m gearbox.eval live     # through the running API (paid; --yes)
+.venv\Scripts\python.exe -m gearbox.eval.dyno run --n 30 --yes  # live, judged by Dyno (paid)
 .venv\Scripts\python.exe -m pip install -e ".[dashboard]"
 .venv\Scripts\python.exe scripts\dev_dashboard.py # http://127.0.0.1:8502
 ```
