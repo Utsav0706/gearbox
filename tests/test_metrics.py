@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import dataclasses
 import re
 
 from gearbox.tiers import TierRequestError
@@ -76,3 +77,17 @@ def test_canary_split_shows_as_routers(engine) -> None:  # noqa: F811
         text = client.get("/metrics/").text
     assert 'router="the-canary"' in text  # all traffic went to the canary (100%)
     assert 'router="fake-router"' not in text.split("gearbox_requests_total")[1].split("# HELP")[0]
+
+
+class FreeCall(FakeCall):
+    async def __call__(self, tier, messages, *, config, max_tokens=None):
+        result = await super().__call__(tier, messages, config=config, max_tokens=max_tokens)
+        return dataclasses.replace(result, cost_gbp=0.0)
+
+
+def test_free_requests_still_create_the_cost_series(engine) -> None:  # noqa: F811
+    with _client(engine, router=FakeRouter("S"), call=FreeCall()) as client:
+        _chat(client)
+        text = client.get("/metrics/").text
+    model = "ollama_chat/llama3.2:3b"
+    assert value(text, "gearbox_cost_gbp_total", tier="S", model=model) == 0.0

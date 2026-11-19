@@ -89,8 +89,9 @@ class GearboxMetrics:
             _flag(row.fallback_used),
             _flag(row.escalated),
         ).inc()
-        if row.cost_gbp:
-            self.cost.labels(tier, row.model or "none").inc(row.cost_gbp)
+        if row.model:  # a model answered: count its cost even when it is £0 (tier S), so
+            # cost per 1k requests reads £0 for free traffic instead of "no data"
+            self.cost.labels(tier, row.model).inc(row.cost_gbp or 0)
         self.tokens.labels(tier, "in").inc(row.tokens_in or 0)
         self.tokens.labels(tier, "out").inc(row.tokens_out or 0)
         self.latency.labels(tier).observe((row.latency_ms or 0) / 1000)
