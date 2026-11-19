@@ -23,10 +23,10 @@ check: lint test
 eval:
 	python -m gearbox.eval
 
-# The test prompts through the running API (port 8002), then judged. Costs ~GBP 0.25;
-# without YES=1 it only prints the estimate.
+# Test prompts through the running API (port 8002), judged by Dyno (DYNO_BIN: Dyno's
+# own `dyno` command). 30 prompts cost ~GBP 0.12; without YES=1 it only prints the estimate.
 eval-live:
-	python -m gearbox.eval live $(if $(YES),--yes,)
+	python -m gearbox.eval.dyno run --n $(or $(N),30) $(if $(YES),--yes,)
 
 dashboard:
 	python -m streamlit run src/gearbox/dashboard/app.py --server.port 8502

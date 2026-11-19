@@ -4,7 +4,7 @@ Every test prompt already has an answer from every tier (M3) and a judge score f
 answer (M4). A routing strategy is just a choice of tier per prompt, so its outcome is
 a lookup: the picked tier's judge score and that answer's cost. That makes the eval
 cost GBP 0 and gives identical numbers on every run, which is what "reproducible with
-one command" needs. The live eval (gearbox.eval.live) checks the replay against the
+one command" needs. The live eval (gearbox.eval.dyno, run by Dyno) checks real answers against the
 running service.
 
 Per strategy (always-S/M/L, the oracle, each router):

@@ -6,7 +6,6 @@ from datetime import UTC, datetime, timedelta
 import pytest
 
 from gearbox.eval import chart
-from gearbox.eval.live import LiveAnswer, summarise
 from gearbox.eval.offline import Dataset, Strategy, evaluate, headline
 
 IDS = [f"p{i}" for i in range(10)]
@@ -89,30 +88,6 @@ def test_labels_avoid_points_and_each_other():
             dot = (px - 5, py - 5, px + 5, py + 5)
             if name != a:
                 assert not chart._overlaps(box_a, dot), (a, name)
-
-
-def test_live_summary():
-    offline = {"always-L": {"mean_score": 5.0, "cost_gbp": 1.0}}
-    answers = [
-        LiveAnswer("a", "M", "v3-embed", "x", 0.01, 900, False, None),
-        LiveAnswer("b", "L", "v3-embed", "y", 0.09, 2100, False, "M->M->L"),
-        LiveAnswer("c", "M", "cache", "", 0.0, 10, True, None),  # empty answer -> scores 1
-    ]
-
-    class J:
-        def __init__(self, id_, score):
-            self.id, self.score, self.cost_gbp = id_, score, 0.002
-
-    out = summarise(answers, [J("a", 5), J("b", 3)], offline)
-    assert out["mean_score"] == pytest.approx(3.0)
-    assert out["quality_pct"] == 60.0
-    assert out["pass_rate"] == pytest.approx(1 / 3, abs=1e-4)
-    assert out["saved_pct"] == 90.0
-    assert out["picks"] == {"S": 0, "M": 2, "L": 1}
-    assert out["cache_hits"] == 1 and out["fallbacks"] == 1
-
-
-# --- dashboard data -----------------------------------------------------------------------
 
 
 def test_dashboard_data(tmp_path):

@@ -1,5 +1,5 @@
 """py -m gearbox.eval [offline]        -> reports/eval.md, eval.json, cost_quality.svg (free)
-py -m gearbox.eval live [--yes]     -> also checks the running API end to end (paid)
+py -m gearbox.eval.dyno run --yes  -> the live check, run by Dyno (paid; see eval/dyno.py)
 
 offline replays the stored answers and judge scores (data/v2) for every strategy and
 the router predictions in reports/router_predictions.jsonl (refresh those with
@@ -66,7 +66,7 @@ def render(results: dict[str, Any], router: str, n: int, live: dict[str, Any] | 
     if live:
         lines += [
             "",
-            "## Live check through the API",
+            "## Live check through the API (Gearbox's own judge, before the move to Dyno)",
             "",
             f"{live['prompts']} test prompts sent to the running service "
             f"(`POST /v1/chat/completions`, model auto), answers judged the same way:",
@@ -94,15 +94,12 @@ def main(argv: list[str]) -> int:
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_argument("mode", nargs="?", choices=["offline", "live"], default="offline")
+    parser.add_argument("mode", nargs="?", choices=["offline"], default="offline")
     parser.add_argument("--data", type=Path, default=Path("data/v2"))
     parser.add_argument(
         "--predictions", type=Path, default=Path("reports/router_predictions.jsonl")
     )
     parser.add_argument("--out", type=Path, default=Path("reports"))
-    parser.add_argument("--base-url", default="http://127.0.0.1:8002")
-    parser.add_argument("--cap-gbp", type=float, default=0.60)
-    parser.add_argument("--yes", action="store_true", help="live: actually send (costs money)")
     args = parser.parse_args(argv)
     setup_logging("WARNING")
     config = get_config()
@@ -111,26 +108,10 @@ def main(argv: list[str]) -> int:
     ds = load_dataset(args.data)
     results = evaluate(ds, load_strategies(ds, args.predictions))
     args.out.mkdir(exist_ok=True)
+    # The earlier live check (Gearbox's own judge, before the live eval moved to Dyno):
+    # still shown in eval.md as a record. The live check now: gearbox.eval.dyno.
     live_path = args.out / "eval_live.json"
     live = json.loads(live_path.read_text(encoding="utf-8")) if live_path.exists() else None
-
-    if args.mode == "live":
-        from gearbox.eval import live as live_eval
-
-        estimate = live_eval.estimate_gbp(len(ds.ids), results, router, args.data)
-        print(
-            f"live eval: {len(ds.ids)} prompts via {args.base_url}, "
-            f"estimate GBP {estimate:.2f} (cap {args.cap_gbp:.2f})"
-        )
-        if estimate > args.cap_gbp:
-            print("REFUSED: estimate is over the cap")
-            return 1
-        if not args.yes:
-            print("dry run: add --yes to send it")
-            return 0
-        run = live_eval.run(args.base_url, args.data, config, ds.ids, args.out)
-        live = live_eval.summarise(run["answers"], run["judged"], results)
-        live_path.write_text(json.dumps(live, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     (args.out / "eval.json").write_text(
         json.dumps({"router": router, "test_prompts": len(ds.ids), "results": results}, indent=2)
