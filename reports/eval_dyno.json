@@ -1,0 +1,44 @@
+{
+  "prompts": 30,
+  "dyno_run": "adfe2dca047d",
+  "pass_rate": {
+    "task_rubric": 0.6666666666666666,
+    "quality": 0.9,
+    "cost_latency": null
+  },
+  "scored": {
+    "task_rubric": 15,
+    "quality": 30,
+    "cost_latency": 0
+  },
+  "tiers": {
+    "M": 29,
+    "L": 1
+  },
+  "errors": 0,
+  "cost_gbp": 0.009417,
+  "dyno_cost_gbp": 0.009418,
+  "judge_cost_gbp": 0.008090548000000001,
+  "always_l_cost_gbp": 0.108192,
+  "saved_vs_always_l": 0.913,
+  "agreement": {
+    "both pass": 25,
+    "Dyno pass, stored fail": 2,
+    "both fail": 3
+  },
+  "agreement_rate": 0.9333,
+  "disagreements": [
+    {
+      "id": "dolly-10383",
+      "tier": "M",
+      "stored_score": 2,
+      "dyno_pass": true
+    },
+    {
+      "id": "aime2025-i-12",
+      "tier": "M",
+      "stored_score": 1,
+      "dyno_pass": true
+    }
+  ]
+}
